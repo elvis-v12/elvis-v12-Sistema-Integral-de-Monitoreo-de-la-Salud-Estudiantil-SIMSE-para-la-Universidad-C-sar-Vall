@@ -93,7 +93,7 @@ public class Menu extends javax.swing.JFrame {
         menu.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         appName.setFont(new java.awt.Font("Times New Roman", 3, 36)); // NOI18N
-        appName.setForeground(new java.awt.Color(204, 0, 204));
+        appName.setForeground(new java.awt.Color(255, 255, 0));
         appName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         appName.setText("SIMSE");
         menu.add(appName, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 250, 50));
@@ -189,7 +189,7 @@ public class Menu extends javax.swing.JFrame {
 
         jPanel1.add(menu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 280, 600));
 
-        header.setBackground(new java.awt.Color(51, 102, 255));
+        header.setBackground(new java.awt.Color(204, 204, 255));
         header.setPreferredSize(new java.awt.Dimension(744, 150));
 
         navText.setFont(new java.awt.Font("Segoe UI Historic", 1, 18)); // NOI18N
@@ -207,22 +207,22 @@ public class Menu extends javax.swing.JFrame {
                 .addGroup(headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(navText, javax.swing.GroupLayout.PREFERRED_SIZE, 434, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(dateText, javax.swing.GroupLayout.PREFERRED_SIZE, 568, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(114, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         headerLayout.setVerticalGroup(
             headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, headerLayout.createSequentialGroup()
-                .addContainerGap(44, Short.MAX_VALUE)
+                .addContainerGap(34, Short.MAX_VALUE)
                 .addComponent(navText)
                 .addGap(27, 27, 27)
                 .addComponent(dateText, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(19, 19, 19))
         );
 
-        jPanel1.add(header, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 70, -1, -1));
+        jPanel1.add(header, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 80, 660, 140));
 
         jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 48)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(204, 0, 204));
+        jLabel1.setForeground(new java.awt.Color(153, 153, 0));
         jLabel1.setText("SIMSE");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 0, -1, -1));
 
@@ -244,7 +244,7 @@ public class Menu extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 940, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
