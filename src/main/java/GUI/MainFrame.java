@@ -1,11 +1,5 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
-package com.mycompany.sistema_de_monitoreo_salud_alumno.view;
+package GUI;
 
-import GUI.EventsStatusBar;
-import GUI.PlacesFrame;
 import java.awt.Component;
 import java.awt.Desktop;
 import java.awt.Dimension;
@@ -48,31 +42,31 @@ import org.jsoup.Jsoup;
 
 /**
  *
- * @author ELVIS
+ * @author Luis Marcos
  */
-public class SeguimientoTraslado extends javax.swing.JPanel {
-
+public class MainFrame extends javax.swing.JFrame {
+    
     /**
-     * Creates new form SeguimientoDeTrasladoEstudiante
+     * Creates new form MainFrame
      */
-    public SeguimientoTraslado() {
+    public MainFrame() {
         initComponents();
         capturarEventos();
-
     }
-  
 
     private EventsStatusBar ObjStatusBar;
   
-    private Geocoding ObjGeocoding = new Geocoding();
-    private Elevation ObjElevation = new Elevation();
-    private ShowMaps ObjShowMaps = new ShowMaps();
-    private Route ObjRoute = new Route();
-    private StreetView ObjStreetView = new StreetView();
-    private StaticMaps ObjStaticMaps = new StaticMaps();
-    private Places ObjPlaces = new Places();
-    private void capturarEventos() {
-        ObjStatusBar = new EventsStatusBar(this.jPanel5);
+    
+    private Geocoding ObjGeocoding=new Geocoding();
+    private Elevation ObjElevation=new Elevation();
+    private ShowMaps ObjShowMaps=new ShowMaps();
+    private Route ObjRoute=new Route();
+    private StreetView ObjStreetView=new StreetView();
+    private StaticMaps ObjStaticMaps=new StaticMaps();
+    private Places ObjPlaces=new Places();
+    
+    private void capturarEventos(){
+        ObjStatusBar=new EventsStatusBar(this.jPanel5);
         recorrerComponentes(jTabbedPane1.getComponents());
         recorrerComponentes(jPanel1.getComponents());
         recorrerComponentes(jPanel2.getComponents());
@@ -83,31 +77,27 @@ public class SeguimientoTraslado extends javax.swing.JPanel {
         recorrerComponentes(jPanel8.getComponents());
         recorrerComponentes(jPanel9.getComponents());
     }
-    
     double redondeoDosDecimales(double d) {
-        return Math.rint(d * 1000) / 1000;
+        return Math.rint(d*1000)/1000;
     }
-    
-    private void recorrerComponentes(Component[] componentes) {
-        for (int i = 0; i < componentes.length; i++) { 
+    private void recorrerComponentes(Component[] componentes){
+        for(int i=0; i<componentes.length;i++){ 
             componentes[i].addMouseListener(ObjStatusBar);
         }
     }
-
-     private void actualizarPropiedades() {
+    private void actualizarPropiedades(){
         JText_Conexion.setText(String.valueOf(MapsJava.getConnectTimeout()));
         JText_idioma.setText(MapsJava.getLanguage());
         JText_Region.setText(MapsJava.getRegion());
         
-        if (MapsJava.getSensor() == true) {
+        if(MapsJava.getSensor()==true){
             JCombo_Sensor.setSelectedIndex(1);
-        } else {
+        }else{
             JCombo_Sensor.setSelectedIndex(0);
         }
         JText_Clave.setText(MapsJava.getKey());
     }
-    
-    private void pegarTexto() throws ClassNotFoundException, UnsupportedFlavorException, IOException {
+    private void pegarTexto() throws ClassNotFoundException, UnsupportedFlavorException, IOException{
         Clipboard cb = Toolkit.getDefaultToolkit().getSystemClipboard();
         Transferable t = cb.getContents(this);
         DataFlavor dataFlavorStringJava = new DataFlavor("application/x-java-serialized-object; class=java.lang.String");
@@ -116,59 +106,51 @@ public class SeguimientoTraslado extends javax.swing.JPanel {
            JText_Clave.setText(claveApi);
         }
     }
-    private void comprobarClaveApi() {
-        String status = MapsJava.APIkeyCheck(JText_Clave.getText());
-        if ("OK".equals(status)) {
+    
+    private void comprobarClaveApi(){
+        String status=MapsJava.APIkeyCheck(JText_Clave.getText());
+        if("OK".equals(status)){
             this.JLabel_Clave.setText("Válida");
-        } else {
+        }else{
             this.JLabel_Clave.setText("No Válida");
         }
     }
-    
-    private void comprobarStatus(JLabel label) {
+    private void comprobarStatus(JLabel label){
          label.setText(MapsJava.getLastRequestStatus());
     }
-    
-    private void cargarJList(ArrayList<String> arrayList, JList jlist) {
+    private void cargarJList(ArrayList<String> arrayList, JList jlist){
         DefaultListModel listModel = new DefaultListModel();
-        for (int i = 0; i < arrayList.size(); i++) {
+        for(int i=0; i<arrayList.size(); i++) {
             listModel.add(i, arrayList.get(i));
         }
         jlist.setModel(listModel);
     }
-    
-    private void seleccionarItemList() {
-        String itemSelecionado = (String) this.jList_CI_DirEncon.getSelectedValue();
+    private void seleccionarItemList(){
+        String itemSelecionado=(String)this.jList_CI_DirEncon.getSelectedValue();
         this.JText_CI_DireEnc.setText(itemSelecionado);
     }
     
-    private void rellenarPeticiones() {
-        String[][] peticiones = MapsJava.getStockRequest();
-        String[] columnas = new String[6];
-        columnas[0] = "Número"; 
-        columnas[1] = "Hora"; 
-        columnas[2] = "Status"; 
-        columnas[3] = "URL"; 
-        columnas[4] = "Información"; 
-        columnas[5] = "Excepción";
-        TableModel tableModel = new DefaultTableModel(peticiones, columnas);
-        this.jTable_Peticiones.setModel(tableModel);
+    private void rellenarPeticiones(){
+        String[][] peticiones=MapsJava.getStockRequest();
+        String[] columnas=new String[6];
+        columnas[0]="Número";columnas[1]="Hora";columnas[2]="Status";columnas[3]="URL";columnas[4]="Información";columnas[5]="Excepción";
+        TableModel tableModel=new DefaultTableModel(peticiones, columnas);
+       this.jTable_Peticiones.setModel(tableModel);
     }
     
-    private void mostrarMapa(String direccion) throws IOException, URISyntaxException {
-        String direccionMapa = ObjShowMaps.getURLMap(direccion);
+    
+    private void mostrarMapa(String direccion) throws IOException, URISyntaxException{
+        String direccionMapa=ObjShowMaps.getURLMap(direccion);
         Desktop.getDesktop().browse(new URI(direccionMapa));
     }
-    
-    private void mostrarMapa(Double latitud, Double longitud) throws URISyntaxException, IOException {
-        String direccionMapa = ObjShowMaps.getURLMap(latitud, longitud);
+    private void mostrarMapa(Double latitud, Double longitud) throws URISyntaxException, IOException{
+        String direccionMapa=ObjShowMaps.getURLMap(latitud,longitud);
         Desktop.getDesktop().browse(new URI(direccionMapa));
     }
-    
-    private void CodiGeografica() throws UnsupportedEncodingException, MalformedURLException {
-        if (!this.JText_CD_Direc.getText().isEmpty()) {
+    private void CodiGeografica() throws UnsupportedEncodingException, MalformedURLException{
+        if(!this.JText_CD_Direc.getText().isEmpty()){
             JText_CD_DireEnc.setText("");
-            Point2D.Double resultado = ObjGeocoding.getCoordinates(this.JText_CD_Direc.getText());
+            Point2D.Double resultado=ObjGeocoding.getCoordinates(this.JText_CD_Direc.getText());
             JText_CD_Lati.setText(String.valueOf(resultado.x));
             JText_CD_Long.setText(String.valueOf(resultado.y));
             JText_CD_DireEnc.setText(String.valueOf(ObjGeocoding.getAddressFound()));
@@ -176,286 +158,292 @@ public class SeguimientoTraslado extends javax.swing.JPanel {
             JText_CD_Resolucion.setText(ObjGeocoding.getPostalcode());
         }
     }
-    private void CodiGeograficaInver() throws UnsupportedEncodingException, MalformedURLException {
-        if (!this.JText_CI_Lati.getText().isEmpty() && !this.JText_CI_Long.getText().isEmpty()) {
+    
+    private void CodiGeograficaInver() throws UnsupportedEncodingException, MalformedURLException{
+        if(!this.JText_CI_Lati.getText().isEmpty() && !this.JText_CI_Long.getText().isEmpty()){
             JText_CI_DireEnc.setText("");
-            DefaultListModel model = new DefaultListModel(); 
-            jList_CI_DirEncon.setModel(model);
-            ArrayList<String> resultado = ObjGeocoding.getAddress(Double.valueOf(this.JText_CI_Lati.getText()),
+            DefaultListModel model = new DefaultListModel(); jList_CI_DirEncon.setModel(model);
+            ArrayList<String> resultado=ObjGeocoding.getAddress(Double.valueOf(this.JText_CI_Lati.getText()),
                     Double.valueOf(this.JText_CI_Long.getText()));
-            if (resultado.size() > 0) {
+            if(resultado.size()>0){
                 JText_CI_DireEnc.setText(resultado.get(0));
             }
             JText_CI_CodigPost.setText(ObjGeocoding.getPostalcode());
-            cargarJList(resultado, jList_CI_DirEncon);
+            cargarJList(resultado,jList_CI_DirEncon);
         }
     }
 
-    private void elevacionCD(JTextField txtLati, JTextField txtLong) throws MalformedURLException {
-        if (!txtLati.getText().isEmpty() && !txtLong.getText().isEmpty()) {
-            double resultado = ObjElevation.getElevation(Double.valueOf(txtLati.getText()),
+    private void elevacionCD(JTextField txtLati, JTextField txtLong) throws MalformedURLException{
+        if(!txtLati.getText().isEmpty() && !txtLong.getText().isEmpty()){
+            double resultado=ObjElevation.getElevation(Double.valueOf(txtLati.getText()),
                     Double.valueOf(txtLong.getText()));
             JText_CD_Elevacion.setText(String.valueOf(resultado));
             JText_CD_Resolucion.setText(String.valueOf(ObjElevation.getResolution()));
+
         }
     }
-    
-    private void elevacionCI(JTextField txtLati, JTextField txtLong) throws MalformedURLException {
-        if (!txtLati.getText().isEmpty() && !txtLong.getText().isEmpty()) {
-            double resultado = ObjElevation.getElevation(Double.valueOf(txtLati.getText()),
+     private void elevacionCI(JTextField txtLati, JTextField txtLong) throws MalformedURLException{
+        if(!txtLati.getText().isEmpty() && !txtLong.getText().isEmpty()){
+            double resultado=ObjElevation.getElevation(Double.valueOf(txtLati.getText()),
                     Double.valueOf(txtLong.getText()));
             JText_CI_Elevacion.setText(String.valueOf(resultado));
             JText_CI_Resolucion.setText(String.valueOf(ObjElevation.getResolution()));
+
         }
     }
-    private Route.avoids seleccionarRestricciones() {
-    Route.avoids avoid = Route.avoids.nothing;
-    String selectedItem = JCombo_Ruta_Restricc.getSelectedItem().toString();
-    switch (selectedItem) {
-        case "Ninguna":
-            avoid = Route.avoids.nothing;
-            break;
-        case "Peajes":
-            avoid = Route.avoids.tolls;
-            break;
-        case "Autopistas/autovías":
-            avoid = Route.avoids.highways;
-            break;
+    private Route.avoids seleccionarRestricciones(){
+        Route.avoids avoid= Route.avoids.nothing;
+        switch(JCombo_Ruta_Restricc.getSelectedItem().toString()){
+            case "Ninguna":
+                avoid= Route.avoids.nothing;
+                break;
+            case "Peajes":
+                avoid=Route.avoids.tolls;
+                break;
+            case "Autopistas/autovías":
+                avoid=Route.avoids.highways;
+                break;
+        }
+        return avoid;
     }
-    return avoid;
-}
-
-private Route.mode seleccionarModoRuta() {
-    Route.mode modo = Route.mode.driving;
-    String selectedItem = JCombo_Ruta_Trasnpo.getSelectedItem().toString();
-    switch (selectedItem) {
-        case "Coche":
-            modo = Route.mode.driving;
-            break;
-        case "Andando":
-            modo = Route.mode.walking;
-            break;
-        case "Bicicleta":
-            modo = Route.mode.bicycling;
-            break;
+    
+    private Route.mode seleccionarModoRuta(){
+        Route.mode modo= Route.mode.driving;
+        switch(JCombo_Ruta_Trasnpo.getSelectedItem().toString()){
+            case "Coche":
+                modo= Route.mode.driving;
+                break;
+            case "Andando":
+                modo=Route.mode.walking;
+                break;
+            case "Bicicleta":
+                modo=Route.mode.bicycling;
+                break;
+        }
+        return modo;
     }
-    return modo;
-}
-
-private StaticMaps.Format seleccionarFormato() {
-    StaticMaps.Format formato = StaticMaps.Format.png;
-    String selectedItem = JCombo_ME_Formato.getSelectedItem().toString();
-    switch (selectedItem) {
-        case "png":
-            formato = StaticMaps.Format.png;
-            break;
-        case "png32":
-            formato = StaticMaps.Format.png32;
-            break;
-        case "gif":
-            formato = StaticMaps.Format.gif;
-            break;
-        case "jpg":
-            formato = StaticMaps.Format.jpg;
-            break;
-        case "jpg_baseline":
-            formato = StaticMaps.Format.jpg_baseline;
-            break;
+    private StaticMaps.Format seleccionarFormato(){
+        StaticMaps.Format formato= StaticMaps.Format.png;
+        switch(JCombo_ME_Formato.getSelectedItem().toString()){
+            case "png":
+                formato= StaticMaps.Format.png;
+                break;
+            case "png32":
+                formato= StaticMaps.Format.png32;
+                break;
+            case "gif":
+                formato= StaticMaps.Format.gif;
+                break;
+            case "jpg":
+                formato= StaticMaps.Format.jpg;
+                break;
+            case "jpg_baseline":
+                formato= StaticMaps.Format.jpg_baseline;
+                break;
+        }
+        return formato;
     }
-    return formato;
-}
-
-private StaticMaps.Maptype seleccionarTipoMapa() {
-    StaticMaps.Maptype tipoMapa = StaticMaps.Maptype.roadmap;
-    String selectedItem = JCombo_ME_TipoMapa.getSelectedItem().toString();
-    switch (selectedItem) {
-        case "roadmap":
-            tipoMapa = StaticMaps.Maptype.roadmap;
-            break;
-        case "satellite":
-            tipoMapa = StaticMaps.Maptype.satellite;
-            break;
-        case "hybrid":
-            tipoMapa = StaticMaps.Maptype.hybrid;
-            break;
-        case "terrain":
-            tipoMapa = StaticMaps.Maptype.terrain;
-            break;
+    
+    private StaticMaps.Maptype seleccionarTipoMapa(){
+        StaticMaps.Maptype tipoMapa= StaticMaps.Maptype.roadmap;
+        switch(JCombo_ME_TipoMapa.getSelectedItem().toString()){
+            case "roadmap":
+                tipoMapa= StaticMaps.Maptype.roadmap;
+                break;
+            case "satellite":
+                tipoMapa= StaticMaps.Maptype.satellite;
+                break;
+            case "hybrid":
+                tipoMapa= StaticMaps.Maptype.hybrid;
+                break;
+            case "terrain":
+                tipoMapa= StaticMaps.Maptype.terrain;
+                break;
+        }
+        return tipoMapa;
     }
-    return tipoMapa;
-}
+        
+    private void rellenarTablaRuta(String[][] ruta){
+        String[] columnas=new String[5];
+        columnas[0]="Duración tramo";columnas[1]="Distancia tramo";columnas[2]="Indicaciones";columnas[3]="Latitud";columnas[4]="Longitud";
+        for(int i=0;i<ruta.length;i++){
+            try {
+                 ruta[i][2]=Jsoup.parse(ruta[i][2]).text();
+            } catch (Exception e) {
+            }
+        }
+        TableModel tableModel=new DefaultTableModel(ruta, columnas);
+        this.jTable_Ruta_Tramos.setModel(tableModel);
+    }
+    private void rellenarDatosrRuta(){
+         this.JLabel_Ruta_Copyright.setText("");
+         this.JLabel_Ruta_Resumen.setText("");
+         this.JText_Ruta_Tiempo.setText("");
+         this.JText_Ruta_Distancia.setText("");
+         this.JLabel_Ruta_Status.setText(MapsJava.getLastRequestStatus());
+         ArrayList<Integer> tiempoTotal=ObjRoute.getTotalTime();
+         int tiempoAux=0;
+         for(Integer item:tiempoTotal){
+             tiempoAux+=item;
+         }
+         ArrayList<Integer> distanciaTotal=ObjRoute.getTotalDistance();
+         int distanciaAux=0;
+         for(Integer item:distanciaTotal){
+             distanciaAux+=item;
+         }
+         double tiempo=(double)(tiempoAux);
+         tiempo=(tiempo/60)/60;
+         tiempo=redondeoDosDecimales(tiempo);
+         double distancia=(double)(distanciaAux);
+         distancia=distancia/1000;
+         this.JLabel_Ruta_Copyright.setText(ObjRoute.getCopyright());
+         this.JLabel_Ruta_Resumen.setText(ObjRoute.getSummary());
+         this.JText_Ruta_Tiempo.setText(String.valueOf(tiempo));
+         this.JText_Ruta_Distancia.setText(String.valueOf(distancia));
 
-private void rellenarTablaRuta(String[][] ruta) {
-    String[] columnas = {"Duración tramo", "Distancia tramo", "Indicaciones", "Latitud", "Longitud"};
-    for (int i = 0; i < ruta.length; i++) {
-        try {
-            ruta[i][2] = Jsoup.parse(ruta[i][2]).text();
-        } catch (Exception e) {
-            e.printStackTrace();
+    }
+     private void crearRuta() throws MalformedURLException, UnsupportedEncodingException{
+         if(!JText_Ruta_DirecOrigen.getText().isEmpty() && !JText_Ruta_DirecDestin.getText().isEmpty()){
+             ArrayList<String> hitos=new ArrayList<>();
+             if(jCheckBox_Ruta_Hito.isSelected() && !JText_Ruta_Hito.getText().isEmpty()){
+                 hitos.add(JText_Ruta_Hito.getText());
+             }
+             String[][] arrayRoute=ObjRoute.getRoute(JText_Ruta_DirecOrigen.getText(), JText_Ruta_DirecDestin.getText(),
+                     hitos, Boolean.TRUE,this.seleccionarModoRuta(),this.seleccionarRestricciones());  
+             rellenarTablaRuta(arrayRoute);
+             rellenarDatosrRuta();
+            
+         }
+    }
+    private void guardarCambios(){
+         MapsJava.setConnectTimeout(Integer.valueOf(JText_Conexion.getText()));
+         MapsJava.setLanguage(JText_idioma.getText());
+         MapsJava.setRegion(JText_Region.getText());
+         if("true".equals(JCombo_Sensor.getSelectedItem().toString())){
+             MapsJava.setSensor(true);
+         }else{
+             MapsJava.setSensor(false);
+         }
+         MapsJava.setKey(JText_Clave.getText());
+    }
+     private void cargarStreetView() throws MalformedURLException, UnsupportedEncodingException{
+        if(!JText_SV_Direccion.getText().isEmpty()){
+            JLabel_SV_Imagen.setText("");
+            Image imagenStreet=ObjStreetView.getStreetView(JText_SV_Direccion.getText(), new Dimension(500,500), 
+                    Double.valueOf(JText_SV_horizontal.getText()), Double.valueOf(JText_SV_zoom.getText()),
+                    -100);
+            if(imagenStreet!=null){
+                ImageIcon imgIcon=new ImageIcon(imagenStreet);
+                Icon iconImage=(Icon)imgIcon;
+                JLabel_SV_Imagen.setIcon(iconImage);
+            }
         }
     }
-    TableModel tableModel = new DefaultTableModel(ruta, columnas);
-    this.jTable_Ruta_Tramos.setModel(tableModel);
-}
+     
+     private void crearMapa() throws MalformedURLException, UnsupportedEncodingException{
+         if(!JText_ME_Direccion.getText().isEmpty()){
+             this.JLabel_ME_Imagen.setText("");
+             Image imagenMapa=ObjStaticMaps.getStaticMap(JText_ME_Direccion.getText(),
+                     Integer.valueOf(JText_ME_Zoom.getText()),new Dimension(500,500),
+                     Integer.valueOf(JText_ME_Escala.getText()),this.seleccionarFormato(),
+                     this.seleccionarTipoMapa());
+            if(imagenMapa!=null){
+                ImageIcon imgIcon=new ImageIcon(imagenMapa);
+                Icon iconImage=(Icon)imgIcon;
+                JLabel_ME_Imagen.setIcon(iconImage);
+            }
+         }
+     }
+     private class MyTableModel extends DefaultTableModel {
 
-private void rellenarDatosrRuta() {
-    this.JLabel_Ruta_Copyright.setText("");
-    this.JLabel_Ruta_Resumen.setText("");
-    this.JText_Ruta_Tiempo.setText("");
-    this.JText_Ruta_Distancia.setText("");
-    this.JLabel_Ruta_Status.setText(MapsJava.getLastRequestStatus());
-    ArrayList<Integer> tiempoTotal = ObjRoute.getTotalTime();
-    int tiempoAux = 0;
-    for (Integer item : tiempoTotal) {
-        tiempoAux += item;
-    }
-    ArrayList<Integer> distanciaTotal = ObjRoute.getTotalDistance();
-    int distanciaAux = 0;
-    for (Integer item : distanciaTotal) {
-        distanciaAux += item;
-    }
-    double tiempo = (double) (tiempoAux) / 3600;
-    tiempo = redondeoDosDecimales(tiempo);
-    double distancia = (double) (distanciaAux) / 1000;
-    this.JLabel_Ruta_Copyright.setText(ObjRoute.getCopyright());
-    this.JLabel_Ruta_Resumen.setText(ObjRoute.getSummary());
-    this.JText_Ruta_Tiempo.setText(String.valueOf(tiempo));
-    this.JText_Ruta_Distancia.setText(String.valueOf(distancia));
-}
+         public MyTableModel(Object[][] data, Object[] columnNames) {
+             super(data, columnNames);
+         }
 
-private void crearRuta() throws MalformedURLException, UnsupportedEncodingException {
-    if (!JText_Ruta_DirecOrigen.getText().isEmpty() && !JText_Ruta_DirecDestin.getText().isEmpty()) {
-        ArrayList<String> hitos = new ArrayList<>();
-        if (jCheckBox_Ruta_Hito.isSelected() && !JText_Ruta_Hito.getText().isEmpty()) {
-            hitos.add(JText_Ruta_Hito.getText());
-        }
-        String[][] arrayRoute = ObjRoute.getRoute(JText_Ruta_DirecOrigen.getText(), JText_Ruta_DirecDestin.getText(),
-                hitos, true, this.seleccionarModoRuta(), this.seleccionarRestricciones());
-        rellenarTablaRuta(arrayRoute);
-        rellenarDatosrRuta();
-    }
-}
+      @Override
+      public Class<?> getColumnClass(int columnIndex) {
+                    Class<?> clazz = Object.class;
+      Object aux = getValueAt(0, columnIndex);
+       if (aux != null) {
+        clazz = aux.getClass();
+       }
 
-private void guardarCambios() {
-    MapsJava.setConnectTimeout(Integer.valueOf(JText_Conexion.getText()));
-    MapsJava.setLanguage(JText_idioma.getText());
-    MapsJava.setRegion(JText_Region.getText());
-    MapsJava.setSensor("true".equals(JCombo_Sensor.getSelectedItem().toString()));
-    MapsJava.setKey(JText_Clave.getText());
-}
+       return clazz;
+      }
 
-private void cargarStreetView() throws MalformedURLException, UnsupportedEncodingException {
-    if (!JText_SV_Direccion.getText().isEmpty()) {
-        JLabel_SV_Imagen.setText("");
-        Image imagenStreet = ObjStreetView.getStreetView(JText_SV_Direccion.getText(), new Dimension(500, 500),
-                Double.valueOf(JText_SV_horizontal.getText()), Double.valueOf(JText_SV_zoom.getText()), -100);
-        if (imagenStreet != null) {
-            ImageIcon imgIcon = new ImageIcon(imagenStreet);
-            JLabel_SV_Imagen.setIcon(imgIcon);
+     }
+    private void rellenarPlaces(String[][] resultadoPlaces) throws MalformedURLException, IOException{
+        this.JLabel_Pl_Status.setText(MapsJava.getLastRequestStatus());
+        if(resultadoPlaces.length>0){
+            String[] columnas=new String[6];
+            columnas[0]="Place";columnas[1]="Dirección";columnas[2]="Latitud";columnas[3]="Longitud";columnas[4]="Tipo";columnas[5]="Referencia";
+            Object[][] obj=new Object[resultadoPlaces.length][resultadoPlaces[0].length];
+            for(int i=0; i<obj.length;i++){
+                obj[i][0]=resultadoPlaces[i][0].toString();
+                obj[i][1]=resultadoPlaces[i][1].toString();
+                obj[i][2]=resultadoPlaces[i][2].toString();
+                obj[i][3]=resultadoPlaces[i][3].toString();
+                Image imageCargada;
+                imageCargada=ImageIO.read(new URL(resultadoPlaces[i][4]));
+                imageCargada=imageCargada.getScaledInstance(20,20,Image.SCALE_FAST);
+                obj[i][4]=new ImageIcon(imageCargada);
+                obj[i][5]=resultadoPlaces[i][5].toString();
+            }
+            TableModel tableModel=new MyTableModel(obj, columnas);
+            this.jTable_Pl_places.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+            this.jTable_Pl_places.setModel(tableModel);
+            this.jTable_Pl_places.setRowSelectionInterval(0, 0);
+            seleccionarReferencia();
         }
     }
-}
-
-private void crearMapa() throws MalformedURLException, UnsupportedEncodingException {
-    if (!JText_ME_Direccion.getText().isEmpty()) {
-        this.JLabel_ME_Imagen.setText("");
-        Image imagenMapa = ObjStaticMaps.getStaticMap(JText_ME_Direccion.getText(),
-                Integer.valueOf(JText_ME_Zoom.getText()), new Dimension(500, 500),
-                Integer.valueOf(JText_ME_Escala.getText()), this.seleccionarFormato(),
-                this.seleccionarTipoMapa());
-        if (imagenMapa != null) {
-            ImageIcon imgIcon = new ImageIcon(imagenMapa);
-            JLabel_ME_Imagen.setIcon(imgIcon);
+    private void borrarTable(JTable jtable){
+        jtable.setModel(new DefaultTableModel());
+    }
+    private void places() throws UnsupportedEncodingException, MalformedURLException, IOException{
+        if(!JText_Pl_Direccion.getText().isEmpty()){
+            borrarTable(jTable_Pl_places);
+            Point2D.Double latLong=ObjGeocoding.getCoordinates(JText_Pl_Direccion.getText());
+            if(latLong.x!=0.0 && latLong.y!=0.0){
+                String keyword=null;
+                if(!JText_Pl_Keyword.getText().isEmpty()){
+                    keyword=JText_Pl_Keyword.getText();
+                }
+                String place=null;
+                if(!JText_Pl_Place.getText().isEmpty()){
+                    place=JText_Pl_Place.getText();
+                }
+                ArrayList<String> types=new ArrayList<>();
+                if(!"Sin tipo".equals(JCombo_Pl_TipoPlace.getSelectedItem().toString())){
+                    types.add(JCombo_Pl_TipoPlace.getSelectedItem().toString());
+                }
+                Places.Rankby rankby= Places.Rankby.prominence;
+                if(!"Importancia".equals(JCombo_Pl_Orden.getSelectedItem().toString())){
+                    rankby=Places.Rankby.distance;
+                }
+                int radio=Integer.valueOf(JText_Pl_Radio.getText());
+                String[][] resultado=ObjPlaces.getPlaces(latLong.x, latLong.y,radio,
+                        keyword, place,rankby,types);
+                rellenarPlaces(resultado);
+            }
         }
-    }
-}
-
-private class MyTableModel extends DefaultTableModel {
-
-    public MyTableModel(Object[][] data, Object[] columnNames) {
-        super(data, columnNames);
-    }
-
-    @Override
-    public Class<?> getColumnClass(int columnIndex) {
-        Object aux = getValueAt(0, columnIndex);
-        return (aux != null) ? aux.getClass() : Object.class;
-    }
-}
-
-private void rellenarPlaces(String[][] resultadoPlaces) throws MalformedURLException, IOException {
-    this.JLabel_Pl_Status.setText(MapsJava.getLastRequestStatus());
-    if (resultadoPlaces.length > 0) {
-        String[] columnas = {"Place", "Dirección", "Latitud", "Longitud", "Tipo", "Referencia"};
-        Object[][] obj = new Object[resultadoPlaces.length][resultadoPlaces[0].length];
-        for (int i = 0; i < obj.length; i++) {
-            obj[i][0] = resultadoPlaces[i][0].toString();
-            obj[i][1] = resultadoPlaces[i][1].toString();
-            obj[i][2] = resultadoPlaces[i][2].toString();
-            obj[i][3] = resultadoPlaces[i][3].toString();
-            Image imageCargada = ImageIO.read(new URL(resultadoPlaces[i][4]));
-            imageCargada = imageCargada.getScaledInstance(20, 20, Image.SCALE_FAST);
-            obj[i][4] = new ImageIcon(imageCargada);
-            obj[i][5] = resultadoPlaces[i][5].toString();
-        }
-        TableModel tableModel = new MyTableModel(obj, columnas);
-        this.jTable_Pl_places.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        this.jTable_Pl_places.setModel(tableModel);
-        this.jTable_Pl_places.setRowSelectionInterval(0, 0);
         
     }
     
-}
-private void places() throws UnsupportedEncodingException, MalformedURLException, IOException {
-    if (!JText_Pl_Direccion.getText().isEmpty()) {
-        borrarTable(jTable_Pl_places);
-        Point2D.Double latLong = ObjGeocoding.getCoordinates(JText_Pl_Direccion.getText());
-        if (latLong.x != 0.0 && latLong.y != 0.0) {
-            String keyword = null;
-            if (!JText_Pl_Keyword.getText().isEmpty()) {
-                keyword = JText_Pl_Keyword.getText();
-            }
-            String place = null;
-            if (!JText_Pl_Place.getText().isEmpty()) {
-                place = JText_Pl_Place.getText();
-            }
-            ArrayList<String> types = new ArrayList<>();
-            if (!"Sin tipo".equals(JCombo_Pl_TipoPlace.getSelectedItem().toString())) {
-                types.add(JCombo_Pl_TipoPlace.getSelectedItem().toString());
-            }
-            Places.Rankby rankby = Places.Rankby.prominence;
-            if (!"Importancia".equals(JCombo_Pl_Orden.getSelectedItem().toString())) {
-                rankby = Places.Rankby.distance;
-            }
-            int radio = Integer.valueOf(JText_Pl_Radio.getText());
-            String[][] resultado = ObjPlaces.getPlaces(latLong.x, latLong.y, radio,
-                    keyword, place, rankby, types);
-            rellenarPlaces(resultado);
-        }
-    }
-}
-
-private void abrirFramePlaces(String referenciaPlace) throws UnsupportedEncodingException {
-    if (!referenciaPlace.isEmpty()) {
-        for (UIManager.LookAndFeelInfo laf : UIManager.getInstalledLookAndFeels()) {
-            if ("Nimbus".equals(laf.getName())) {
-                try {
+    private void abrirFramePlaces(String referenciaPlace) throws UnsupportedEncodingException{
+        if(!referenciaPlace.isEmpty()){
+            for(UIManager.LookAndFeelInfo laf:UIManager.getInstalledLookAndFeels()){
+                if("Nimbus".equals(laf.getName()))
+                    try {
                     UIManager.setLookAndFeel(laf.getClassName());
                 } catch (Exception ex) {
-                    ex.printStackTrace();
                 }
             }
+            PlacesFrame mainF=new PlacesFrame(referenciaPlace);
+            mainF.setVisible(true);
+      
         }
-        PlacesFrame mainF = new PlacesFrame(referenciaPlace);
-        mainF.setVisible(true);
-    }
 }
-
-
-private void borrarTable(JTable jtable) {
-    jtable.setModel(new DefaultTableModel());
-}
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -590,6 +578,16 @@ private void borrarTable(JTable jtable) {
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable_Peticiones = new javax.swing.JTable();
 
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Java Mapas");
+        setAlwaysOnTop(true);
+        setType(java.awt.Window.Type.UTILITY);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
+
         jPanel5.setBackground(new java.awt.Color(146, 178, 206));
         jPanel5.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(173, 173, 173), new java.awt.Color(224, 224, 224), null, null));
 
@@ -710,7 +708,7 @@ private void borrarTable(JTable jtable) {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jButton5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 609, Short.MAX_VALUE)))))
+                                    .addComponent(jButton5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 222, Short.MAX_VALUE)))))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel11)
@@ -724,7 +722,7 @@ private void borrarTable(JTable jtable) {
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addComponent(JText_Clave, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 625, Short.MAX_VALUE)))))
+                                .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 232, Short.MAX_VALUE)))))
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -759,10 +757,26 @@ private void borrarTable(JTable jtable) {
                     .addComponent(JLabel_Clave))
                 .addGap(30, 30, 30)
                 .addComponent(jButton3)
-                .addContainerGap(93, Short.MAX_VALUE))
+                .addContainerGap(208, Short.MAX_VALUE))
         );
 
+        jLabel8.getAccessibleContext().setAccessibleName("region");
+        jLabel9.getAccessibleContext().setAccessibleName("idioma");
+        jLabel10.getAccessibleContext().setAccessibleName("tiempoConex");
+        jLabel11.getAccessibleContext().setAccessibleName("claveAPI");
+        jLabel12.getAccessibleContext().setAccessibleName("sensor");
+        JText_Region.getAccessibleContext().setAccessibleName("region");
+        JText_idioma.getAccessibleContext().setAccessibleName("idioma");
+        JText_Conexion.getAccessibleContext().setAccessibleName("tiempoConex");
+        JText_Clave.getAccessibleContext().setAccessibleName("claveAPI");
+        JCombo_Sensor.getAccessibleContext().setAccessibleName("sensorCombo");
+        jButton2.getAccessibleContext().setAccessibleName("comprobarClave");
+        jButton3.getAccessibleContext().setAccessibleName("guardarProp");
+        jButton4.getAccessibleContext().setAccessibleName("infoRegion");
+        jButton5.getAccessibleContext().setAccessibleName("infoIdioma");
+
         jTabbedPane1.addTab("Propiedades", jPanel4);
+        jPanel4.getAccessibleContext().setAccessibleName("Principal");
 
         jLabel1.setText("Dirección");
 
@@ -820,7 +834,7 @@ private void borrarTable(JTable jtable) {
                     .addComponent(JText_CD_Lati, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(JText_CD_Long)
                     .addComponent(JText_CD_DireEnc)
-                    .addComponent(JText_CD_CodigPost, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 888, Short.MAX_VALUE)
+                    .addComponent(JText_CD_CodigPost, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 495, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(JText_CD_Elevacion, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -884,10 +898,30 @@ private void borrarTable(JTable jtable) {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(JText_CD_Elevacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(JText_CD_Resolucion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(98, Short.MAX_VALUE))
         );
 
+        jLabel1.getAccessibleContext().setAccessibleName("CDdireccion");
+        JText_CD_Direc.getAccessibleContext().setAccessibleName("CDdireccion");
+        jLabel2.getAccessibleContext().setAccessibleName("CD_latitud");
+        JText_CD_Lati.getAccessibleContext().setAccessibleName("CD_latitud");
+        jLabel3.getAccessibleContext().setAccessibleName("CD_longitud");
+        JText_CD_Long.getAccessibleContext().setAccessibleName("CD_longitud");
+        JText_CD_Long.getAccessibleContext().setAccessibleDescription("");
+        jLabel4.getAccessibleContext().setAccessibleName("CD_dirEncontr");
+        JText_CD_Mostrar.getAccessibleContext().setAccessibleName("mostrarMapa");
+        JText_CD_Buscar.getAccessibleContext().setAccessibleName("CDdireccionBuscar");
+        JLabel_CD_Status.getAccessibleContext().setAccessibleName("status");
+        jLabel13.getAccessibleContext().setAccessibleName("codigoPostal");
+        JText_CD_DireEnc.getAccessibleContext().setAccessibleName("CD_dirEncontr");
+        JText_CD_Resolucion.getAccessibleContext().setAccessibleName("resolucion");
+        jLabel15.getAccessibleContext().setAccessibleName("elevacion");
+        JText_CD_CodigPost.getAccessibleContext().setAccessibleName("codigoPostal");
+        JText_CD_Elevacion.getAccessibleContext().setAccessibleName("elevacion");
+        jLabel16.getAccessibleContext().setAccessibleName("resolucion");
+
         jTabbedPane1.addTab("Cod. geo.", jPanel1);
+        jPanel1.getAccessibleContext().setAccessibleName("Principal");
 
         jLabel5.setText("Latitud");
 
@@ -919,6 +953,7 @@ private void borrarTable(JTable jtable) {
             }
         });
         jScrollPane1.setViewportView(jList_CI_DirEncon);
+        jList_CI_DirEncon.getAccessibleContext().setAccessibleName("CI_masResul");
 
         JLabel_CI_Status.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
         JLabel_CI_Status.setName(""); // NOI18N
@@ -944,8 +979,8 @@ private void borrarTable(JTable jtable) {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(JText_CI_DireEnc)
-                    .addComponent(JText_CI_Mostrar, javax.swing.GroupLayout.DEFAULT_SIZE, 888, Short.MAX_VALUE)
-                    .addComponent(JText_CI_CodigPost, javax.swing.GroupLayout.DEFAULT_SIZE, 888, Short.MAX_VALUE)
+                    .addComponent(JText_CI_Mostrar, javax.swing.GroupLayout.DEFAULT_SIZE, 495, Short.MAX_VALUE)
+                    .addComponent(JText_CI_CodigPost, javax.swing.GroupLayout.DEFAULT_SIZE, 495, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(JText_CI_Elevacion, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -958,7 +993,7 @@ private void borrarTable(JTable jtable) {
                             .addComponent(JText_CI_Resolucion)))
                     .addComponent(JText_CI_Lati, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(JText_CI_Long)
-                    .addComponent(JText_CI_Buscar1, javax.swing.GroupLayout.DEFAULT_SIZE, 888, Short.MAX_VALUE)
+                    .addComponent(JText_CI_Buscar1, javax.swing.GroupLayout.DEFAULT_SIZE, 495, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(JLabel_CI_Status)
@@ -1007,7 +1042,26 @@ private void borrarTable(JTable jtable) {
                 .addGap(96, 96, 96))
         );
 
+        jLabel5.getAccessibleContext().setAccessibleName("CI_latitud");
+        JText_CI_Lati.getAccessibleContext().setAccessibleName("CI_latitud");
+        jLabel6.getAccessibleContext().setAccessibleName("CI_longitud");
+        JText_CI_Long.getAccessibleContext().setAccessibleName("CI_longitud");
+        JText_CI_Buscar1.getAccessibleContext().setAccessibleName("CI_buscar");
+        jLabel7.getAccessibleContext().setAccessibleName("CI_dirEnco");
+        JText_CI_DireEnc.getAccessibleContext().setAccessibleName("CI_dirEnco");
+        JText_CI_Mostrar.getAccessibleContext().setAccessibleName("mostrarMapa");
+        jScrollPane1.getAccessibleContext().setAccessibleName("CI_masResul");
+        JLabel_CI_Status.getAccessibleContext().setAccessibleName("status");
+        JLabel_CI_Status.getAccessibleContext().setAccessibleDescription("");
+        jLabel14.getAccessibleContext().setAccessibleName("codigoPostal");
+        JText_CI_CodigPost.getAccessibleContext().setAccessibleName("codigoPostal");
+        JText_CI_Elevacion.getAccessibleContext().setAccessibleName("elevacion");
+        jLabel17.getAccessibleContext().setAccessibleName("elevacion");
+        jLabel18.getAccessibleContext().setAccessibleName("resolucion");
+        JText_CI_Resolucion.getAccessibleContext().setAccessibleName("resolucion");
+
         jTabbedPane1.addTab("Cod. geo. inver.", jPanel2);
+        jPanel2.getAccessibleContext().setAccessibleName("Principal");
 
         jLabel23.setText("Dirección");
 
@@ -1048,6 +1102,7 @@ private void borrarTable(JTable jtable) {
         JLabel_SV_Imagen.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         JLabel_SV_Imagen.setText("Imagen StreetView");
         jScrollPane4.setViewportView(JLabel_SV_Imagen);
+        JLabel_SV_Imagen.getAccessibleContext().setAccessibleName("imagenSV");
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -1068,14 +1123,14 @@ private void borrarTable(JTable jtable) {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(JText_SV_horizontal, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabel24))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 458, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel27)
                             .addGroup(jPanel7Layout.createSequentialGroup()
                                 .addComponent(jSlider2, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(JText_SV_zoom, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addComponent(JText_CD_Buscar1, javax.swing.GroupLayout.DEFAULT_SIZE, 888, Short.MAX_VALUE))
+                    .addComponent(JText_CD_Buscar1, javax.swing.GroupLayout.DEFAULT_SIZE, 495, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel7Layout.setVerticalGroup(
@@ -1100,11 +1155,23 @@ private void borrarTable(JTable jtable) {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(JText_CD_Buscar1)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
+        jLabel23.getAccessibleContext().setAccessibleName("direccionSV");
+        JText_CD_Buscar1.getAccessibleContext().setAccessibleName("direccionSV");
+        JText_SV_Direccion.getAccessibleContext().setAccessibleName("direccionSV");
+        jSlider1.getAccessibleContext().setAccessibleName("horizontalSV");
+        JText_SV_horizontal.getAccessibleContext().setAccessibleName("horizontalSV");
+        jSlider2.getAccessibleContext().setAccessibleName("zoomSV");
+        JText_SV_zoom.getAccessibleContext().setAccessibleName("zoomSV");
+        jLabel24.getAccessibleContext().setAccessibleName("horizontalSV");
+        jLabel27.getAccessibleContext().setAccessibleName("zoomSV");
+        jScrollPane4.getAccessibleContext().setAccessibleName("imagenSV");
+
         jTabbedPane1.addTab("StreetView", jPanel7);
+        jPanel7.getAccessibleContext().setAccessibleName("Principal");
 
         JButton_ME_Buscar.setBackground(new java.awt.Color(153, 153, 255));
         JButton_ME_Buscar.setText("Crear mapa");
@@ -1153,6 +1220,7 @@ private void borrarTable(JTable jtable) {
         JLabel_ME_Imagen.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         JLabel_ME_Imagen.setText("Mapa estático");
         jScrollPane5.setViewportView(JLabel_ME_Imagen);
+        JLabel_ME_Imagen.getAccessibleContext().setAccessibleName("mapaEstaticoME");
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
@@ -1186,7 +1254,7 @@ private void borrarTable(JTable jtable) {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(JText_ME_Zoom, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(jLabel32))))
-                        .addGap(0, 440, Short.MAX_VALUE))
+                        .addGap(0, 47, Short.MAX_VALUE))
                     .addComponent(JText_ME_Direccion)
                     .addComponent(jScrollPane5)
                     .addComponent(JButton_ME_Buscar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -1221,11 +1289,27 @@ private void borrarTable(JTable jtable) {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(JButton_ME_Buscar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 308, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
+        JButton_ME_Buscar.getAccessibleContext().setAccessibleName("crearMapaME");
+        jLabel28.getAccessibleContext().setAccessibleName("direccionME");
+        JText_ME_Direccion.getAccessibleContext().setAccessibleName("direccionME");
+        JSlider_ME_Escala.getAccessibleContext().setAccessibleName("escalaME");
+        jLabel29.getAccessibleContext().setAccessibleName("escalaME");
+        JText_ME_Escala.getAccessibleContext().setAccessibleName("escalaME");
+        jLabel30.getAccessibleContext().setAccessibleName("formatoME");
+        JCombo_ME_Formato.getAccessibleContext().setAccessibleName("formatoME");
+        jLabel31.getAccessibleContext().setAccessibleName("tipoMapaME");
+        JCombo_ME_TipoMapa.getAccessibleContext().setAccessibleName("tipoMapaME");
+        JSlider_ME_Zoom.getAccessibleContext().setAccessibleName("zoomME");
+        jLabel32.getAccessibleContext().setAccessibleName("zoomME");
+        JText_ME_Zoom.getAccessibleContext().setAccessibleName("zoomME");
+        jScrollPane5.getAccessibleContext().setAccessibleName("mapaEstaticoME");
+
         jTabbedPane1.addTab("Mapa estático", jPanel8);
+        jPanel8.getAccessibleContext().setAccessibleName("Principal");
 
         jButton_Peticiones1.setBackground(new java.awt.Color(153, 153, 255));
         jButton_Peticiones1.setText("Calcular");
@@ -1259,6 +1343,7 @@ private void borrarTable(JTable jtable) {
             }
         });
         jScrollPane3.setViewportView(jTable_Ruta_Tramos);
+        jTable_Ruta_Tramos.getAccessibleContext().setAccessibleName("indicacionesRuta");
 
         jLabel19.setText("Dirección origen");
 
@@ -1298,13 +1383,13 @@ private void borrarTable(JTable jtable) {
                 .addContainerGap()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton_Peticiones1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 888, Short.MAX_VALUE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 495, Short.MAX_VALUE)
                     .addComponent(JText_Ruta_DirecOrigen)
                     .addComponent(JText_Ruta_DirecDestin)
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addComponent(jCheckBox_Ruta_Hito)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(JText_Ruta_Hito, javax.swing.GroupLayout.DEFAULT_SIZE, 775, Short.MAX_VALUE))
+                        .addComponent(JText_Ruta_Hito, javax.swing.GroupLayout.DEFAULT_SIZE, 396, Short.MAX_VALUE))
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel19)
@@ -1367,11 +1452,31 @@ private void borrarTable(JTable jtable) {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(JLabel_Ruta_Resumen)
                 .addGap(12, 12, 12)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 71, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
+        jButton_Peticiones1.getAccessibleContext().setAccessibleName("calculaRuta");
+        jLabel19.getAccessibleContext().setAccessibleName("direccionOrigen");
+        JText_Ruta_DirecOrigen.getAccessibleContext().setAccessibleName("direccionOrigen");
+        JText_Ruta_DirecDestin.getAccessibleContext().setAccessibleName("direccionDestino");
+        jLabel20.getAccessibleContext().setAccessibleName("direccionDestino");
+        jLabel21.getAccessibleContext().setAccessibleName("restriccionCarreteras");
+        JCombo_Ruta_Restricc.getAccessibleContext().setAccessibleName("restriccionCarreteras");
+        jLabel22.getAccessibleContext().setAccessibleName("tipoTransporte");
+        JCombo_Ruta_Trasnpo.getAccessibleContext().setAccessibleName("tipoTransporte");
+        JText_Ruta_Hito.getAccessibleContext().setAccessibleName("hito");
+        jCheckBox_Ruta_Hito.getAccessibleContext().setAccessibleName("hito");
+        jLabel25.getAccessibleContext().setAccessibleName("tiempoTotal");
+        jLabel26.getAccessibleContext().setAccessibleName("distanciaTotal");
+        JText_Ruta_Tiempo.getAccessibleContext().setAccessibleName("tiempoTotal");
+        JText_Ruta_Distancia.getAccessibleContext().setAccessibleName("distanciaTotal");
+        JLabel_Ruta_Copyright.getAccessibleContext().setAccessibleName("copyright");
+        JLabel_Ruta_Resumen.getAccessibleContext().setAccessibleName("resumen");
+        JLabel_Ruta_Status.getAccessibleContext().setAccessibleName("status");
+
         jTabbedPane1.addTab("Ruta", jPanel6);
+        jPanel6.getAccessibleContext().setAccessibleName("Principal");
 
         jTable_Pl_places.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -1402,6 +1507,7 @@ private void borrarTable(JTable jtable) {
             }
         });
         jScrollPane6.setViewportView(jTable_Pl_places);
+        jTable_Pl_places.getAccessibleContext().setAccessibleName("placesEncPL");
 
         JButton_ME_Buscar1.setBackground(new java.awt.Color(153, 153, 255));
         JButton_ME_Buscar1.setText("Buscar");
@@ -1459,7 +1565,7 @@ private void borrarTable(JTable jtable) {
             .addGroup(jPanel9Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 888, Short.MAX_VALUE)
+                    .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 495, Short.MAX_VALUE)
                     .addComponent(JButton_ME_Buscar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel33, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(JText_Pl_Direccion)
@@ -1537,10 +1643,30 @@ private void borrarTable(JTable jtable) {
                     .addComponent(JText_Pl_Referencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel39)
                     .addComponent(jButton6))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
+        JButton_ME_Buscar1.getAccessibleContext().setAccessibleName("BuscarPL");
+        jLabel33.getAccessibleContext().setAccessibleName("centroPL");
+        JText_Pl_Direccion.getAccessibleContext().setAccessibleName("centroPL");
+        jLabel34.getAccessibleContext().setAccessibleName("radioPL");
+        JSlider_Pl_Radio.getAccessibleContext().setAccessibleName("radioPL");
+        JText_Pl_Radio.getAccessibleContext().setAccessibleName("radioPL");
+        JText_Pl_Place.getAccessibleContext().setAccessibleName("placePL");
+        jLabel35.getAccessibleContext().setAccessibleName("placePL");
+        JText_Pl_Keyword.getAccessibleContext().setAccessibleName("keyPL");
+        jLabel36.getAccessibleContext().setAccessibleName("keyPL");
+        jLabel37.getAccessibleContext().setAccessibleName("ordenPL");
+        JCombo_Pl_Orden.getAccessibleContext().setAccessibleName("ordenPL");
+        JCombo_Pl_TipoPlace.getAccessibleContext().setAccessibleName("tipoPL");
+        jLabel38.getAccessibleContext().setAccessibleName("tipoPL");
+        JLabel_Pl_Status.getAccessibleContext().setAccessibleName("status");
+        JText_Pl_Referencia.getAccessibleContext().setAccessibleName("placesReferencia");
+        jLabel39.getAccessibleContext().setAccessibleName("placesReferencia");
+        jButton6.getAccessibleContext().setAccessibleName("placesReferenciaBoton");
+
         jTabbedPane1.addTab("Places", jPanel9);
+        jPanel9.getAccessibleContext().setAccessibleName("Principal");
 
         jButton_Peticiones.setBackground(new java.awt.Color(153, 153, 255));
         jButton_Peticiones.setText("Mostrar peticiones");
@@ -1574,6 +1700,7 @@ private void borrarTable(JTable jtable) {
             }
         });
         jScrollPane2.setViewportView(jTable_Peticiones);
+        jTable_Peticiones.getAccessibleContext().setAccessibleName("peticiones");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -1583,7 +1710,7 @@ private void borrarTable(JTable jtable) {
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(jButton_Peticiones, javax.swing.GroupLayout.DEFAULT_SIZE, 888, Short.MAX_VALUE))
+                    .addComponent(jButton_Peticiones, javax.swing.GroupLayout.DEFAULT_SIZE, 495, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -1592,14 +1719,17 @@ private void borrarTable(JTable jtable) {
                 .addGap(17, 17, 17)
                 .addComponent(jButton_Peticiones)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 308, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 420, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        jTabbedPane1.addTab("Peticiones", jPanel3);
+        jButton_Peticiones.getAccessibleContext().setAccessibleName("mostrPeticiones");
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
+        jTabbedPane1.addTab("Peticiones", jPanel3);
+        jPanel3.getAccessibleContext().setAccessibleName("Principal");
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -1608,50 +1738,39 @@ private void borrarTable(JTable jtable) {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 401, Short.MAX_VALUE)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 510, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
+
+        jTabbedPane1.getAccessibleContext().setAccessibleName("Principal");
+
+        pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        try {
-            pegarTexto();
-        } catch (Exception ex) {
-        }
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        comprobarClaveApi();
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        guardarCambios();
-    }//GEN-LAST:event_jButton3ActionPerformed
-
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        try {
-            Desktop.getDesktop().browse(new URI("http://es.wikipedia.org/wiki/CcTLD"));
-        } catch (Exception ex) {
-        }
-    }//GEN-LAST:event_jButton4ActionPerformed
-
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        try {
-            Desktop.getDesktop().browse(new URI("https://spreadsheets.google.com/pub?key=p9pdwsai2hDMsLkXsoM05KQ&gid=1"));
-        } catch (Exception ex) {
-        }
-    }//GEN-LAST:event_jButton5ActionPerformed
+    
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        this.JText_CD_Direc.requestFocus();
+    }//GEN-LAST:event_formWindowOpened
 
     private void JText_CD_MostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JText_CD_MostrarActionPerformed
         if(!JText_CD_Lati.getText().isEmpty() && !JText_CD_Long.getText().isEmpty()){
             try {
                 this.mostrarMapa(Double.valueOf(JText_CD_Lati.getText()),Double.valueOf(JText_CD_Long.getText()));
             } catch (Exception ex) {
-            }
+        }  
         }
-
+        
     }//GEN-LAST:event_JText_CD_MostrarActionPerformed
+
+    private void JText_CI_MostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JText_CI_MostrarActionPerformed
+        if(!JText_CI_DireEnc.getText().isEmpty()){
+            try {
+                this.mostrarMapa(JText_CI_DireEnc.getText());
+            } catch (Exception ex) {
+        }  
+        }
+    }//GEN-LAST:event_JText_CI_MostrarActionPerformed
 
     private void JText_CD_BuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JText_CD_BuscarActionPerformed
         try {
@@ -1671,19 +1790,52 @@ private void borrarTable(JTable jtable) {
         }
     }//GEN-LAST:event_JText_CI_Buscar1ActionPerformed
 
-    private void JText_CI_MostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JText_CI_MostrarActionPerformed
-        if(!JText_CI_DireEnc.getText().isEmpty()){
-            try {
-                this.mostrarMapa(JText_CI_DireEnc.getText());
-            } catch (Exception ex) {
-            }
-        }
-    }//GEN-LAST:event_JText_CI_MostrarActionPerformed
-
     private void jList_CI_DirEnconValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jList_CI_DirEnconValueChanged
         seleccionarItemList();
     }//GEN-LAST:event_jList_CI_DirEnconValueChanged
 
+    private void jButton_PeticionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_PeticionesActionPerformed
+        rellenarPeticiones();
+    }//GEN-LAST:event_jButton_PeticionesActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+      guardarCambios();
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        try {
+            pegarTexto();
+        } catch (Exception ex) {
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jTabbedPane1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jTabbedPane1StateChanged
+        if(jTabbedPane1.getSelectedIndex()==0){
+            actualizarPropiedades();
+        }
+    }//GEN-LAST:event_jTabbedPane1StateChanged
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        try {        
+            Desktop.getDesktop().browse(new URI("http://es.wikipedia.org/wiki/CcTLD"));
+        } catch (Exception ex) {
+        }
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        try {        
+            Desktop.getDesktop().browse(new URI("https://spreadsheets.google.com/pub?key=p9pdwsai2hDMsLkXsoM05KQ&gid=1"));
+        } catch (Exception ex) {
+        }
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton_Peticiones1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_Peticiones1ActionPerformed
+        try {
+            crearRuta();
+        } catch (Exception ex) {
+        }
+    }//GEN-LAST:event_jButton_Peticiones1ActionPerformed
+   
     private void JText_CD_Buscar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JText_CD_Buscar1ActionPerformed
         try {
             cargarStreetView();
@@ -1698,6 +1850,51 @@ private void borrarTable(JTable jtable) {
     private void jSlider2StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSlider2StateChanged
         this.JText_SV_zoom.setText(String.valueOf(jSlider2.getValue()));
     }//GEN-LAST:event_jSlider2StateChanged
+    
+    private void JButton_ME_Buscar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JButton_ME_Buscar1ActionPerformed
+        if(!MapsJava.getKey().isEmpty()){
+        try {
+            places();
+        } catch (Exception ex) {
+            System.err.println(ex.toString());
+        }
+        }else{
+            JOptionPane.showMessageDialog(null,"Esta función requiere clave de desarrollador", 
+                    "Error",JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_JButton_ME_Buscar1ActionPerformed
+
+    private void JSlider_Pl_RadioStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_JSlider_Pl_RadioStateChanged
+        this.JText_Pl_Radio.setText(String.valueOf(JSlider_Pl_Radio.getValue()));
+    }//GEN-LAST:event_JSlider_Pl_RadioStateChanged
+
+    private void seleccionarReferencia(){
+        if(jTable_Pl_places.getRowCount()>0){
+          this.JText_Pl_Referencia.setText((String)jTable_Pl_places.getValueAt(jTable_Pl_places.getSelectedRow(),5));
+        }
+    }
+    private void jTable_Pl_placesMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable_Pl_placesMousePressed
+         seleccionarReferencia();
+    }//GEN-LAST:event_jTable_Pl_placesMousePressed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        try {
+             abrirFramePlaces(JText_Pl_Referencia.getText());
+        } catch (Exception e) {
+        }
+    }//GEN-LAST:event_jButton6ActionPerformed
+  
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        comprobarClaveApi();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void JSlider_ME_ZoomStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_JSlider_ME_ZoomStateChanged
+        this.JText_ME_Zoom.setText(String.valueOf(JSlider_ME_Zoom.getValue()));
+    }//GEN-LAST:event_JSlider_ME_ZoomStateChanged
+
+    private void JSlider_ME_EscalaStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_JSlider_ME_EscalaStateChanged
+        this.JText_ME_Escala.setText(String.valueOf(JSlider_ME_Escala.getValue()));
+    }//GEN-LAST:event_JSlider_ME_EscalaStateChanged
 
     private void JButton_ME_BuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JButton_ME_BuscarActionPerformed
         try {
@@ -1706,60 +1903,7 @@ private void borrarTable(JTable jtable) {
         }
     }//GEN-LAST:event_JButton_ME_BuscarActionPerformed
 
-    private void JSlider_ME_EscalaStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_JSlider_ME_EscalaStateChanged
-        this.JText_ME_Escala.setText(String.valueOf(JSlider_ME_Escala.getValue()));
-    }//GEN-LAST:event_JSlider_ME_EscalaStateChanged
-
-    private void JSlider_ME_ZoomStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_JSlider_ME_ZoomStateChanged
-        this.JText_ME_Zoom.setText(String.valueOf(JSlider_ME_Zoom.getValue()));
-    }//GEN-LAST:event_JSlider_ME_ZoomStateChanged
-
-    private void jButton_Peticiones1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_Peticiones1ActionPerformed
-        try {
-            crearRuta();
-        } catch (Exception ex) {
-        }
-    }//GEN-LAST:event_jButton_Peticiones1ActionPerformed
-
-    private void jTable_Pl_placesMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable_Pl_placesMousePressed
-        
-    }//GEN-LAST:event_jTable_Pl_placesMousePressed
-
-    private void JButton_ME_Buscar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JButton_ME_Buscar1ActionPerformed
-        if(!MapsJava.getKey().isEmpty()){
-            try {
-                places();
-            } catch (Exception ex) {
-                System.err.println(ex.toString());
-            }
-        }else{
-            JOptionPane.showMessageDialog(null,"Esta función requiere clave de desarrollador",
-                "Error",JOptionPane.ERROR_MESSAGE);
-        }
-    }//GEN-LAST:event_JButton_ME_Buscar1ActionPerformed
-
-    private void JSlider_Pl_RadioStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_JSlider_Pl_RadioStateChanged
-        this.JText_Pl_Radio.setText(String.valueOf(JSlider_Pl_Radio.getValue()));
-    }//GEN-LAST:event_JSlider_Pl_RadioStateChanged
-
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        try {
-            abrirFramePlaces(JText_Pl_Referencia.getText());
-        } catch (Exception e) {
-        }
-    }//GEN-LAST:event_jButton6ActionPerformed
-
-    private void jButton_PeticionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_PeticionesActionPerformed
-        rellenarPeticiones();
-    }//GEN-LAST:event_jButton_PeticionesActionPerformed
-
-    private void jTabbedPane1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jTabbedPane1StateChanged
-        if(jTabbedPane1.getSelectedIndex()==0){
-            actualizarPropiedades();
-        }
-    }//GEN-LAST:event_jTabbedPane1StateChanged
-
-
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton JButton_ME_Buscar;
     private javax.swing.JButton JButton_ME_Buscar1;
