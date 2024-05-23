@@ -113,7 +113,7 @@ public class Menu extends javax.swing.JFrame {
                 btn_prinActionPerformed(evt);
             }
         });
-        menu.add(btn_prin, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 280, 52));
+        menu.add(btn_prin, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 290, 52));
 
         btn_lends.setBackground(new java.awt.Color(21, 101, 192));
         btn_lends.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -130,7 +130,7 @@ public class Menu extends javax.swing.JFrame {
                 btn_lendsActionPerformed(evt);
             }
         });
-        menu.add(btn_lends, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 280, 52));
+        menu.add(btn_lends, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 290, 52));
 
         btn_users.setBackground(new java.awt.Color(21, 101, 192));
         btn_users.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -147,7 +147,7 @@ public class Menu extends javax.swing.JFrame {
                 btn_usersActionPerformed(evt);
             }
         });
-        menu.add(btn_users, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 250, 280, 52));
+        menu.add(btn_users, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 250, 290, 52));
 
         btn_books.setBackground(new java.awt.Color(21, 101, 192));
         btn_books.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -164,7 +164,7 @@ public class Menu extends javax.swing.JFrame {
                 btn_booksActionPerformed(evt);
             }
         });
-        menu.add(btn_books, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 300, 280, 52));
+        menu.add(btn_books, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 300, 290, 52));
 
         btn_reports.setBackground(new java.awt.Color(21, 101, 192));
         btn_reports.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -181,13 +181,13 @@ public class Menu extends javax.swing.JFrame {
                 btn_reportsActionPerformed(evt);
             }
         });
-        menu.add(btn_reports, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 350, 280, 52));
+        menu.add(btn_reports, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 350, 290, 52));
 
-        jSeparator2.setForeground(new java.awt.Color(255, 0, 0));
+        jSeparator2.setForeground(new java.awt.Color(0, 0, 0));
         jSeparator2.setPreferredSize(new java.awt.Dimension(50, 5));
         menu.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 90, 190, 20));
 
-        jPanel1.add(menu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 280, 600));
+        jPanel1.add(menu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 290, 600));
 
         header.setBackground(new java.awt.Color(204, 204, 255));
         header.setPreferredSize(new java.awt.Dimension(744, 150));
@@ -219,7 +219,7 @@ public class Menu extends javax.swing.JFrame {
                 .addGap(19, 19, 19))
         );
 
-        jPanel1.add(header, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 80, 660, 140));
+        jPanel1.add(header, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 80, 900, 140));
 
         jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 48)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(153, 153, 0));
@@ -233,12 +233,12 @@ public class Menu extends javax.swing.JFrame {
 
         content.setBackground(new java.awt.Color(255, 255, 255));
         content.setLayout(new java.awt.BorderLayout());
-        jPanel1.add(content, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 220, 660, 380));
+        jPanel1.add(content, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 220, 900, 380));
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Logo_ucv_Login.tif(1)(1).jpg"))); // NOI18N
         jLabel3.setToolTipText("");
         jLabel3.setAlignmentY(0.0F);
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, 900, 600));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 0, 900, 600));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

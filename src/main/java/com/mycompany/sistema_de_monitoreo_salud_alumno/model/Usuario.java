@@ -9,16 +9,28 @@ package com.mycompany.sistema_de_monitoreo_salud_alumno.model;
  * @author ELVIS
  */
 public class Usuario {
+    private int idUsuario;
     private String codigo;
     private String contrasena;
 
-    // Constructor
-    public Usuario(String codigo, String contrasena) {
+    public Usuario(int idUsuario, String codigo, String contrasena) {
+        this.idUsuario = idUsuario;
         this.codigo = codigo;
         this.contrasena = contrasena;
     }
+public Usuario(String codigo, String contrasena) {
+    this.codigo = codigo;
+    this.contrasena = contrasena;
+}
 
-    // Getters y Setters
+    public int getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(int idUsuario) {
+        this.idUsuario = idUsuario;
+    }
+
     public String getCodigo() {
         return codigo;
     }
@@ -34,4 +46,6 @@ public class Usuario {
     public void setContrasena(String contrasena) {
         this.contrasena = contrasena;
     }
+
+   
 }

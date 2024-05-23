@@ -13,6 +13,14 @@ private String codigo;
     private int stock;
     private Date fechaVencimiento;
 
+    /**
+     *
+     * @param codigo
+     * @param nombre
+     * @param precio
+     * @param stock
+     * @param fechaVencimiento
+     */
     public ProductoFarmaceutico(String codigo, String nombre, double precio, int stock, Date fechaVencimiento) {
         this.codigo = codigo;
         this.nombre = nombre;

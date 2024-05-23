@@ -1,6 +1,6 @@
 package com.mycompany.sistema_de_monitoreo_salud_alumno.view;
 
-import com.mycompany.sistema_de_monitoreo_salud_alumno.controler.Controler.UsuarioDAO;
+import com.mycompany.sistema_de_monitoreo_salud_alumno.controler.Controler.interf.UsuarioDAO;
 import com.mycompany.sistema_de_monitoreo_salud_alumno.controler.Controler.UsuarioDAOImpl;
 import com.mycompany.sistema_de_monitoreo_salud_alumno.model.Usuario;
 
