@@ -1,8 +1,12 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
+
 package com.mycompany.sistema_de_monitoreo_salud_alumno.view;
+
+import com.mycompany.sistema_de_monitoreo_salud_alumno.controler.Controler.InventarioProductosDAOImpl;
+import com.mycompany.sistema_de_monitoreo_salud_alumno.model.ProductoFarmaceutico;
+import java.util.Date;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -13,10 +17,28 @@ public class InventarioDeProductos extends javax.swing.JPanel {
     /**
      * Creates new form InventarioDeProductos
      */
+    
+            private DefaultTableModel modelo;
+        // Crear la tabla con el modelo
     public InventarioDeProductos() {
         initComponents();
-    }
-
+        modelo = new DefaultTableModel();
+        modelo.addColumn("Codigo");
+        modelo.addColumn("Nombre");
+        modelo.addColumn("Precio");
+        modelo.addColumn("Stock");
+        modelo.addColumn("Fecha");
+        tb_Producto.setModel(modelo);    
+}
+private void limpiarCampos() {
+    // Limpiar los campos de entrada
+    // Por ejemplo:
+    txt_Codigo.setText("");
+    txt_Nombre.setText("");
+    txt_Precio.setText("");
+    txt_Stock.setText("");
+    jDateChooser7.setDate(null); // Asegúrate de tener un JDateChooser para la fecha
+}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -26,19 +48,351 @@ public class InventarioDeProductos extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        Panel_Productos = new javax.swing.JPanel();
+        txt_Codigo = new javax.swing.JTextField();
+        txt_Nombre = new javax.swing.JTextField();
+        txt_Stock = new javax.swing.JTextField();
+        txt_Precio = new javax.swing.JTextField();
+        btn_AgregarProd = new javax.swing.JButton();
+        Panel_Buscar = new javax.swing.JPanel();
+        txt_Filtro = new javax.swing.JTextField();
+        btnFiltrar = new javax.swing.JButton();
+        btnMostrarTodo = new javax.swing.JButton();
+        btn_AgregarProv = new javax.swing.JButton();
+        btnModificar = new javax.swing.JButton();
+        btnEliminar = new javax.swing.JButton();
+        jDateChooser7 = new com.toedter.calendar.JDateChooser();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tb_Producto = new javax.swing.JTable();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tb_Proveedor = new javax.swing.JTable();
+
+        Panel_Productos.setBackground(new java.awt.Color(255, 255, 255));
+        Panel_Productos.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "DATOS PRODUCTOS", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tw Cen MT Condensed", 3, 18))); // NOI18N
+        Panel_Productos.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        txt_Codigo.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Codigo", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tw Cen MT Condensed", 2, 18))); // NOI18N
+        Panel_Productos.add(txt_Codigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 26, 210, 40));
+
+        txt_Nombre.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Nombre", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tw Cen MT Condensed", 2, 18))); // NOI18N
+        Panel_Productos.add(txt_Nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 67, 210, 40));
+
+        txt_Stock.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Stock", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tw Cen MT Condensed", 2, 18))); // NOI18N
+        Panel_Productos.add(txt_Stock, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 108, 210, 40));
+
+        txt_Precio.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Precio", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tw Cen MT Condensed", 2, 18))); // NOI18N
+        Panel_Productos.add(txt_Precio, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 200, 40));
+
+        btn_AgregarProd.setBackground(new java.awt.Color(0, 0, 51));
+        btn_AgregarProd.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btn_AgregarProd.setForeground(new java.awt.Color(255, 255, 255));
+        btn_AgregarProd.setText("Agregar Producto");
+        btn_AgregarProd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_AgregarProdActionPerformed(evt);
+            }
+        });
+        Panel_Productos.add(btn_AgregarProd, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 230, 230, -1));
+
+        Panel_Buscar.setBackground(new java.awt.Color(255, 255, 255));
+        Panel_Buscar.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "BUSCADOR", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tw Cen MT Condensed", 3, 18))); // NOI18N
+
+        txt_Filtro.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Buscar Filtro", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tw Cen MT Condensed", 2, 18))); // NOI18N
+        txt_Filtro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_FiltroActionPerformed(evt);
+            }
+        });
+
+        btnFiltrar.setBackground(new java.awt.Color(51, 153, 0));
+        btnFiltrar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnFiltrar.setText("Filtro");
+        btnFiltrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFiltrarActionPerformed(evt);
+            }
+        });
+
+        btnMostrarTodo.setBackground(new java.awt.Color(51, 153, 0));
+        btnMostrarTodo.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnMostrarTodo.setText("Todo");
+        btnMostrarTodo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMostrarTodoActionPerformed(evt);
+            }
+        });
+
+        btn_AgregarProv.setBackground(new java.awt.Color(0, 0, 51));
+        btn_AgregarProv.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btn_AgregarProv.setForeground(new java.awt.Color(255, 255, 255));
+        btn_AgregarProv.setText("Agregar Proveedor");
+        btn_AgregarProv.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_AgregarProvActionPerformed(evt);
+            }
+        });
+
+        btnModificar.setBackground(new java.awt.Color(51, 153, 0));
+        btnModificar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnModificar.setText("Actulizar Stock");
+        btnModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarActionPerformed(evt);
+            }
+        });
+
+        btnEliminar.setBackground(new java.awt.Color(51, 153, 0));
+        btnEliminar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout Panel_BuscarLayout = new javax.swing.GroupLayout(Panel_Buscar);
+        Panel_Buscar.setLayout(Panel_BuscarLayout);
+        Panel_BuscarLayout.setHorizontalGroup(
+            Panel_BuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(txt_Filtro)
+            .addGroup(Panel_BuscarLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(Panel_BuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(Panel_BuscarLayout.createSequentialGroup()
+                        .addComponent(btnFiltrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnMostrarTodo, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(Panel_BuscarLayout.createSequentialGroup()
+                        .addComponent(btnModificar, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))))
+            .addComponent(btn_AgregarProv, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        Panel_BuscarLayout.setVerticalGroup(
+            Panel_BuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(Panel_BuscarLayout.createSequentialGroup()
+                .addComponent(txt_Filtro, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(Panel_BuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnFiltrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnMostrarTodo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(Panel_BuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnModificar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnEliminar))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                .addComponent(btn_AgregarProv))
+        );
+
+        Panel_Productos.add(Panel_Buscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 250, 230, 170));
+        Panel_Productos.add(jDateChooser7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, 200, 40));
+
+        tb_Producto.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(tb_Producto);
+
+        tb_Proveedor.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(tb_Proveedor);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(Panel_Productos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 662, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane2)
+                        .addGap(15, 15, 15))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Panel_Productos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btn_AgregarProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_AgregarProdActionPerformed
+        // TODO add your handling code here:
+        // Obtener los valores de los campos de texto
+    String codigo = txt_Codigo.getText();
+    String nombre = txt_Nombre.getText();
+    double precio = Double.parseDouble(txt_Precio.getText());
+    int stock = Integer.parseInt(txt_Stock.getText());
+    Date fechaVencimiento = jDateChooser7.getDate();    
+    // Crear un nuevo objeto ProductoFarmaceutico
+    ProductoFarmaceutico nuevoProducto = new ProductoFarmaceutico(codigo, nombre, precio, stock, fechaVencimiento);
+
+    // Llamar al método agregarProducto de InventarioProductosDAOImpl
+    InventarioProductosDAOImpl inventarioDAO = new InventarioProductosDAOImpl();
+    inventarioDAO.agregarProducto(nuevoProducto);
+
+    // Actualizar la tabla tb_Producto
+    // Suponiendo que tienes un método para actualizar la tabla llamado actualizarTabla
+    actualizarTabla();
+        limpiarCampos();
+    }//GEN-LAST:event_btn_AgregarProdActionPerformed
+private void actualizarTabla() {
+    try {
+        // Obtener la lista actualizada de productos de la base de datos
+        InventarioProductosDAOImpl inventarioDAO = new InventarioProductosDAOImpl();
+        List<ProductoFarmaceutico> productos = (List<ProductoFarmaceutico>) inventarioDAO.obtenerInventarioProductos(); // Suponiendo que tienes un método para obtener todos los productos
+
+        // Obtener el modelo de la tabla
+        DefaultTableModel modelo = (DefaultTableModel) tb_Producto.getModel();
+
+        // Limpiar el modelo de la tabla
+        modelo.setRowCount(0);
+
+        // Agregar los productos al modelo de la tabla
+        for (ProductoFarmaceutico producto : productos) {
+            Object[] fila = {producto.getCodigo(), producto.getNombre(), producto.getPrecio(), producto.getStock(), producto.getFechaVencimiento()};
+            modelo.addRow(fila);
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+}
+    private void btn_AgregarProvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_AgregarProvActionPerformed
+      FrmProveedor FrmProveedor=new FrmProveedor();
+              FrmProveedor.setVisible(true);
+    }//GEN-LAST:event_btn_AgregarProvActionPerformed
+
+    private void btnFiltrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFiltrarActionPerformed
+         // Obtener el código de búsqueda del campo de texto
+    String codigoBusqueda = txt_Filtro.getText();
+    
+    // Crear una instancia del DAO
+    InventarioProductosDAOImpl inventarioDAO = new InventarioProductosDAOImpl();
+    
+    // Buscar el producto por código
+    ProductoFarmaceutico producto = inventarioDAO.buscarProducto(codigoBusqueda);
+    
+    // Verificar si se encontró el producto
+    if (producto != null) {
+        // Si se encontró, actualizar la tabla con los datos del producto encontrado
+        DefaultTableModel modelo = (DefaultTableModel) tb_Producto.getModel();
+        modelo.setRowCount(0); // Limpiar la tabla antes de agregar nuevos datos
+        Object[] fila = {producto.getCodigo(), producto.getNombre(), producto.getPrecio(), producto.getStock(), producto.getFechaVencimiento()};
+        modelo.addRow(fila);
+    } else {
+        // Si no se encontró el producto, mostrar un mensaje de error
+        JOptionPane.showMessageDialog(this, "Producto no encontrado", "Error", JOptionPane.ERROR_MESSAGE);
+    }
+    }//GEN-LAST:event_btnFiltrarActionPerformed
+
+    private void btnMostrarTodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarTodoActionPerformed
+          InventarioProductosDAOImpl inventarioDAO = new InventarioProductosDAOImpl();
+// Llamar al método para obtener todos los productos del inventario
+    List<ProductoFarmaceutico> productos = inventarioDAO.obtenerInventarioProductos();    
+    // Actualizar la tabla con los productos obtenidos
+    DefaultTableModel modelo = (DefaultTableModel) tb_Producto.getModel();
+    modelo.setRowCount(0); // Limpiar la tabla antes de agregar nuevos datos
+    
+    for (ProductoFarmaceutico producto : productos) {
+        Object[] fila = {producto.getCodigo(), producto.getNombre(), producto.getPrecio(), producto.getStock(), producto.getFechaVencimiento()};
+        modelo.addRow(fila);
+    }
+    }//GEN-LAST:event_btnMostrarTodoActionPerformed
+
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+        // Obtener el código del producto y la cantidad a modificar
+    String codigoProducto = txt_Codigo.getText();
+    int cantidadModificar = Integer.parseInt(txt_Stock.getText());
+    
+    // Crear una instancia del DAO
+    InventarioProductosDAOImpl inventarioDAO = new InventarioProductosDAOImpl();
+    
+    // Llamar al método para actualizar el stock
+    inventarioDAO.actualizarStock(codigoProducto, cantidadModificar);
+    
+    // Actualizar la tabla con los datos actualizados del producto
+    actualizarTabla();
+    
+    // Limpiar los campos después de la modificación
+    limpiarCampos();
+    }//GEN-LAST:event_btnModificarActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+         // Obtener la fila seleccionada
+    int selectedRow = tb_Producto.getSelectedRow();
+    // Si no se selecciona ninguna fila, mostrar un mensaje y salir del método
+    if (selectedRow == -1) {
+        JOptionPane.showMessageDialog(this, "Selecciona un producto de la tabla para eliminarlo.");
+        return;
+    }
+    
+    // Obtener el código del producto seleccionado en esa fila
+    String codigoProducto = tb_Producto.getValueAt(selectedRow, 0).toString();
+    
+    // Crear una instancia del DAO
+    InventarioProductosDAOImpl inventarioDAO = new InventarioProductosDAOImpl();
+    
+    // Llamar al método para eliminar el producto
+    inventarioDAO.eliminarProducto(codigoProducto);
+    
+    // Actualizar la tabla después de la eliminación
+    actualizarTabla();
+    
+    // Limpiar los campos después de la eliminación
+    limpiarCampos();
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void txt_FiltroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_FiltroActionPerformed
+        // TODO add your handling code here:
+        limpiarCampos();
+    }//GEN-LAST:event_txt_FiltroActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel Panel_Buscar;
+    private javax.swing.JPanel Panel_Productos;
+    private javax.swing.JButton btnEliminar;
+    private javax.swing.JButton btnFiltrar;
+    private javax.swing.JButton btnModificar;
+    private javax.swing.JButton btnMostrarTodo;
+    private javax.swing.JButton btn_AgregarProd;
+    private javax.swing.JButton btn_AgregarProv;
+    private com.toedter.calendar.JDateChooser jDateChooser7;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable tb_Producto;
+    private javax.swing.JTable tb_Proveedor;
+    private javax.swing.JTextField txt_Codigo;
+    private javax.swing.JTextField txt_Filtro;
+    private javax.swing.JTextField txt_Nombre;
+    private javax.swing.JTextField txt_Precio;
+    private javax.swing.JTextField txt_Stock;
     // End of variables declaration//GEN-END:variables
 }

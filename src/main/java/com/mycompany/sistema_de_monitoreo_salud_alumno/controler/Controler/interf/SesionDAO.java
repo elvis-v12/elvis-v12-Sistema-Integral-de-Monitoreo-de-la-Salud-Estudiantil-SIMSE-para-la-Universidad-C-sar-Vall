@@ -19,7 +19,7 @@ public interface SesionDAO {
     public Sesion obtenerSesion(int idSesion);
     
     // Método para obtener todas las sesiones de un usuario
-    public List<Sesion> obtenerSesionesDeUsuario(int idUsuario);
+    public List<Sesion>obtenerSesionesDeAlumno(int idAlumno);
     
     // Método para obtener todas las sesiones en una fecha específica
     public List<Sesion> obtenerSesionesEnFecha(Date fecha);

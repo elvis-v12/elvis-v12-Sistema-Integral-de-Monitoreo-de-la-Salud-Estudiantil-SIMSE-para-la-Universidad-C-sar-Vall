@@ -1,15 +1,34 @@
 package com.mycompany.sistema_de_monitoreo_salud_alumno.model;
 
 /**
- *
- * @author ELVIS
+ * Clase que representa a una Persona.
  */
 public class Persona {
     private int idPersona;
-    private String nombre;
-    private String apellido;
-    private String edad;
+    String nombre;
+    String apellido;
+    private int edad; 
 
+    // Constructor sin idPersona
+    public Persona(String nombre, String apellido, int edad) {
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.edad = edad;
+    }
+
+    public Persona(int idPersona) {
+        this.idPersona = idPersona;
+    }
+
+    // Constructor con idPersona
+    public Persona(int idPersona, String nombre, String apellido, int edad) {
+        this.idPersona = idPersona;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.edad = edad;
+    }
+
+    // Getters y setters
     public int getIdPersona() {
         return idPersona;
     }
@@ -34,11 +53,11 @@ public class Persona {
         this.apellido = apellido;
     }
 
-    public String getEdad() {
+    public int getEdad() { // Cambiado a int
         return edad;
     }
 
-    public void setEdad(String edad) {
+    public void setEdad(int edad) { // Cambiado a int
         this.edad = edad;
     }
 }

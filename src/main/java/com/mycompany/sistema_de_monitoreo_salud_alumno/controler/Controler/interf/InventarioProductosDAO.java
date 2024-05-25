@@ -3,6 +3,7 @@ package com.mycompany.sistema_de_monitoreo_salud_alumno.controler.Controler.inte
 
 import com.mycompany.sistema_de_monitoreo_salud_alumno.model.InventarioProductos;
 import com.mycompany.sistema_de_monitoreo_salud_alumno.model.ProductoFarmaceutico;
+import java.util.List;
 
 public interface InventarioProductosDAO {
     // Método para agregar un nuevo producto al inventario
@@ -18,5 +19,5 @@ public interface InventarioProductosDAO {
     public void actualizarStock(String codigo, int cantidad);
     
     // Método para obtener el objeto de modelo de InventarioProductos
-    public InventarioProductos obtenerInventarioProductos();
+    public List<ProductoFarmaceutico> obtenerInventarioProductos();
 }

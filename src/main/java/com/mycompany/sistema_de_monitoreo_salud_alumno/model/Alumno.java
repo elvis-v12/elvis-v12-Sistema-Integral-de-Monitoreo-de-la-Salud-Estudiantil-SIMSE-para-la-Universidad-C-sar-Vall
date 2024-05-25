@@ -1,19 +1,35 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.mycompany.sistema_de_monitoreo_salud_alumno.model;
 
-/**
- *
- * @author ELVIS
- */
-public class Alumno {
+public class Alumno extends Persona {
     private int idAlumno;
     private String codigoAlumno;
     private String carrera;
-    private String ciclo;
+    private int ciclo;
 
+    public Alumno(String codigoAlumno, String carrera, int ciclo, String nombre, String apellido, int edad) {
+        super(nombre, apellido, edad);
+        this.codigoAlumno = codigoAlumno;
+        this.carrera = carrera;
+        this.ciclo = ciclo;
+    }
+
+    public Alumno(int idAlumno, String codigoAlumno, String carrera, int idPersona) {
+        super(idPersona);
+        this.idAlumno = idAlumno;
+        this.codigoAlumno = codigoAlumno;
+        this.carrera = carrera;
+    }
+
+    // Constructor completo (para registros existentes)
+    public Alumno(int idAlumno, String codigoAlumno, String carrera, int ciclo, int idPersona, String nombre, String apellido, int edad) {
+        super(idPersona, nombre, apellido, edad);
+        this.idAlumno = idAlumno;
+        this.codigoAlumno = codigoAlumno;
+        this.carrera = carrera;
+        this.ciclo = ciclo;
+    }
+
+    // Getters y setters para los campos de Alumno
     public int getIdAlumno() {
         return idAlumno;
     }
@@ -38,12 +54,11 @@ public class Alumno {
         this.carrera = carrera;
     }
 
-    public String getCiclo() {
+    public int getCiclo() {
         return ciclo;
     }
 
-    public void setCiclo(String ciclo) {
+    public void setCiclo(int ciclo) {
         this.ciclo = ciclo;
     }
 }
-

@@ -33,76 +33,86 @@ public class EnfermeraDAOImpl implements EnfermeraDAO {
         }
     }
 
-    @Override
-    public void actualizarEnfermera(Enfermera enfermera) {
-        String query = "UPDATE Enfermeras SET trabajo = ?, especialidad = ? WHERE idEnfermera = ?";
-        try (Connection conexion = conexionSQL.obtenerConexion();
-             PreparedStatement statement = conexion.prepareStatement(query)) {
-            statement.setString(1, enfermera.getTrabajo());
-            statement.setString(2, enfermera.getEspecialidad());
-            statement.setInt(3, enfermera.getIdEnfermera());
-            statement.executeUpdate();
-            System.out.println("Enfermera actualizada: " + enfermera.getIdEnfermera());
-        } catch (SQLException e) {
-            System.err.println("Error al actualizar la enfermera: " + enfermera.getIdEnfermera());
-            e.printStackTrace();
-        }
+@Override
+public void actualizarEnfermera(Enfermera enfermera) {
+    String query = "UPDATE Enfermeras SET trabajo = ?, especialidad = ? WHERE idEnfermera = ?";
+    try (Connection conexion = conexionSQL.obtenerConexion();
+         PreparedStatement statement = conexion.prepareStatement(query)) {
+        statement.setString(1, enfermera.getTrabajo());
+        statement.setString(2, enfermera.getEspecialidad());
+        statement.setInt(3, enfermera.getIdEnfermera());
+        statement.executeUpdate();
+        System.out.println("Enfermera actualizada: " + enfermera.getIdEnfermera());
+    } catch (SQLException e) {
+        System.err.println("Error al actualizar la enfermera: " + enfermera.getIdEnfermera());
+        e.printStackTrace();
     }
+}
+
+@Override
+public void eliminarEnfermera(int idEnfermera) {
+    String query = "DELETE FROM Enfermeras WHERE idEnfermera = ?";
+    try (Connection conexion = conexionSQL.obtenerConexion();
+         PreparedStatement statement = conexion.prepareStatement(query)) {
+        statement.setInt(1, idEnfermera);
+        statement.executeUpdate();
+        System.out.println("Enfermera eliminada: " + idEnfermera);
+    } catch (SQLException e) {
+        System.err.println("Error al eliminar la enfermera: " + idEnfermera);
+        e.printStackTrace();
+    }
+}
 
     @Override
-    public void eliminarEnfermera(int idEnfermera) {
-        String query = "DELETE FROM Enfermeras WHERE idEnfermera = ?";
-        try (Connection conexion = conexionSQL.obtenerConexion();
-             PreparedStatement statement = conexion.prepareStatement(query)) {
-            statement.setInt(1, idEnfermera);
-            statement.executeUpdate();
-            System.out.println("Enfermera eliminada: " + idEnfermera);
-        } catch (SQLException e) {
-            System.err.println("Error al eliminar la enfermera: " + idEnfermera);
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public Enfermera obtenerEnfermeraPorId(int idEnfermera) {
-        Enfermera enfermera = null;
-        String query = "SELECT * FROM Enfermeras WHERE idEnfermera = ?";
-        try (Connection conexion = conexionSQL.obtenerConexion();
-             PreparedStatement statement = conexion.prepareStatement(query)) {
-            statement.setInt(1, idEnfermera);
-            try (ResultSet resultSet = statement.executeQuery()) {
-                if (resultSet.next()) {
-                    enfermera = new Enfermera();
-                    enfermera.setIdEnfermera(resultSet.getInt("idEnfermera"));
-                    enfermera.setTrabajo(resultSet.getString("trabajo"));
-                    enfermera.setEspecialidad(resultSet.getString("especialidad"));
-                }
+public Enfermera obtenerEnfermeraPorId(int idEnfermera) {
+    Enfermera enfermera = null;
+    String query = "SELECT * FROM Enfermeras WHERE idEnfermera = ?";
+    try (Connection conexion = conexionSQL.obtenerConexion();
+         PreparedStatement statement = conexion.prepareStatement(query)) {
+        statement.setInt(1, idEnfermera);
+        try (ResultSet resultSet = statement.executeQuery()) {
+            if (resultSet.next()) {
+                enfermera = new Enfermera(
+                        idEnfermera,
+                        resultSet.getString("trabajo"),
+                        resultSet.getString("especialidad"),
+                        resultSet.getString("nombre"),
+                        resultSet.getString("apellido"),
+                        resultSet.getInt("edad")
+                );
             }
-        } catch (SQLException e) {
-            System.err.println("Error al obtener la enfermera: " + idEnfermera);
-            e.printStackTrace();
         }
-        return enfermera;
+    } catch (SQLException e) {
+        System.err.println("Error al obtener la enfermera: " + idEnfermera);
+        e.printStackTrace();
     }
+    return enfermera;
+}
 
-    @Override
-    public List<Enfermera> obtenerTodasLasEnfermeras() {
-        List<Enfermera> todasLasEnfermeras = new ArrayList<>();
-        String query = "SELECT * FROM Enfermeras";
-        try (Connection conexion = conexionSQL.obtenerConexion();
-             PreparedStatement statement = conexion.prepareStatement(query);
-             ResultSet resultSet = statement.executeQuery()) {
-            while (resultSet.next()) {
-                Enfermera enfermera = new Enfermera();
-                enfermera.setIdEnfermera(resultSet.getInt("idEnfermera"));
-                enfermera.setTrabajo(resultSet.getString("trabajo"));
-                enfermera.setEspecialidad(resultSet.getString("especialidad"));
-                todasLasEnfermeras.add(enfermera);
-            }
-        } catch (SQLException e) {
-            System.err.println("Error al obtener todas las enfermeras");
-            e.printStackTrace();
+@Override
+public List<Enfermera> obtenerTodasLasEnfermeras() {
+    List<Enfermera> todasLasEnfermeras = new ArrayList<>();
+    String query = "SELECT e.idEnfermera, e.trabajo, e.especialidad, p.idPersona, p.nombre, p.apellido, p.edad " +
+                   "FROM Enfermeras e " +
+                   "INNER JOIN Persona p ON e.idPersona = p.idPersona";
+    try (Connection conexion = conexionSQL.obtenerConexion();
+         PreparedStatement statement = conexion.prepareStatement(query);
+         ResultSet resultSet = statement.executeQuery()) {
+        while (resultSet.next()) {
+            Enfermera enfermera = new Enfermera(
+                    resultSet.getInt("idEnfermera"),
+                    resultSet.getString("trabajo"),
+                    resultSet.getString("especialidad"),
+                    resultSet.getString("nombre"),
+                    resultSet.getString("apellido"),
+                    resultSet.getInt("idPersona")
+            );
+            todasLasEnfermeras.add(enfermera);
         }
-        return todasLasEnfermeras;
+    } catch (SQLException e) {
+        System.err.println("Error al obtener todas las enfermeras");
+        e.printStackTrace();
     }
+    return todasLasEnfermeras;
+}
 }

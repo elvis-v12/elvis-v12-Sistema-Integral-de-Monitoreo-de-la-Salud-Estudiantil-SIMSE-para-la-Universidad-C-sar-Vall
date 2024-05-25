@@ -12,16 +12,16 @@
             <version>RELEASE150</version>
         </dependency>
         <dependency>
-        <groupId>com.microsoft.sqlserver</groupId>
-        <artifactId>mssql-jdbc</artifactId>
-        <version>11.2.2.jre11</version>
-    </dependency>
-    <dependency>
-  <groupId>com.formdev</groupId>
-  <artifactId>flatlaf-intellij-themes</artifactId>
-  <version>3.4.1</version>
-        <type>jar</type>
-    </dependency>
+            <groupId>com.microsoft.sqlserver</groupId>
+            <artifactId>mssql-jdbc</artifactId>
+            <version>11.2.2.jre11</version>
+        </dependency>
+        <dependency>
+            <groupId>com.formdev</groupId>
+            <artifactId>flatlaf-intellij-themes</artifactId>
+            <version>3.4.1</version>
+            <type>jar</type>
+        </dependency>
         <dependency>
             <groupId>com.formdev</groupId>
             <artifactId>flatlaf</artifactId>
@@ -29,10 +29,10 @@
             <type>jar</type>
         </dependency>
         <dependency>
-        <groupId>com.toedter</groupId>
-        <artifactId>jcalendar</artifactId>
-        <version>1.4</version> <!-- Ajusta la versión según tus necesidades -->
-    </dependency>
+            <groupId>com.toedter</groupId>
+            <artifactId>jcalendar</artifactId>
+            <version>1.4</version>
+        </dependency>
         <dependency>
             <groupId>io.github.ginvavilon.traghentto</groupId>
             <artifactId>logger</artifactId>
@@ -45,6 +45,7 @@
             <version>1.8.0</version>
             <type>jar</type>
         </dependency>
+        
     </dependencies>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

@@ -26,19 +26,163 @@ public class GenerarReportePor extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        Panel_Opcion = new javax.swing.JPanel();
+        btn_DatosAlumno = new javax.swing.JButton();
+        btn_GenerarReporte = new javax.swing.JButton();
+        btn_InvetarioProd = new javax.swing.JButton();
+        btn_SeguimientoTraslado = new javax.swing.JButton();
+        btn_HorarioAtencion = new javax.swing.JButton();
+        btn_GenerarCita = new javax.swing.JButton();
+        Panel_Buscar = new javax.swing.JPanel();
+        txt_Filtro1 = new javax.swing.JTextField();
+        btn_Buscar1 = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tb_Reporte = new javax.swing.JTable();
+
+        Panel_Opcion.setBackground(new java.awt.Color(255, 255, 255));
+        Panel_Opcion.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "OPCIONES", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tw Cen MT Condensed", 3, 18))); // NOI18N
+
+        btn_DatosAlumno.setBackground(new java.awt.Color(0, 0, 51));
+        btn_DatosAlumno.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btn_DatosAlumno.setForeground(new java.awt.Color(255, 255, 255));
+        btn_DatosAlumno.setText("Datos Alumno");
+        btn_DatosAlumno.setBorder(null);
+
+        btn_GenerarReporte.setBackground(new java.awt.Color(0, 0, 51));
+        btn_GenerarReporte.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btn_GenerarReporte.setForeground(new java.awt.Color(255, 255, 255));
+        btn_GenerarReporte.setText("Generar Reporte");
+        btn_GenerarReporte.setBorder(null);
+
+        btn_InvetarioProd.setBackground(new java.awt.Color(0, 0, 51));
+        btn_InvetarioProd.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btn_InvetarioProd.setForeground(new java.awt.Color(255, 255, 255));
+        btn_InvetarioProd.setText("Inventario Productos");
+        btn_InvetarioProd.setBorder(null);
+
+        btn_SeguimientoTraslado.setBackground(new java.awt.Color(0, 0, 51));
+        btn_SeguimientoTraslado.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btn_SeguimientoTraslado.setForeground(new java.awt.Color(255, 255, 255));
+        btn_SeguimientoTraslado.setText("Seguimiento Traslado");
+        btn_SeguimientoTraslado.setBorder(null);
+
+        btn_HorarioAtencion.setBackground(new java.awt.Color(0, 0, 153));
+        btn_HorarioAtencion.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btn_HorarioAtencion.setForeground(new java.awt.Color(255, 255, 255));
+        btn_HorarioAtencion.setText("Horario Atencion");
+
+        btn_GenerarCita.setBackground(new java.awt.Color(0, 0, 153));
+        btn_GenerarCita.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btn_GenerarCita.setForeground(new java.awt.Color(255, 255, 255));
+        btn_GenerarCita.setText("Generar Cita");
+
+        javax.swing.GroupLayout Panel_OpcionLayout = new javax.swing.GroupLayout(Panel_Opcion);
+        Panel_Opcion.setLayout(Panel_OpcionLayout);
+        Panel_OpcionLayout.setHorizontalGroup(
+            Panel_OpcionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(Panel_OpcionLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btn_DatosAlumno, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btn_GenerarReporte, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btn_InvetarioProd, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btn_SeguimientoTraslado, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(Panel_OpcionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btn_HorarioAtencion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btn_GenerarCita, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        Panel_OpcionLayout.setVerticalGroup(
+            Panel_OpcionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Panel_OpcionLayout.createSequentialGroup()
+                .addGroup(Panel_OpcionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btn_DatosAlumno, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, Panel_OpcionLayout.createSequentialGroup()
+                        .addComponent(btn_HorarioAtencion)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                        .addComponent(btn_GenerarCita))
+                    .addComponent(btn_SeguimientoTraslado, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btn_InvetarioProd, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btn_GenerarReporte, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+
+        Panel_Buscar.setBackground(new java.awt.Color(255, 255, 255));
+        Panel_Buscar.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "BUSCADOR", javax.swing.border.TitledBorder.RIGHT, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tw Cen MT Condensed", 3, 18))); // NOI18N
+
+        txt_Filtro1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Filtro", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.BOTTOM, new java.awt.Font("Tw Cen MT Condensed", 2, 18))); // NOI18N
+
+        btn_Buscar1.setBorder(null);
+
+        javax.swing.GroupLayout Panel_BuscarLayout = new javax.swing.GroupLayout(Panel_Buscar);
+        Panel_Buscar.setLayout(Panel_BuscarLayout);
+        Panel_BuscarLayout.setHorizontalGroup(
+            Panel_BuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(Panel_BuscarLayout.createSequentialGroup()
+                .addComponent(txt_Filtro1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btn_Buscar1)
+                .addContainerGap())
+        );
+        Panel_BuscarLayout.setVerticalGroup(
+            Panel_BuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(btn_Buscar1)
+            .addComponent(txt_Filtro1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+
+        tb_Reporte.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(tb_Reporte);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(Panel_Opcion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Panel_Buscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(Panel_Opcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Panel_Buscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 103, Short.MAX_VALUE)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel Panel_Buscar;
+    private javax.swing.JPanel Panel_Opcion;
+    private javax.swing.JButton btn_Buscar1;
+    private javax.swing.JButton btn_DatosAlumno;
+    private javax.swing.JButton btn_GenerarCita;
+    private javax.swing.JButton btn_GenerarReporte;
+    private javax.swing.JButton btn_HorarioAtencion;
+    private javax.swing.JButton btn_InvetarioProd;
+    private javax.swing.JButton btn_SeguimientoTraslado;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tb_Reporte;
+    private javax.swing.JTextField txt_Filtro1;
     // End of variables declaration//GEN-END:variables
 }

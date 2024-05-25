@@ -82,8 +82,7 @@ public class ReporteDAOImpl implements ReporteDAO {
             statement.setInt(1, idReporte);
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
-                    // Aquí asumo que tienes métodos para obtener Alumno y Enfermera por ID
-                    // Puedes ajustar esto según la estructura de tu base de datos y código existente
+               
                     AlumnoDAO alumnoDAO = new AlumnoDAOImpl(conexionSQL);
                     Alumno alumno = alumnoDAO.obtenerAlumnoPorId(resultSet.getInt("idAlumno"));
                     EnfermeraDAO enfermeraDAO = new EnfermeraDAOImpl(conexionSQL); Enfermera enfermera = enfermeraDAO.obtenerEnfermeraPorId(resultSet.getInt("idEnfermera"));

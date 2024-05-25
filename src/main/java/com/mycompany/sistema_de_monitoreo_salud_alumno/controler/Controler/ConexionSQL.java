@@ -42,9 +42,6 @@ private static final String PASSWORD = "1234";
             // Obtener conexión a la base de datos
             conexion = ConexionSQL.obtenerConexion();
             System.out.println("Conexión establecida correctamente desde la clase ConexionSQL.");
-            // Aquí puedes realizar operaciones con la base de datos utilizando la conexión
-            // Por ejemplo, ejecutar consultas SQL
-            
         } catch (SQLException e) {
             e.printStackTrace();
             // Manejar cualquier excepción que ocurra durante la conexión

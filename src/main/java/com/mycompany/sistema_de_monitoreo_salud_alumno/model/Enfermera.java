@@ -8,10 +8,23 @@ package com.mycompany.sistema_de_monitoreo_salud_alumno.model;
  *
  * @author ELVIS
  */
-public class Enfermera {
+public class Enfermera extends Persona {
     private int idEnfermera;
     private String trabajo;
     private String especialidad;
+
+    public Enfermera(int idEnfermera, String trabajo, String especialidad, String nombre, String apellido, int edad) {
+        super(nombre, apellido, edad);
+        this.idEnfermera = idEnfermera;
+        this.trabajo = trabajo;
+        this.especialidad = especialidad;
+    }
+
+    public Enfermera(String trabajo, String especialidad, String nombre, String apellido, int edad) {
+        super(nombre, apellido, edad);
+        this.trabajo = trabajo;
+        this.especialidad = especialidad;
+    }
 
     public int getIdEnfermera() {
         return idEnfermera;

@@ -25,7 +25,7 @@ public class InventarioProductosDAOImpl implements InventarioProductosDAO {
 
     @Override
     public void agregarProducto(ProductoFarmaceutico producto) {
-        String query = "INSERT INTO ProductosFarmaceuticos (codigo, nombre, precio, stock, fechaVencimiento) VALUES (?, ?, ?, ?, ?)";
+        String query = "INSERT INTO ProductoFarmaceutico (codigo, nombre, precio, stock, fechaVencimiento) VALUES (?, ?, ?, ?, ?)";
         try (PreparedStatement statement = conexion.prepareStatement(query)) {
             statement.setString(1, producto.getCodigo());
             statement.setString(2, producto.getNombre());
@@ -43,7 +43,7 @@ public class InventarioProductosDAOImpl implements InventarioProductosDAO {
     @Override
     public ProductoFarmaceutico buscarProducto(String codigo) {
         ProductoFarmaceutico producto = null;
-        String query = "SELECT * FROM ProductosFarmaceuticos WHERE codigo = ?";
+        String query = "SELECT * FROM ProductoFarmaceutico WHERE codigo = ?";
         try (PreparedStatement statement = conexion.prepareStatement(query)) {
             statement.setString(1, codigo);
             try (ResultSet resultSet = statement.executeQuery()) {
@@ -66,7 +66,7 @@ public class InventarioProductosDAOImpl implements InventarioProductosDAO {
 
     @Override
     public void eliminarProducto(String codigo) {
-        String query = "DELETE FROM ProductosFarmaceuticos WHERE codigo = ?";
+        String query = "DELETE FROM ProductoFarmaceutico WHERE codigo = ?";
         try (PreparedStatement statement = conexion.prepareStatement(query)) {
             statement.setString(1, codigo);
             statement.executeUpdate();
@@ -79,7 +79,7 @@ public class InventarioProductosDAOImpl implements InventarioProductosDAO {
 
     @Override
     public void actualizarStock(String codigo, int cantidad) {
-        String query = "UPDATE ProductosFarmaceuticos SET stock = ? WHERE codigo = ?";
+        String query = "UPDATE ProductoFarmaceutico SET stock = ? WHERE codigo = ?";
         try (PreparedStatement statement = conexion.prepareStatement(query)) {
             statement.setInt(1, cantidad);
             statement.setString(2, codigo);
@@ -91,26 +91,28 @@ public class InventarioProductosDAOImpl implements InventarioProductosDAO {
         }
     }
 
-    @Override
-    public InventarioProductos obtenerInventarioProductos() {
-        List<ProductoFarmaceutico> productos = new ArrayList<>();
-        String query = "SELECT * FROM ProductosFarmaceuticos";
-        try (PreparedStatement statement = conexion.prepareStatement(query);
-             ResultSet resultSet = statement.executeQuery()) {
-            while (resultSet.next()) {
-                ProductoFarmaceutico producto = new ProductoFarmaceutico(
-                    resultSet.getString("codigo"),
-                    resultSet.getString("nombre"),
-                    resultSet.getDouble("precio"),
-                    resultSet.getInt("stock"),
-                    resultSet.getDate("fechaVencimiento")
-                );
-                productos.add(producto);
-            }
-        } catch (SQLException e) {
-            System.err.println("Error al obtener el inventario de productos");
-            e.printStackTrace();
+@Override
+public List<ProductoFarmaceutico> obtenerInventarioProductos() {
+    List<ProductoFarmaceutico> productos = new ArrayList<>();
+    String query = "SELECT * FROM ProductoFarmaceutico";
+    try (PreparedStatement statement = conexion.prepareStatement(query);
+         ResultSet resultSet = statement.executeQuery()) {
+        while (resultSet.next()) {
+            ProductoFarmaceutico producto = new ProductoFarmaceutico(
+                resultSet.getString("codigo"),
+                resultSet.getString("nombre"),
+                resultSet.getDouble("precio"),
+                resultSet.getInt("stock"),
+                resultSet.getDate("fechaVencimiento")
+            );
+            productos.add(producto);
         }
-        return new InventarioProductos(productos);
+    } catch (SQLException e) {
+        System.err.println("Error al obtener el inventario de productos");
+        e.printStackTrace();
     }
+    return productos;
+}
+
+ 
 }
