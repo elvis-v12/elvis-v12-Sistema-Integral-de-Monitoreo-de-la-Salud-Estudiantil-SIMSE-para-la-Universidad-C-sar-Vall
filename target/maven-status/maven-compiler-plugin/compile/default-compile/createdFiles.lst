@@ -1,3 +1,4 @@
+com\mycompany\sistema_de_monitoreo_salud_alumno\view\EstadoSaludEstudiante$5.class
 com\mycompany\sistema_de_monitoreo_salud_alumno\controler\Controler\interf\EnfermeraDAO.class
 com\mycompany\sistema_de_monitoreo_salud_alumno\view\LugaresMarco$3.class
 GUI\MainFrame$7.class
@@ -10,6 +11,7 @@ com\mycompany\sistema_de_monitoreo_salud_alumno\view\LugaresMarco$6.class
 com\mycompany\sistema_de_monitoreo_salud_alumno\model\Persona.class
 com\mycompany\sistema_de_monitoreo_salud_alumno\controler\Controler\interf\ProveedorDAO.class
 com\mycompany\sistema_de_monitoreo_salud_alumno\controler\Controler\ProveedorDAOImpl.class
+com\mycompany\sistema_de_monitoreo_salud_alumno\view\EstadoSaludEstudiante$8.class
 com\mycompany\sistema_de_monitoreo_salud_alumno\view\HorarioAtencion$3.class
 com\mycompany\sistema_de_monitoreo_salud_alumno\view\SeguimientoTraslado$17.class
 com\mycompany\sistema_de_monitoreo_salud_alumno\view\EstadoSaludEstudiante$2.class
@@ -18,6 +20,7 @@ com\mycompany\sistema_de_monitoreo_salud_alumno\view\AlumnosUcv$4.class
 com\mycompany\sistema_de_monitoreo_salud_alumno\view\FrmProveedor$4.class
 GUI\PlacesFrame.class
 com\mycompany\sistema_de_monitoreo_salud_alumno\model\Sesion.class
+com\mycompany\sistema_de_monitoreo_salud_alumno\view\EstadoSaludEstudiante$10.class
 com\mycompany\sistema_de_monitoreo_salud_alumno\controler\Controler\interf\AlumnoDAO.class
 com\mycompany\sistema_de_monitoreo_salud_alumno\view\SeguimientoTraslado$3.class
 com\mycompany\sistema_de_monitoreo_salud_alumno\Ejecutar\EJecutarElSistema$1.class
@@ -51,6 +54,7 @@ com\mycompany\sistema_de_monitoreo_salud_alumno\model\EstadoSalud.class
 com\mycompany\sistema_de_monitoreo_salud_alumno\view\InventarioDeProductos$2.class
 com\mycompany\sistema_de_monitoreo_salud_alumno\model\Traslado.class
 com\mycompany\sistema_de_monitoreo_salud_alumno\view\AlumnosUcv$6.class
+com\mycompany\sistema_de_monitoreo_salud_alumno\view\EstadoSaludEstudiante$7.class
 com\mycompany\sistema_de_monitoreo_salud_alumno\view\LugaresMarco$5.class
 GUI\MainFrame$25.class
 com\mycompany\sistema_de_monitoreo_salud_alumno\model\Proveedor.class
@@ -117,16 +121,19 @@ GUI\MainFrame$9.class
 com\mycompany\sistema_de_monitoreo_salud_alumno\view\FrmProveedor$5.class
 com\mycompany\sistema_de_monitoreo_salud_alumno\view\LugaresMarco$7.class
 com\mycompany\sistema_de_monitoreo_salud_alumno\controler\Controler\EstadoSaludDAOImpl.class
+com\mycompany\sistema_de_monitoreo_salud_alumno\view\EstadoSaludEstudiante$9.class
 com\mycompany\sistema_de_monitoreo_salud_alumno\view\InventarioDeProductos.class
 com\mycompany\sistema_de_monitoreo_salud_alumno\Ejecutar\EJecutarElSistema.class
 com\mycompany\sistema_de_monitoreo_salud_alumno\view\HorarioAtencion$4.class
 com\mycompany\sistema_de_monitoreo_salud_alumno\view\LugaresMarco$4.class
+com\mycompany\sistema_de_monitoreo_salud_alumno\view\EstadoSaludEstudiante$6.class
 com\mycompany\sistema_de_monitoreo_salud_alumno\view\SeguimientoTraslado$18.class
 com\mycompany\sistema_de_monitoreo_salud_alumno\view\AlumnosUcv$5.class
 com\mycompany\sistema_de_monitoreo_salud_alumno\view\SeguimientoTraslado$20.class
 com\mycompany\sistema_de_monitoreo_salud_alumno\view\AlumnosUcv$3.class
 maps\java\MapsJava.class
 GUI\MainFrame$22.class
+com\mycompany\sistema_de_monitoreo_salud_alumno\view\HorarioAtencion$5.class
 com\mycompany\sistema_de_monitoreo_salud_alumno\view\SeguimientoTraslado$15.class
 com\mycompany\sistema_de_monitoreo_salud_alumno\view\HorarioAtencion.class
 com\mycompany\sistema_de_monitoreo_salud_alumno\view\EstadoSaludEstudiante$3.class
@@ -151,6 +158,7 @@ com\mycompany\sistema_de_monitoreo_salud_alumno\view\LugaresMarco$8.class
 maps\java\Geocoding.class
 com\mycompany\sistema_de_monitoreo_salud_alumno\view\LugaresMarco$9.class
 com\mycompany\sistema_de_monitoreo_salud_alumno\view\InventarioDeProductos$6.class
+com\mycompany\sistema_de_monitoreo_salud_alumno\view\EstadoSaludEstudiante$4.class
 GUI\MainFrame$1.class
 com\mycompany\sistema_de_monitoreo_salud_alumno\model\Alumno.class
 com\mycompany\sistema_de_monitoreo_salud_alumno\view\Login_Ingreso_sistema.class

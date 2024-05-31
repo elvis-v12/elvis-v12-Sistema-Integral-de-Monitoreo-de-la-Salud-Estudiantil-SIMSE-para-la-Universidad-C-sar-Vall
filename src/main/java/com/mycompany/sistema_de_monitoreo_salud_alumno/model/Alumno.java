@@ -6,6 +6,11 @@ public class Alumno extends Persona {
     private String carrera;
     private int ciclo;
 
+    public Alumno(int idAlumno, int idPersona) {
+        super(idPersona);
+        this.idAlumno = idAlumno;
+    }
+
     public Alumno(String codigoAlumno, String carrera, int ciclo, String nombre, String apellido, int edad) {
         super(nombre, apellido, edad);
         this.codigoAlumno = codigoAlumno;

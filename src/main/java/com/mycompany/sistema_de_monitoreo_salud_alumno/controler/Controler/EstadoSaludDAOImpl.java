@@ -161,6 +161,4 @@ public List<EstadoSalud> obtenerTodosLosEstadosSalud() {
     }
     return todosLosEstadosSalud;
 }
-
-
 }

@@ -1,29 +1,28 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.mycompany.sistema_de_monitoreo_salud_alumno.model;
 
-/**
- *
- * @author ELVIS
- */
 public class Enfermera extends Persona {
     private int idEnfermera;
-    private String trabajo;
     private String especialidad;
+    private Alumno alumno; // Utilizar la clase Alumno para almacenar la referencia al alumno
 
-    public Enfermera(int idEnfermera, String trabajo, String especialidad, String nombre, String apellido, int edad) {
-        super(nombre, apellido, edad);
+    public Enfermera(int idEnfermera, String especialidad, Alumno alumno, int idPersona) {
+        super(idPersona);
         this.idEnfermera = idEnfermera;
-        this.trabajo = trabajo;
         this.especialidad = especialidad;
+        this.alumno = alumno;
     }
 
-    public Enfermera(String trabajo, String especialidad, String nombre, String apellido, int edad) {
+    public Enfermera(int idEnfermera, String especialidad, Alumno alumno, String nombre, String apellido, int edad) {
         super(nombre, apellido, edad);
-        this.trabajo = trabajo;
+        this.idEnfermera = idEnfermera;
         this.especialidad = especialidad;
+        this.alumno = alumno;
+    }
+
+    public Enfermera(String especialidad, Alumno alumno, String nombre, String apellido, int edad) {
+        super(nombre, apellido, edad);
+        this.especialidad = especialidad;
+        this.alumno = alumno;
     }
 
     public int getIdEnfermera() {
@@ -34,19 +33,19 @@ public class Enfermera extends Persona {
         this.idEnfermera = idEnfermera;
     }
 
-    public String getTrabajo() {
-        return trabajo;
-    }
-
-    public void setTrabajo(String trabajo) {
-        this.trabajo = trabajo;
-    }
-
     public String getEspecialidad() {
         return especialidad;
     }
 
     public void setEspecialidad(String especialidad) {
         this.especialidad = especialidad;
+    }
+    
+    public Alumno getAlumno() {
+        return alumno;
+    }
+
+    public void setAlumno(Alumno alumno) {
+        this.alumno = alumno;
     }
 }

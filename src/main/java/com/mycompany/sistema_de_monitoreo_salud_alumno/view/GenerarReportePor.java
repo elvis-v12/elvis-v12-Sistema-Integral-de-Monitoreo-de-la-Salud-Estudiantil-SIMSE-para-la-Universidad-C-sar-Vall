@@ -31,8 +31,6 @@ public class GenerarReportePor extends javax.swing.JPanel {
         btn_GenerarReporte = new javax.swing.JButton();
         btn_InvetarioProd = new javax.swing.JButton();
         btn_SeguimientoTraslado = new javax.swing.JButton();
-        btn_HorarioAtencion = new javax.swing.JButton();
-        btn_GenerarCita = new javax.swing.JButton();
         Panel_Buscar = new javax.swing.JPanel();
         txt_Filtro1 = new javax.swing.JTextField();
         btn_Buscar1 = new javax.swing.JButton();
@@ -66,16 +64,6 @@ public class GenerarReportePor extends javax.swing.JPanel {
         btn_SeguimientoTraslado.setText("Seguimiento Traslado");
         btn_SeguimientoTraslado.setBorder(null);
 
-        btn_HorarioAtencion.setBackground(new java.awt.Color(0, 0, 153));
-        btn_HorarioAtencion.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btn_HorarioAtencion.setForeground(new java.awt.Color(255, 255, 255));
-        btn_HorarioAtencion.setText("Horario Atencion");
-
-        btn_GenerarCita.setBackground(new java.awt.Color(0, 0, 153));
-        btn_GenerarCita.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btn_GenerarCita.setForeground(new java.awt.Color(255, 255, 255));
-        btn_GenerarCita.setText("Generar Cita");
-
         javax.swing.GroupLayout Panel_OpcionLayout = new javax.swing.GroupLayout(Panel_Opcion);
         Panel_Opcion.setLayout(Panel_OpcionLayout);
         Panel_OpcionLayout.setHorizontalGroup(
@@ -89,21 +77,13 @@ public class GenerarReportePor extends javax.swing.JPanel {
                 .addComponent(btn_InvetarioProd, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btn_SeguimientoTraslado, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(Panel_OpcionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btn_HorarioAtencion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btn_GenerarCita, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         Panel_OpcionLayout.setVerticalGroup(
             Panel_OpcionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Panel_OpcionLayout.createSequentialGroup()
                 .addGroup(Panel_OpcionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btn_DatosAlumno, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, Panel_OpcionLayout.createSequentialGroup()
-                        .addComponent(btn_HorarioAtencion)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
-                        .addComponent(btn_GenerarCita))
+                    .addComponent(btn_DatosAlumno, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 64, Short.MAX_VALUE)
                     .addComponent(btn_SeguimientoTraslado, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btn_InvetarioProd, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btn_GenerarReporte, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -176,9 +156,7 @@ public class GenerarReportePor extends javax.swing.JPanel {
     private javax.swing.JPanel Panel_Opcion;
     private javax.swing.JButton btn_Buscar1;
     private javax.swing.JButton btn_DatosAlumno;
-    private javax.swing.JButton btn_GenerarCita;
     private javax.swing.JButton btn_GenerarReporte;
-    private javax.swing.JButton btn_HorarioAtencion;
     private javax.swing.JButton btn_InvetarioProd;
     private javax.swing.JButton btn_SeguimientoTraslado;
     private javax.swing.JScrollPane jScrollPane1;

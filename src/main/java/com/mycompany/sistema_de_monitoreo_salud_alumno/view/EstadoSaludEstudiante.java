@@ -4,6 +4,20 @@
  */
 package com.mycompany.sistema_de_monitoreo_salud_alumno.view;
 
+import com.mycompany.sistema_de_monitoreo_salud_alumno.controler.Controler.ConexionSQL;
+import com.mycompany.sistema_de_monitoreo_salud_alumno.controler.Controler.EnfermeraDAOImpl;
+import com.mycompany.sistema_de_monitoreo_salud_alumno.controler.Controler.EstadoSaludDAOImpl;
+import com.mycompany.sistema_de_monitoreo_salud_alumno.controler.Controler.interf.EnfermeraDAO;
+import com.mycompany.sistema_de_monitoreo_salud_alumno.model.Alumno;
+import com.mycompany.sistema_de_monitoreo_salud_alumno.model.Enfermera;
+import com.mycompany.sistema_de_monitoreo_salud_alumno.model.EstadoSalud;
+import java.util.Date;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author ELVIS
@@ -13,10 +27,22 @@ public class EstadoSaludEstudiante extends javax.swing.JPanel {
     /**
      * Creates new form EstadoSaludEstudiante
      */
+                private DefaultTableModel modelo;
     public EstadoSaludEstudiante() {
         initComponents();
+        modelo = new DefaultTableModel();
+        modelo.addColumn("ID");
+        modelo.addColumn("ID Alumno");
+        modelo.addColumn("Fecha");
+        modelo.addColumn("Descripción");
+        jtableDatos.setModel(modelo);  
+        
     }
-
+private void limpiar(){
+    txtCodigo.setText("");
+    JdateFecha.setDate(null);
+    txtDescrSalud.setText("");
+}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -27,78 +53,78 @@ public class EstadoSaludEstudiante extends javax.swing.JPanel {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
+        txtCodigo = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        txtDescrSalud = new javax.swing.JTextArea();
         jPanel2 = new javax.swing.JPanel();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        txtIdEnfermera = new javax.swing.JTextField();
+        jcEspecialidad = new javax.swing.JComboBox<>();
+        JdateFecha = new com.toedter.calendar.JDateChooser();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jtableDatos = new javax.swing.JTable();
         Panel_Buscar = new javax.swing.JPanel();
         txt_Filtro = new javax.swing.JTextField();
         btn_Buscar = new javax.swing.JButton();
         btn_Agregar = new javax.swing.JButton();
-        btn_Eliminar = new javax.swing.JButton();
+        btn_CVer = new javax.swing.JButton();
         btn_Modificar = new javax.swing.JButton();
-        btn_Eliminar1 = new javax.swing.JButton();
         btn_Modificar1 = new javax.swing.JButton();
-        btn_Modificar2 = new javax.swing.JButton();
+        btn_HorarioAtencion = new javax.swing.JButton();
+        btn_GenerarCita = new javax.swing.JButton();
+        btnVer = new javax.swing.JButton();
+        btn_AgregarE = new javax.swing.JButton();
+        btn_modificar = new javax.swing.JButton();
+        btn_Buscar1 = new javax.swing.JButton();
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "DATOS PACIENTE", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tw Cen MT Condensed", 3, 18))); // NOI18N
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jTextField1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Codigo Alumno", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tw Cen MT Condensed", 2, 18))); // NOI18N
-        jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 26, 242, -1));
+        txtCodigo.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Codigo Alumno", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tw Cen MT Condensed", 2, 18))); // NOI18N
+        jPanel1.add(txtCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 26, 242, -1));
 
-        jTextField2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Fecha", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tw Cen MT Condensed", 2, 18))); // NOI18N
-        jPanel1.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 79, 242, -1));
+        txtDescrSalud.setColumns(20);
+        txtDescrSalud.setRows(5);
+        txtDescrSalud.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Descripcion", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tw Cen MT Condensed", 2, 18))); // NOI18N
+        jScrollPane1.setViewportView(txtDescrSalud);
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jTextArea1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Descripcion", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tw Cen MT Condensed", 2, 18))); // NOI18N
-        jScrollPane1.setViewportView(jTextArea1);
-
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 132, -1, 95));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 137, -1, 90));
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "ENFERMERA", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tw Cen MT Condensed", 3, 18))); // NOI18N
 
-        jTextField3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "ID Enfermera", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tw Cen MT Condensed", 2, 18))); // NOI18N
+        txtIdEnfermera.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "ID Enfermera", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tw Cen MT Condensed", 2, 18))); // NOI18N
 
-        jTextField4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Trabajo", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tw Cen MT Condensed", 2, 18))); // NOI18N
-
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Cuidados Intensivos", "Pediatría" }));
-        jComboBox1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Especialidad", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tw Cen MT Condensed", 2, 18))); // NOI18N
+        jcEspecialidad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Cuidados Intensivos", "Pediatría" }));
+        jcEspecialidad.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Especialidad", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tw Cen MT Condensed", 2, 18))); // NOI18N
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTextField3)
-            .addComponent(jComboBox1, 0, 232, Short.MAX_VALUE)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTextField4)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtIdEnfermera, javax.swing.GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE)
+                    .addComponent(jcEspecialidad, 0, 244, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField4)
-                .addContainerGap())
+                .addContainerGap()
+                .addComponent(txtIdEnfermera, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jcEspecialidad, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 230, -1, -1));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        JdateFecha.setBorder(javax.swing.BorderFactory.createTitledBorder("Fecha"));
+        jPanel1.add(JdateFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 230, 50));
+
+        jtableDatos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -109,46 +135,62 @@ public class EstadoSaludEstudiante extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane3.setViewportView(jTable1);
+        jScrollPane3.setViewportView(jtableDatos);
 
         Panel_Buscar.setBackground(new java.awt.Color(255, 255, 255));
         Panel_Buscar.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "BUSCADOR", javax.swing.border.TitledBorder.RIGHT, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tw Cen MT Condensed", 3, 18))); // NOI18N
 
         txt_Filtro.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Filtro", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.BOTTOM, new java.awt.Font("Tw Cen MT Condensed", 2, 18))); // NOI18N
 
+        btn_Buscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/lupa.png"))); // NOI18N
         btn_Buscar.setBorder(null);
+        btn_Buscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_BuscarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout Panel_BuscarLayout = new javax.swing.GroupLayout(Panel_Buscar);
         Panel_Buscar.setLayout(Panel_BuscarLayout);
         Panel_BuscarLayout.setHorizontalGroup(
             Panel_BuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(Panel_BuscarLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(txt_Filtro, javax.swing.GroupLayout.PREFERRED_SIZE, 557, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btn_Buscar)
-                .addContainerGap())
-            .addComponent(txt_Filtro)
+                .addGap(0, 48, Short.MAX_VALUE))
         );
         Panel_BuscarLayout.setVerticalGroup(
             Panel_BuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(Panel_BuscarLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(txt_Filtro, javax.swing.GroupLayout.PREFERRED_SIZE, 17, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
-                .addComponent(btn_Buscar)
-                .addContainerGap())
+                .addGroup(Panel_BuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btn_Buscar)
+                    .addComponent(txt_Filtro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         btn_Agregar.setBackground(new java.awt.Color(0, 0, 51));
         btn_Agregar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btn_Agregar.setForeground(new java.awt.Color(255, 255, 255));
         btn_Agregar.setText("Agregar");
+        btn_Agregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_AgregarActionPerformed(evt);
+            }
+        });
 
-        btn_Eliminar.setBackground(new java.awt.Color(102, 0, 0));
-        btn_Eliminar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btn_Eliminar.setForeground(new java.awt.Color(255, 255, 255));
-        btn_Eliminar.setText("Eliminar");
+        btn_CVer.setBackground(new java.awt.Color(0, 0, 51));
+        btn_CVer.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btn_CVer.setForeground(new java.awt.Color(255, 255, 255));
+        btn_CVer.setText("Ver Enfermera");
+        btn_CVer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_CVerActionPerformed(evt);
+            }
+        });
 
-        btn_Modificar.setBackground(new java.awt.Color(0, 0, 51));
+        btn_Modificar.setBackground(new java.awt.Color(102, 0, 0));
         btn_Modificar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btn_Modificar.setForeground(new java.awt.Color(255, 255, 255));
         btn_Modificar.setText("Modificar");
@@ -157,11 +199,6 @@ public class EstadoSaludEstudiante extends javax.swing.JPanel {
                 btn_ModificarActionPerformed(evt);
             }
         });
-
-        btn_Eliminar1.setBackground(new java.awt.Color(102, 0, 0));
-        btn_Eliminar1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btn_Eliminar1.setForeground(new java.awt.Color(255, 255, 255));
-        btn_Eliminar1.setText("Generar Reporte");
 
         btn_Modificar1.setBackground(new java.awt.Color(0, 0, 51));
         btn_Modificar1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -173,13 +210,56 @@ public class EstadoSaludEstudiante extends javax.swing.JPanel {
             }
         });
 
-        btn_Modificar2.setBackground(new java.awt.Color(0, 0, 51));
-        btn_Modificar2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btn_Modificar2.setForeground(new java.awt.Color(255, 255, 255));
-        btn_Modificar2.setText("Horarios");
-        btn_Modificar2.addActionListener(new java.awt.event.ActionListener() {
+        btn_HorarioAtencion.setBackground(new java.awt.Color(0, 0, 153));
+        btn_HorarioAtencion.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btn_HorarioAtencion.setForeground(new java.awt.Color(255, 255, 255));
+        btn_HorarioAtencion.setText("Horario Atencion");
+        btn_HorarioAtencion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_Modificar2ActionPerformed(evt);
+                btn_HorarioAtencionActionPerformed(evt);
+            }
+        });
+
+        btn_GenerarCita.setBackground(new java.awt.Color(0, 0, 153));
+        btn_GenerarCita.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btn_GenerarCita.setForeground(new java.awt.Color(255, 255, 255));
+        btn_GenerarCita.setText("Generar Cita");
+
+        btnVer.setBackground(new java.awt.Color(0, 0, 51));
+        btnVer.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnVer.setForeground(new java.awt.Color(255, 255, 255));
+        btnVer.setText("Ver");
+        btnVer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVerActionPerformed(evt);
+            }
+        });
+
+        btn_AgregarE.setBackground(new java.awt.Color(102, 0, 0));
+        btn_AgregarE.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btn_AgregarE.setForeground(new java.awt.Color(255, 255, 255));
+        btn_AgregarE.setText("Agregar Enfermera");
+        btn_AgregarE.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_AgregarEActionPerformed(evt);
+            }
+        });
+
+        btn_modificar.setBackground(new java.awt.Color(0, 0, 51));
+        btn_modificar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btn_modificar.setForeground(new java.awt.Color(255, 255, 255));
+        btn_modificar.setText("Modificar Enfermera");
+        btn_modificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_modificarActionPerformed(evt);
+            }
+        });
+
+        btn_Buscar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/lupa.png"))); // NOI18N
+        btn_Buscar1.setBorder(null);
+        btn_Buscar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_Buscar1ActionPerformed(evt);
             }
         });
 
@@ -188,47 +268,72 @@ public class EstadoSaludEstudiante extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(369, 369, 369)
+                .addComponent(btn_Modificar1, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btn_GenerarCita)
+                .addGap(42, 42, 42)
+                .addComponent(btn_HorarioAtencion)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btn_Agregar, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btn_Modificar, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btn_Eliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(Panel_Buscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(btn_Modificar1, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btn_Modificar2, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btn_Eliminar1, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                        .addGap(59, 59, 59)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnVer, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btn_Agregar, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(26, 26, 26)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btn_Modificar, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(44, 44, 44)
+                                .addComponent(btn_CVer, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btn_AgregarE, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(44, 44, 44)
+                                .addComponent(btn_modificar, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(35, 35, 35)
+                        .addComponent(btn_Buscar1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(Panel_Buscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jScrollPane3))))
+                .addGap(0, 8, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
                         .addComponent(Panel_Buscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btn_Modificar)
-                            .addComponent(btn_Eliminar)
-                            .addComponent(btn_Agregar))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(btn_Modificar)
+                                    .addComponent(btn_CVer)
+                                    .addComponent(btn_Agregar))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(btn_AgregarE)
+                                    .addComponent(btnVer)
+                                    .addComponent(btn_modificar)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(btn_Buscar1)
+                                .addGap(12, 12, 12)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btn_Modificar1)
-                            .addComponent(btn_Eliminar1)
-                            .addComponent(btn_Modificar2))))
+                        .addGap(12, 12, 12))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(36, 36, 36)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btn_Modificar1)
+                    .addComponent(btn_GenerarCita)
+                    .addComponent(btn_HorarioAtencion))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -239,35 +344,273 @@ AlumnosUcv Alumnos=new AlumnosUcv();
     }//GEN-LAST:event_btn_Modificar1ActionPerformed
 
     private void btn_ModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ModificarActionPerformed
-        // TODO add your handling code here:
+       try {
+        // Retrieve the updated information from UI components (if any)
+        // For example:
+        int idEstadoSalud = Integer.parseInt(txtCodigo.getText());
+        int idAlumno = Integer.parseInt(txt_Filtro.getText());
+        Date fecha = JdateFecha.getDate();
+        String descripcion = txtDescrSalud.getText();
+        
+        // Create an instance of EstadoSalud with the updated information
+        EstadoSalud estadoSalud = new EstadoSalud();
+        estadoSalud.setIdEstadoSalud(idEstadoSalud);
+        
+        // Create an instance of Alumno and set its ID
+        Alumno alumno = new Alumno(idAlumno, idAlumno);
+        alumno.setIdAlumno(idAlumno);
+        estadoSalud.setAlumno(alumno);
+        
+        estadoSalud.setFecha(fecha);
+        estadoSalud.setDescripcion(descripcion);
+        
+        // Update the EstadoSalud entry in the database
+                ConexionSQL conexionSQL = new ConexionSQL();
+        EstadoSaludDAOImpl estadoSaludDAO = new EstadoSaludDAOImpl(conexionSQL);
+        estadoSaludDAO.actualizarEstadoSalud(estadoSalud);
+        
+        // Notify the user that the update was successful
+        JOptionPane.showMessageDialog(this, "Estado de salud actualizado correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(this, "Por favor, ingrese valores numéricos válidos.", "Error", JOptionPane.ERROR_MESSAGE);
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, "Error al actualizar el estado de salud.", "Error", JOptionPane.ERROR_MESSAGE);
+        e.printStackTrace();
+    }
     }//GEN-LAST:event_btn_ModificarActionPerformed
 
-    private void btn_Modificar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_Modificar2ActionPerformed
-  HorarioAtencion HorarioAtencion = new HorarioAtencion();
-  HorarioAtencion.setVisible(true);
-    }//GEN-LAST:event_btn_Modificar2ActionPerformed
+    private void btn_HorarioAtencionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_HorarioAtencionActionPerformed
+       HorarioAtencion HorarioAtencion=new HorarioAtencion();
+       HorarioAtencion.setVisible(true);
+    }//GEN-LAST:event_btn_HorarioAtencionActionPerformed
+
+    private void btn_AgregarEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_AgregarEActionPerformed
+    try {
+           String especialidad = (String) jcEspecialidad.getSelectedItem();
+            int idPersona = Integer.parseInt(txtIdEnfermera.getText());
+            int idAlumno = txt_Filtro.getText().isEmpty() ? 0 : Integer.parseInt(txt_Filtro.getText());
+
+            Alumno alumno = null;
+            if (idAlumno != 0) {
+                alumno = new Alumno(idAlumno, idPersona);
+            }
+
+            Enfermera enfermera = new Enfermera(0, especialidad, alumno, idPersona);
+ConexionSQL conexionSQL = new ConexionSQL();
+  EnfermeraDAOImpl enfermeraDAO = new EnfermeraDAOImpl(conexionSQL);
+            enfermeraDAO.agregarEnfermera(enfermera);
+
+            JOptionPane.showMessageDialog(this, "Enfermera agregada correctamente.");
+
+            // Limpiar campos
+         jcEspecialidad.setSelectedIndex(-1);
+            txtIdEnfermera.setText("");
+            txt_Filtro.setText("");
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Por favor, ingrese valores válidos.");
+        }
+    }//GEN-LAST:event_btn_AgregarEActionPerformed
+
+    private void btn_AgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_AgregarActionPerformed
+      try {
+        // Read input values
+        String codigoAlumnoStr = txtCodigo.getText();
+        Date fecha = JdateFecha.getDate();
+        String descripcion = txtDescrSalud.getText();
+
+        // Validate inputs
+        if (codigoAlumnoStr.isEmpty() || fecha == null || descripcion.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Parse the idAlumno
+        int idAlumno;
+        try {
+            idAlumno = Integer.parseInt(codigoAlumnoStr);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Por favor, ingrese un ID de alumno válido.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Create a new Alumno object (assuming you have a constructor that takes an id)
+        Alumno alumno = new Alumno(idAlumno, idAlumno);
+        alumno.setIdAlumno(idAlumno);
+
+        // Create a new EstadoSalud object
+        EstadoSalud estadoSalud = new EstadoSalud();
+        estadoSalud.setAlumno(alumno);
+        estadoSalud.setFecha(fecha);
+        estadoSalud.setDescripcion(descripcion);
+
+        // Add the EstadoSalud to the database
+        ConexionSQL conexionSQL = new ConexionSQL();
+        EstadoSaludDAOImpl estadoSaludDAO = new EstadoSaludDAOImpl(conexionSQL);
+        estadoSaludDAO.agregarEstadoSalud(estadoSalud);
+
+        // Notify the user
+        JOptionPane.showMessageDialog(this, "Estado de salud agregado correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, "Error al agregar el estado de salud.", "Error", JOptionPane.ERROR_MESSAGE);
+        Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, e);
+    }
+      limpiar();
+    }//GEN-LAST:event_btn_AgregarActionPerformed
+
+    private void btnVerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerActionPerformed
+     // Instantiate the SQL connection
+    ConexionSQL conexionSQL = new ConexionSQL();
+    
+    // Create an instance of EstadoSaludDAOImpl with the SQL connection
+    EstadoSaludDAOImpl estadoSaludDAO = new EstadoSaludDAOImpl(conexionSQL);
+    
+    // Call the method to get all health status entries
+    List<EstadoSalud> todosLosEstadosSalud = estadoSaludDAO.obtenerTodosLosEstadosSalud();
+    
+    // Populate the data into the table
+    DefaultTableModel model = new DefaultTableModel();
+    model.setColumnIdentifiers(new Object[]{"ID", "ID Alumno", "Fecha", "Descripción"});
+    
+    for (EstadoSalud estadoSalud : todosLosEstadosSalud) {
+        model.addRow(new Object[]{
+            estadoSalud.getIdEstadoSalud(),
+            estadoSalud.getAlumno().getIdAlumno(),
+            estadoSalud.getFecha(),
+            estadoSalud.getDescripcion()
+        });
+    }
+    
+    // Set the model to the table
+    jtableDatos.setModel(model);
+    
+    }//GEN-LAST:event_btnVerActionPerformed
+
+    private void btn_BuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_BuscarActionPerformed
+       try {
+        // Retrieve the student ID from the UI component
+        int idAlumno = Integer.parseInt(txt_Filtro.getText());
+        
+        // Call the method to retrieve health status entries for the student
+            ConexionSQL conexionSQL = new ConexionSQL();
+        EstadoSaludDAOImpl estadoSaludDAO = new EstadoSaludDAOImpl(conexionSQL);
+        List<EstadoSalud> estadosSaludDeAlumno = estadoSaludDAO.obtenerEstadosSaludDeAlumno(idAlumno);
+        
+        // Display the retrieved data in the UI or perform any other action
+        DefaultTableModel model = (DefaultTableModel) jtableDatos.getModel();
+        model.setRowCount(0); // Clear the table
+        
+        for (EstadoSalud estadoSalud : estadosSaludDeAlumno) {
+            model.addRow(new Object[]{
+                estadoSalud.getIdEstadoSalud(),
+                estadoSalud.getAlumno().getIdAlumno(),
+                estadoSalud.getFecha(),
+                estadoSalud.getDescripcion()
+            });
+        }
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(this, "Por favor, ingrese un ID de alumno válido.", "Error", JOptionPane.ERROR_MESSAGE);
+    }
+    }//GEN-LAST:event_btn_BuscarActionPerformed
+
+    private void btn_CVerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_CVerActionPerformed
+      ConexionSQL conexionSQL = new ConexionSQL();
+    EnfermeraDAOImpl enfermeraDAO = new EnfermeraDAOImpl(conexionSQL);
+
+    List<Enfermera> enfermeras = enfermeraDAO.obtenerTodasLasEnfermeras();
+    String[] columnNames = {"ID Enfermera", "Especialidad", "ID Persona", "ID Alumno"};
+    
+    DefaultTableModel model = new DefaultTableModel(columnNames, 0);
+    
+    for (Enfermera enfermera : enfermeras) {
+        int idEnfermera = enfermera.getIdEnfermera();
+        String especialidad = enfermera.getEspecialidad();
+        int idPersona = enfermera.getIdPersona();
+        Integer idAlumno = (enfermera.getAlumno() != null) ? enfermera.getAlumno().getIdAlumno() : null;
+        
+        // Verifica si idAlumno es null para evitar problemas en la interfaz
+        Object[] row = {idEnfermera, especialidad, idPersona, (idAlumno != null) ? idAlumno : ""};
+        model.addRow(row);
+    }
+    
+    jtableDatos.setModel(model);
+    }//GEN-LAST:event_btn_CVerActionPerformed
+
+    private void btn_modificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_modificarActionPerformed
+     // Obtener los datos de la interfaz gráfica
+    int idEnfermera = Integer.parseInt(txtIdEnfermera.getText());
+           String especialidad = (String) jcEspecialidad.getSelectedItem();
+    int idPersona = Integer.parseInt(txtIdEnfermera.getText());
+    Integer idAlumno = null;
+    if (!txt_Filtro.getText().isEmpty()) {
+        idAlumno = Integer.parseInt(txt_Filtro.getText());
+    }
+
+    // Crear el objeto Alumno si idAlumno no es null
+    Alumno alumno = (idAlumno != null) ? new Alumno(idAlumno, idPersona) : null;
+
+    // Crear el objeto Enfermera actualizado
+    Enfermera enfermera = new Enfermera(idEnfermera, especialidad, alumno, idPersona);
+
+    // Llamar al método actualizarEnfermera
+    EnfermeraDAOImpl enfermeraDAO = new EnfermeraDAOImpl(new ConexionSQL());
+    enfermeraDAO.actualizarEnfermera(enfermera);
+
+    // Mostrar un mensaje de éxito o actualizar la interfaz gráfica según sea necesario
+    JOptionPane.showMessageDialog(this, "Enfermera actualizada exitosamente");
+    }//GEN-LAST:event_btn_modificarActionPerformed
+
+    private void btn_Buscar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_Buscar1ActionPerformed
+  // Obtener el ID de la enfermera desde un campo de texto (ej. txtIdEnfermeraBuscar)
+    int idEnfermera = Integer.parseInt(txt_Filtro.getText());
+
+    // Crear la instancia del DAO y llamar al método obtenerEnfermeraPorId
+    EnfermeraDAOImpl enfermeraDAO = new EnfermeraDAOImpl(new ConexionSQL());
+    Enfermera enfermera = enfermeraDAO.obtenerEnfermeraPorId(idEnfermera);
+
+    // Crear un modelo de tabla y actualizar la tabla con los datos obtenidos
+    String[] columnNames = {"ID Enfermera", "Especialidad", "ID Persona", "ID Alumno"};
+    DefaultTableModel model = new DefaultTableModel(columnNames, 0);
+
+    if (enfermera != null) {
+        Object[] row = {
+            enfermera.getIdEnfermera(),
+            enfermera.getEspecialidad(),
+            enfermera.getIdPersona(),
+            enfermera.getAlumno() != null ? enfermera.getAlumno().getIdAlumno() : null
+        };
+        model.addRow(row);
+        jtableDatos.setModel(model);
+        JOptionPane.showMessageDialog(this, "Enfermera encontrada");
+    } else {
+        JOptionPane.showMessageDialog(this, "Enfermera no encontrada");
+    }
+    }//GEN-LAST:event_btn_Buscar1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private com.toedter.calendar.JDateChooser JdateFecha;
     private javax.swing.JPanel Panel_Buscar;
+    private javax.swing.JButton btnVer;
     private javax.swing.JButton btn_Agregar;
+    private javax.swing.JButton btn_AgregarE;
     private javax.swing.JButton btn_Buscar;
-    private javax.swing.JButton btn_Eliminar;
-    private javax.swing.JButton btn_Eliminar1;
+    private javax.swing.JButton btn_Buscar1;
+    private javax.swing.JButton btn_CVer;
+    private javax.swing.JButton btn_GenerarCita;
+    private javax.swing.JButton btn_HorarioAtencion;
     private javax.swing.JButton btn_Modificar;
     private javax.swing.JButton btn_Modificar1;
-    private javax.swing.JButton btn_Modificar2;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JButton btn_modificar;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
+    private javax.swing.JComboBox<String> jcEspecialidad;
+    private javax.swing.JTable jtableDatos;
+    private javax.swing.JTextField txtCodigo;
+    private javax.swing.JTextArea txtDescrSalud;
+    private javax.swing.JTextField txtIdEnfermera;
     private javax.swing.JTextField txt_Filtro;
     // End of variables declaration//GEN-END:variables
 }
