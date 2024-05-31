@@ -21,37 +21,63 @@ public class SesionDAOImpl implements SesionDAO {
     }
 
     @Override
-    public void agregarSesion(Sesion sesion) {
-        String query = "INSERT INTO Sesion (idAlumno, fechaInicio, fechaFin) VALUES (?, ?, ?)";
-        try (Connection conexion = conexionSQL.obtenerConexion();
-             PreparedStatement statement = conexion.prepareStatement(query)) {
-            statement.setInt(1, sesion.getAlumno().getIdAlumno());
-            statement.setDate(2, new java.sql.Date(sesion.getFechaInicio().getTime()));
-            statement.setDate(3, new java.sql.Date(sesion.getFechaFin().getTime()));
-            statement.executeUpdate();
-            System.out.println("Sesión agregada.");
-        } catch (SQLException e) {
-            System.err.println("Error al agregar la sesión.");
-            e.printStackTrace();
-        }
+public void agregarSesion(Sesion sesion) {
+    String query = "INSERT INTO Sesion (idAlumno, fechaInicio, fechaFin, disponible) VALUES (?, ?, ?, ?)";
+    try (Connection conexion = conexionSQL.obtenerConexion();
+         PreparedStatement statement = conexion.prepareStatement(query)) {
+        statement.setInt(1, sesion.getAlumno().getIdAlumno());
+        statement.setDate(2, new java.sql.Date(sesion.getFechaInicio().getTime()));
+        statement.setDate(3, new java.sql.Date(sesion.getFechaFin().getTime()));
+        statement.setBoolean(4, sesion.isDisponible());
+        statement.executeUpdate();
+        System.out.println("Sesión agregada.");
+    } catch (SQLException e) {
+        System.err.println("Error al agregar la sesión.");
+        e.printStackTrace();
     }
+}
 
-    @Override
-    public void actualizarSesion(Sesion sesion) {
-        String query = "UPDATE Sesion SET idAlumno = ?, fechaInicio = ?, fechaFin = ? WHERE idSesion = ?";
-        try (Connection conexion = conexionSQL.obtenerConexion();
-             PreparedStatement statement = conexion.prepareStatement(query)) {
-            statement.setInt(1, sesion.getAlumno().getIdAlumno());
-            statement.setDate(2, new java.sql.Date(sesion.getFechaInicio().getTime()));
-            statement.setDate(3, new java.sql.Date(sesion.getFechaFin().getTime()));
-            statement.setInt(4, sesion.getIdSesion());
-            statement.executeUpdate();
-            System.out.println("Sesión actualizada.");
-        } catch (SQLException e) {
-            System.err.println("Error al actualizar la sesión.");
-            e.printStackTrace();
-        }
+@Override
+public void actualizarSesion(Sesion sesion) {
+    String query = "UPDATE Sesion SET idAlumno = ?, fechaInicio = ?, fechaFin = ?, disponible = ? WHERE idSesion = ?";
+    try (Connection conexion = conexionSQL.obtenerConexion();
+         PreparedStatement statement = conexion.prepareStatement(query)) {
+        statement.setInt(1, sesion.getAlumno().getIdAlumno());
+        statement.setDate(2, new java.sql.Date(sesion.getFechaInicio().getTime()));
+        statement.setDate(3, new java.sql.Date(sesion.getFechaFin().getTime()));
+        statement.setBoolean(4, sesion.isDisponible());
+        statement.setInt(5, sesion.getIdSesion());
+        statement.executeUpdate();
+        System.out.println("Sesión actualizada.");
+    } catch (SQLException e) {
+        System.err.println("Error al actualizar la sesión.");
+        e.printStackTrace();
     }
+}
+@Override
+public Sesion obtenerUltimaSesionAgregada() {
+    Sesion sesion = null;
+    String query = "SELECT TOP 1 * FROM Sesion ORDER BY idSesion DESC";
+    try (Connection conexion = conexionSQL.obtenerConexion();
+         PreparedStatement statement = conexion.prepareStatement(query);
+         ResultSet resultSet = statement.executeQuery()) {
+        if (resultSet.next()) {
+            Alumno alumno = obtenerAlumnoPorId(resultSet.getInt("idAlumno"));
+            sesion = new Sesion(
+                    resultSet.getInt("idSesion"),
+                    alumno,
+                    resultSet.getDate("fechaInicio"),
+                    resultSet.getDate("fechaFin"),
+                    resultSet.getBoolean("disponible")
+            );
+        }
+    } catch (SQLException e) {
+        System.err.println("Error al obtener la última sesión agregada.");
+        e.printStackTrace();
+    }
+    return sesion;
+}
+
 
     @Override
     public void eliminarSesion(int idSesion) {
@@ -81,7 +107,8 @@ public class SesionDAOImpl implements SesionDAO {
                             resultSet.getInt("idSesion"),
                             alumno,
                             resultSet.getDate("fechaInicio"),
-                            resultSet.getDate("fechaFin")
+                            resultSet.getDate("fechaFin"),
+                            resultSet.getBoolean("disponible")
                     );
                 }
             }
@@ -106,7 +133,8 @@ public class SesionDAOImpl implements SesionDAO {
                             resultSet.getInt("idSesion"),
                             alumno,
                             resultSet.getDate("fechaInicio"),
-                            resultSet.getDate("fechaFin")
+                            resultSet.getDate("fechaFin"),
+                            resultSet.getBoolean("disponible")
                     );
                     sesionesDeAlumno.add(sesion);
                 }
@@ -119,31 +147,33 @@ public class SesionDAOImpl implements SesionDAO {
     }
 
     @Override
-    public List<Sesion> obtenerSesionesEnFecha(Date fecha) {
-        List<Sesion> sesionesEnFecha = new ArrayList<>();
-        String query = "SELECT * FROM Sesion WHERE fechaInicio = ? OR fechaFin = ?";
-        try (Connection conexion = conexionSQL.obtenerConexion();
-             PreparedStatement statement = conexion.prepareStatement(query)) {
-            statement.setDate(1, new java.sql.Date(fecha.getTime()));
-            statement.setDate(2, new java.sql.Date(fecha.getTime()));
-            try (ResultSet resultSet = statement.executeQuery()) {
-                while (resultSet.next()) {
-                    Alumno alumno = obtenerAlumnoPorId(resultSet.getInt("idAlumno"));
-                    Sesion sesion = new Sesion(
-                            resultSet.getInt("idSesion"),
-                            alumno,
-                            resultSet.getDate("fechaInicio"),
-                            resultSet.getDate("fechaFin")
-                    );
-                    sesionesEnFecha.add(sesion);
-                }
+public List<Sesion> obtenerSesionesEnFecha(Date fecha) {
+    List<Sesion> sesionesEnFecha = new ArrayList<>();
+    String query = "SELECT * FROM Sesion WHERE fechaInicio = ? OR fechaFin = ?";
+    try (Connection conexion = conexionSQL.obtenerConexion();
+         PreparedStatement statement = conexion.prepareStatement(query)) {
+        statement.setDate(1, new java.sql.Date(fecha.getTime()));
+        statement.setDate(2, new java.sql.Date(fecha.getTime()));
+        try (ResultSet resultSet = statement.executeQuery()) {
+            while (resultSet.next()) {
+                Alumno alumno = obtenerAlumnoPorId(resultSet.getInt("idAlumno"));
+                Sesion sesion = new Sesion(
+                        resultSet.getInt("idSesion"),
+                        alumno,
+                        resultSet.getDate("fechaInicio"),
+                        resultSet.getDate("fechaFin"),
+                        resultSet.getBoolean("disponible")
+                );
+                sesionesEnFecha.add(sesion);
             }
-        } catch (SQLException e) {
-            System.err.println("Error al obtener las sesiones en la fecha.");
-            e.printStackTrace();
         }
-        return sesionesEnFecha;
+    } catch (SQLException e) {
+        System.err.println("Error al obtener las sesiones en la fecha.");
+        e.printStackTrace();
     }
+    return sesionesEnFecha;
+}
+
 
     @Override
     public List<Sesion> obtenerTodasLasSesiones() {
@@ -158,7 +188,8 @@ public class SesionDAOImpl implements SesionDAO {
                         resultSet.getInt("idSesion"),
                         alumno,
                         resultSet.getDate("fechaInicio"),
-                        resultSet.getDate("fechaFin")
+                        resultSet.getDate("fechaFin"),
+                        resultSet.getBoolean("disponible")
                 );
                 todasLasSesiones.add(sesion);
             }
@@ -169,7 +200,7 @@ public class SesionDAOImpl implements SesionDAO {
         return todasLasSesiones;
     }
 
-     public Alumno obtenerAlumnoPorId(int idAlumno) {
+    public Alumno obtenerAlumnoPorId(int idAlumno) {
         Alumno alumno = null;
         String query = "SELECT * FROM Alumno WHERE idAlumno = ?";
         try (Connection conexion = conexionSQL.obtenerConexion();
@@ -190,5 +221,61 @@ public class SesionDAOImpl implements SesionDAO {
             e.printStackTrace();
         }
         return alumno;
+    }
+
+    // Método para obtener sesiones disponibles para un alumno específico
+    @Override
+    public List<Sesion> obtenerFechasDisponiblesDeAlumno(int idAlumno) {
+        List<Sesion> fechasDisponibles = new ArrayList<>();
+        String query = "SELECT * FROM Sesion WHERE idAlumno = ? AND disponible = 1";
+        try (Connection conexion = conexionSQL.obtenerConexion();
+             PreparedStatement statement = conexion.prepareStatement(query)) {
+            statement.setInt(1, idAlumno);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    Alumno alumno = obtenerAlumnoPorId(resultSet.getInt("idAlumno"));
+                    Sesion sesion = new Sesion(
+                            resultSet.getInt("idSesion"),
+                            alumno,
+                            resultSet.getDate("fechaInicio"),
+                            resultSet.getDate("fechaFin"),
+                            resultSet.getBoolean("disponible")
+                    );
+                    fechasDisponibles.add(sesion);
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Error al obtener las fechas disponibles del alumno.");
+            e.printStackTrace();
+        }
+        return fechasDisponibles;
+    }
+
+    // Método para obtener sesiones no disponibles para un alumno específico
+    @Override
+    public List<Sesion> obtenerFechasNoDisponiblesDeAlumno(int idAlumno) {
+        List<Sesion> fechasNoDisponibles = new ArrayList<>();
+        String query = "SELECT * FROM Sesion WHERE idAlumno = ? AND disponible = 0";
+        try (Connection conexion = conexionSQL.obtenerConexion();
+             PreparedStatement statement = conexion.prepareStatement(query)) {
+            statement.setInt(1, idAlumno);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    Alumno alumno = obtenerAlumnoPorId(resultSet.getInt("idAlumno"));
+                    Sesion sesion = new Sesion(
+                            resultSet.getInt("idSesion"),
+                            alumno,
+                            resultSet.getDate("fechaInicio"),
+                            resultSet.getDate("fechaFin"),
+                            resultSet.getBoolean("disponible")
+                    );
+                    fechasNoDisponibles.add(sesion);
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Error al obtener las fechas no disponibles del alumno.");
+            e.printStackTrace();
+        }
+        return fechasNoDisponibles;
     }
 }

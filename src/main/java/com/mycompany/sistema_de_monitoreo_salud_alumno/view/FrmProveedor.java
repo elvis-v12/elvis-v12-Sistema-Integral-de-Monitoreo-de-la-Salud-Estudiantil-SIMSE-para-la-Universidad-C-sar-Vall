@@ -301,7 +301,8 @@ private void actualizarTabla() {
     
     // Llenar la tabla con los proveedores obtenidos
     for (Proveedor proveedor : listaProveedores) {
-        Object[] fila = {proveedor.getIdProveedor(), proveedor.getNif(), proveedor.getTelefono(), proveedor.getTipo_producto(), proveedor.getEncargado()};
+        Object[] fila = {proveedor.getIdProveedor(), proveedor.getNif(), proveedor.getTelefono(), 
+            proveedor.getTipo_producto(), proveedor.getEncargado()};
         modelo.addRow(fila);
     }
     }//GEN-LAST:event_btnVerActionPerformed

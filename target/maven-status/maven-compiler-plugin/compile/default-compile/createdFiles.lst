@@ -157,6 +157,7 @@ com\mycompany\sistema_de_monitoreo_salud_alumno\model\Usuario.class
 com\mycompany\sistema_de_monitoreo_salud_alumno\view\LugaresMarco$8.class
 maps\java\Geocoding.class
 com\mycompany\sistema_de_monitoreo_salud_alumno\view\LugaresMarco$9.class
+com\mycompany\sistema_de_monitoreo_salud_alumno\view\HorarioAtencion$6.class
 com\mycompany\sistema_de_monitoreo_salud_alumno\view\InventarioDeProductos$6.class
 com\mycompany\sistema_de_monitoreo_salud_alumno\view\EstadoSaludEstudiante$4.class
 GUI\MainFrame$1.class

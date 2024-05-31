@@ -70,7 +70,6 @@ private void limpiar(){
         btn_Modificar = new javax.swing.JButton();
         btn_Modificar1 = new javax.swing.JButton();
         btn_HorarioAtencion = new javax.swing.JButton();
-        btn_GenerarCita = new javax.swing.JButton();
         btnVer = new javax.swing.JButton();
         btn_AgregarE = new javax.swing.JButton();
         btn_modificar = new javax.swing.JButton();
@@ -220,11 +219,6 @@ private void limpiar(){
             }
         });
 
-        btn_GenerarCita.setBackground(new java.awt.Color(0, 0, 153));
-        btn_GenerarCita.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btn_GenerarCita.setForeground(new java.awt.Color(255, 255, 255));
-        btn_GenerarCita.setText("Generar Cita");
-
         btnVer.setBackground(new java.awt.Color(0, 0, 51));
         btnVer.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnVer.setForeground(new java.awt.Color(255, 255, 255));
@@ -268,11 +262,9 @@ private void limpiar(){
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(369, 369, 369)
+                .addGap(382, 382, 382)
                 .addComponent(btn_Modificar1, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btn_GenerarCita)
-                .addGap(42, 42, 42)
+                .addGap(48, 48, 48)
                 .addComponent(btn_HorarioAtencion)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
@@ -325,15 +317,12 @@ private void limpiar(){
                                 .addComponent(btn_Buscar1)
                                 .addGap(12, 12, 12)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(12, 12, 12))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(36, 36, 36)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btn_Modificar1)
-                    .addComponent(btn_GenerarCita)
-                    .addComponent(btn_HorarioAtencion))
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btn_Modificar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btn_HorarioAtencion, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -597,7 +586,6 @@ ConexionSQL conexionSQL = new ConexionSQL();
     private javax.swing.JButton btn_Buscar;
     private javax.swing.JButton btn_Buscar1;
     private javax.swing.JButton btn_CVer;
-    private javax.swing.JButton btn_GenerarCita;
     private javax.swing.JButton btn_HorarioAtencion;
     private javax.swing.JButton btn_Modificar;
     private javax.swing.JButton btn_Modificar1;

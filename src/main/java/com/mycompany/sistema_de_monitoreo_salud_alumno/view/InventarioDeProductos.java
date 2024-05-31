@@ -7,19 +7,12 @@ import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-
 /**
  *
  * @author ELVIS
  */
 public class InventarioDeProductos extends javax.swing.JPanel {
-
-    /**
-     * Creates new form InventarioDeProductos
-     */
-    
             private DefaultTableModel modelo;
-        // Crear la tabla con el modelo
     public InventarioDeProductos() {
         initComponents();
         modelo = new DefaultTableModel();
@@ -31,8 +24,6 @@ public class InventarioDeProductos extends javax.swing.JPanel {
         tb_Producto.setModel(modelo);    
 }
 private void limpiarCampos() {
-    // Limpiar los campos de entrada
-    // Por ejemplo:
     txt_Codigo.setText("");
     txt_Nombre.setText("");
     txt_Precio.setText("");
@@ -64,8 +55,6 @@ private void limpiarCampos() {
         jDateChooser7 = new com.toedter.calendar.JDateChooser();
         jScrollPane2 = new javax.swing.JScrollPane();
         tb_Producto = new javax.swing.JTable();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tb_Proveedor = new javax.swing.JTable();
 
         Panel_Productos.setBackground(new java.awt.Color(255, 255, 255));
         Panel_Productos.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "DATOS PRODUCTOS", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tw Cen MT Condensed", 3, 18))); // NOI18N
@@ -200,19 +189,6 @@ private void limpiarCampos() {
         ));
         jScrollPane2.setViewportView(tb_Producto);
 
-        tb_Proveedor.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane1.setViewportView(tb_Proveedor);
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -221,13 +197,8 @@ private void limpiarCampos() {
                 .addContainerGap()
                 .addComponent(Panel_Productos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 662, Short.MAX_VALUE)
-                        .addContainerGap())
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane2)
-                        .addGap(15, 15, 15))))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 653, Short.MAX_VALUE)
+                .addGap(15, 15, 15))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -235,10 +206,7 @@ private void limpiarCampos() {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(Panel_Productos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -267,7 +235,7 @@ private void actualizarTabla() {
     try {
         // Obtener la lista actualizada de productos de la base de datos
         InventarioProductosDAOImpl inventarioDAO = new InventarioProductosDAOImpl();
-        List<ProductoFarmaceutico> productos = (List<ProductoFarmaceutico>) inventarioDAO.obtenerInventarioProductos(); // Suponiendo que tienes un método para obtener todos los productos
+        List<ProductoFarmaceutico> productos = (List<ProductoFarmaceutico>) inventarioDAO.obtenerInventarioProductos(); 
 
         // Obtener el modelo de la tabla
         DefaultTableModel modelo = (DefaultTableModel) tb_Producto.getModel();
@@ -277,7 +245,8 @@ private void actualizarTabla() {
 
         // Agregar los productos al modelo de la tabla
         for (ProductoFarmaceutico producto : productos) {
-            Object[] fila = {producto.getCodigo(), producto.getNombre(), producto.getPrecio(), producto.getStock(), producto.getFechaVencimiento()};
+            Object[] fila = {producto.getCodigo(), producto.getNombre(), producto.getPrecio(), producto.getStock(), 
+                producto.getFechaVencimiento()};
             modelo.addRow(fila);
         }
     } catch (Exception e) {
@@ -304,7 +273,8 @@ private void actualizarTabla() {
         // Si se encontró, actualizar la tabla con los datos del producto encontrado
         DefaultTableModel modelo = (DefaultTableModel) tb_Producto.getModel();
         modelo.setRowCount(0); // Limpiar la tabla antes de agregar nuevos datos
-        Object[] fila = {producto.getCodigo(), producto.getNombre(), producto.getPrecio(), producto.getStock(), producto.getFechaVencimiento()};
+        Object[] fila = {producto.getCodigo(), producto.getNombre(), producto.getPrecio(), producto.getStock(),
+            producto.getFechaVencimiento()};
         modelo.addRow(fila);
     } else {
         // Si no se encontró el producto, mostrar un mensaje de error
@@ -321,7 +291,8 @@ private void actualizarTabla() {
     modelo.setRowCount(0); // Limpiar la tabla antes de agregar nuevos datos
     
     for (ProductoFarmaceutico producto : productos) {
-        Object[] fila = {producto.getCodigo(), producto.getNombre(), producto.getPrecio(), producto.getStock(), producto.getFechaVencimiento()};
+        Object[] fila = {producto.getCodigo(), producto.getNombre(), producto.getPrecio(), producto.getStock(),
+            producto.getFechaVencimiento()};
         modelo.addRow(fila);
     }
     }//GEN-LAST:event_btnMostrarTodoActionPerformed
@@ -385,10 +356,8 @@ private void actualizarTabla() {
     private javax.swing.JButton btn_AgregarProd;
     private javax.swing.JButton btn_AgregarProv;
     private com.toedter.calendar.JDateChooser jDateChooser7;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable tb_Producto;
-    private javax.swing.JTable tb_Proveedor;
     private javax.swing.JTextField txt_Codigo;
     private javax.swing.JTextField txt_Filtro;
     private javax.swing.JTextField txt_Nombre;

@@ -7,7 +7,16 @@ public class Sesion {
     private Alumno alumno;
     private Date fechaInicio;
     private Date fechaFin;
+    private boolean disponible ;
 
+    public Sesion(int idSesion, Alumno alumno, Date fechaInicio, Date fechaFin, boolean disponible) {
+        this.idSesion = idSesion;
+        this.alumno = alumno;
+        this.fechaInicio = fechaInicio;
+        this.fechaFin = fechaFin;
+        this.disponible = disponible;
+    }
+    
     // Constructor
     public Sesion(int idSesion, Alumno alumno, Date fechaInicio, Date fechaFin) {
         this.idSesion = idSesion;
@@ -47,5 +56,14 @@ public class Sesion {
     public void setFechaFin(Date fechaFin) {
         this.fechaFin = fechaFin;
     }
+
+    public boolean isDisponible() {
+        return disponible;
+    }
+
+    public void setDisponible(boolean disponible) {
+        this.disponible = disponible;
+    }
+    
 }
 
