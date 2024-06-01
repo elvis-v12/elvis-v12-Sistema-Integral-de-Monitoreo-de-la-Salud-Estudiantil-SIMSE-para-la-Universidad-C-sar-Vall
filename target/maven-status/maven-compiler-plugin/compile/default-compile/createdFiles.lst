@@ -48,8 +48,8 @@ com\mycompany\sistema_de_monitoreo_salud_alumno\view\Menu$2.class
 com\mycompany\sistema_de_monitoreo_salud_alumno\view\SeguimientoTraslado$13.class
 com\mycompany\sistema_de_monitoreo_salud_alumno\view\SeguimientoTraslado$7.class
 com\mycompany\sistema_de_monitoreo_salud_alumno\view\AlumnosUcv.class
+com\mycompany\sistema_de_monitoreo_salud_alumno\view\GenerarReportePor$4.class
 GUI\MainFrame$10.class
-com\mycompany\sistema_de_monitoreo_salud_alumno\Ejecutar\Main.class
 com\mycompany\sistema_de_monitoreo_salud_alumno\view\SeguimientoTraslado$4.class
 GUI\PlacesFrame$4.class
 com\mycompany\sistema_de_monitoreo_salud_alumno\model\Reporte.class

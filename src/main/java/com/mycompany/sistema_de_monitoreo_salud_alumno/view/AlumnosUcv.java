@@ -510,8 +510,42 @@ AlumnoDAOImpl alumnoDAO = new AlumnoDAOImpl( conexionSQL);
     }//GEN-LAST:event_VerActionPerformed
 
     private void btn_BuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_BuscarActionPerformed
-       
+         try {
+        // Suponiendo que tienes un JTextField llamado txtIdAlumno donde el usuario ingresa el ID del alumno
+        int id = Integer.parseInt(txt_Filtro.getText());
+        AlumnoDAOImpl alumnoDAO = new AlumnoDAOImpl(new ConexionSQL());
+        Alumno alumno = alumnoDAO.obtenerAlumnoPorId(id);
+        
+        // Actualizar la tabla con los datos del alumno
+        actualizarTablaAlumno(alumno);
+        
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(this, "Por favor, ingrese un ID válido");
+    } catch (Exception e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(this, "Ocurrió un error al buscar el alumno");
+    }
     }//GEN-LAST:event_btn_BuscarActionPerformed
+private void actualizarTablaAlumno(Alumno alumno) {
+    DefaultTableModel model = (DefaultTableModel) tb_Alumno.getModel();
+    model.setRowCount(0); // Limpiar la tabla antes de agregar los nuevos datos
+    
+    if (alumno != null) {
+        Object[] rowData = {
+            alumno.getIdAlumno(),
+            alumno.getCodigoAlumno(),
+            alumno.getCarrera(),
+            alumno.getCiclo(),
+            alumno.getIdPersona(),
+            alumno.getNombre(),
+            alumno.getApellido(),
+            alumno.getEdad()
+        };
+        model.addRow(rowData);
+    } else {
+        JOptionPane.showMessageDialog(this, "Alumno no encontrado");
+    }
+}
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
