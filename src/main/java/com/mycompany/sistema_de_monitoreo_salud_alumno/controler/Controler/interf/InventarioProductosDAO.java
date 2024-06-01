@@ -20,4 +20,6 @@ public interface InventarioProductosDAO {
     
     // Método para obtener el objeto de modelo de InventarioProductos
     public List<ProductoFarmaceutico> obtenerInventarioProductos();
+    public List<ProductoFarmaceutico> ObtenerInventarioProductos();
+
 }

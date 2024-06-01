@@ -4,6 +4,16 @@
  */
 package com.mycompany.sistema_de_monitoreo_salud_alumno.view;
 
+import com.mycompany.sistema_de_monitoreo_salud_alumno.controler.Controler.AlumnoDAOImpl;
+import com.mycompany.sistema_de_monitoreo_salud_alumno.controler.Controler.ConexionSQL;
+import com.mycompany.sistema_de_monitoreo_salud_alumno.model.ProductoFarmaceuticoService;
+import com.mycompany.sistema_de_monitoreo_salud_alumno.model.Alumno;
+import com.mycompany.sistema_de_monitoreo_salud_alumno.model.EstadoSalud;
+import com.mycompany.sistema_de_monitoreo_salud_alumno.model.EstadoSaludService;
+import com.mycompany.sistema_de_monitoreo_salud_alumno.model.ReporteGenerar;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author ELVIS
@@ -27,10 +37,9 @@ public class GenerarReportePor extends javax.swing.JPanel {
     private void initComponents() {
 
         Panel_Opcion = new javax.swing.JPanel();
-        btn_DatosAlumno = new javax.swing.JButton();
         btn_GenerarReporte = new javax.swing.JButton();
-        btn_InvetarioProd = new javax.swing.JButton();
-        btn_SeguimientoTraslado = new javax.swing.JButton();
+        btn_GenerarReporteProductos = new javax.swing.JButton();
+        btn_GenerarReporteESalud = new javax.swing.JButton();
         Panel_Buscar = new javax.swing.JPanel();
         txt_Filtro1 = new javax.swing.JTextField();
         btn_Buscar1 = new javax.swing.JButton();
@@ -40,29 +49,38 @@ public class GenerarReportePor extends javax.swing.JPanel {
         Panel_Opcion.setBackground(new java.awt.Color(255, 255, 255));
         Panel_Opcion.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "OPCIONES", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tw Cen MT Condensed", 3, 18))); // NOI18N
 
-        btn_DatosAlumno.setBackground(new java.awt.Color(0, 0, 51));
-        btn_DatosAlumno.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btn_DatosAlumno.setForeground(new java.awt.Color(255, 255, 255));
-        btn_DatosAlumno.setText("Datos Alumno");
-        btn_DatosAlumno.setBorder(null);
-
-        btn_GenerarReporte.setBackground(new java.awt.Color(0, 0, 51));
+        btn_GenerarReporte.setBackground(new java.awt.Color(102, 0, 0));
         btn_GenerarReporte.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btn_GenerarReporte.setForeground(new java.awt.Color(255, 255, 255));
-        btn_GenerarReporte.setText("Generar Reporte");
+        btn_GenerarReporte.setText("Generar  reporte Alumos");
         btn_GenerarReporte.setBorder(null);
+        btn_GenerarReporte.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_GenerarReporteActionPerformed(evt);
+            }
+        });
 
-        btn_InvetarioProd.setBackground(new java.awt.Color(0, 0, 51));
-        btn_InvetarioProd.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btn_InvetarioProd.setForeground(new java.awt.Color(255, 255, 255));
-        btn_InvetarioProd.setText("Inventario Productos");
-        btn_InvetarioProd.setBorder(null);
+        btn_GenerarReporteProductos.setBackground(new java.awt.Color(102, 0, 0));
+        btn_GenerarReporteProductos.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btn_GenerarReporteProductos.setForeground(new java.awt.Color(255, 255, 255));
+        btn_GenerarReporteProductos.setText("Generar reporte Productos");
+        btn_GenerarReporteProductos.setBorder(null);
+        btn_GenerarReporteProductos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_GenerarReporteProductosActionPerformed(evt);
+            }
+        });
 
-        btn_SeguimientoTraslado.setBackground(new java.awt.Color(0, 0, 51));
-        btn_SeguimientoTraslado.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btn_SeguimientoTraslado.setForeground(new java.awt.Color(255, 255, 255));
-        btn_SeguimientoTraslado.setText("Seguimiento Traslado");
-        btn_SeguimientoTraslado.setBorder(null);
+        btn_GenerarReporteESalud.setBackground(new java.awt.Color(102, 0, 0));
+        btn_GenerarReporteESalud.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btn_GenerarReporteESalud.setForeground(new java.awt.Color(255, 255, 255));
+        btn_GenerarReporteESalud.setText("Generar reporte estado salud");
+        btn_GenerarReporteESalud.setBorder(null);
+        btn_GenerarReporteESalud.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_GenerarReporteESaludActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout Panel_OpcionLayout = new javax.swing.GroupLayout(Panel_Opcion);
         Panel_Opcion.setLayout(Panel_OpcionLayout);
@@ -70,31 +88,35 @@ public class GenerarReportePor extends javax.swing.JPanel {
             Panel_OpcionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(Panel_OpcionLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btn_DatosAlumno, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btn_GenerarReporte, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btn_GenerarReporte, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btn_GenerarReporteProductos)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btn_InvetarioProd, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btn_SeguimientoTraslado, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btn_GenerarReporteESalud)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         Panel_OpcionLayout.setVerticalGroup(
             Panel_OpcionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Panel_OpcionLayout.createSequentialGroup()
-                .addGroup(Panel_OpcionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btn_DatosAlumno, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 64, Short.MAX_VALUE)
-                    .addComponent(btn_SeguimientoTraslado, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btn_InvetarioProd, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btn_GenerarReporte, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+            .addGroup(Panel_OpcionLayout.createSequentialGroup()
+                .addGap(9, 9, 9)
+                .addGroup(Panel_OpcionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btn_GenerarReporteESalud, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+                    .addComponent(btn_GenerarReporte, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btn_GenerarReporteProductos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(23, 23, 23))
         );
 
         Panel_Buscar.setBackground(new java.awt.Color(255, 255, 255));
         Panel_Buscar.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "BUSCADOR", javax.swing.border.TitledBorder.RIGHT, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tw Cen MT Condensed", 3, 18))); // NOI18N
 
         txt_Filtro1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Filtro", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.BOTTOM, new java.awt.Font("Tw Cen MT Condensed", 2, 18))); // NOI18N
+        txt_Filtro1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_Filtro1ActionPerformed(evt);
+            }
+        });
 
+        btn_Buscar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/lupa.png"))); // NOI18N
         btn_Buscar1.setBorder(null);
 
         javax.swing.GroupLayout Panel_BuscarLayout = new javax.swing.GroupLayout(Panel_Buscar);
@@ -135,7 +157,7 @@ public class GenerarReportePor extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(Panel_Buscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -145,20 +167,48 @@ public class GenerarReportePor extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Panel_Buscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 103, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btn_GenerarReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_GenerarReporteActionPerformed
+      ConexionSQL conexionSQL = new ConexionSQL(); // Asegúrate de tener la implementación de esta clase
+        ReporteGenerar alumnoDAO = new ReporteGenerar(conexionSQL);
+        // Generar el reporte de sesiones en formato PDF
+        alumnoDAO.generarReporteSesionesPDF("reporte_sesiones.pdf");
+    }//GEN-LAST:event_btn_GenerarReporteActionPerformed
+
+    private void btn_GenerarReporteESaludActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_GenerarReporteESaludActionPerformed
+ConexionSQL conexionSQL = new ConexionSQL();
+        EstadoSaludService estadoSaludService = new EstadoSaludService(conexionSQL);
+
+        // Obtener la lista de estados de salud de los alumnos
+        List<EstadoSalud> estados = estadoSaludService.obtenerEstadoSaludAlumnos();
+
+        // Generar el reporte de estado de salud en formato PDF
+        EstadoSaludService.generarReporteEstadoSalud("reporte_estado_salud.pdf", estados);        
+    }//GEN-LAST:event_btn_GenerarReporteESaludActionPerformed
+
+    private void btn_GenerarReporteProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_GenerarReporteProductosActionPerformed
+      ConexionSQL conexionSQL = new ConexionSQL(); // Asegúrate de tener la implementación de esta clase
+        ProductoFarmaceuticoService alumnoDAO = new ProductoFarmaceuticoService(conexionSQL);
+        // Generar el reporte de sesiones en formato PDF
+        alumnoDAO.generarReporteInventario("reporte_Productos.pdf");       
+    }//GEN-LAST:event_btn_GenerarReporteProductosActionPerformed
+
+    private void txt_Filtro1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_Filtro1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_Filtro1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Panel_Buscar;
     private javax.swing.JPanel Panel_Opcion;
     private javax.swing.JButton btn_Buscar1;
-    private javax.swing.JButton btn_DatosAlumno;
     private javax.swing.JButton btn_GenerarReporte;
-    private javax.swing.JButton btn_InvetarioProd;
-    private javax.swing.JButton btn_SeguimientoTraslado;
+    private javax.swing.JButton btn_GenerarReporteESalud;
+    private javax.swing.JButton btn_GenerarReporteProductos;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tb_Reporte;
     private javax.swing.JTextField txt_Filtro1;

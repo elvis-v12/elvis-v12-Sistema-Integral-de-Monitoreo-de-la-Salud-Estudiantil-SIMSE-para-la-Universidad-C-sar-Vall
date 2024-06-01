@@ -1,5 +1,6 @@
 package com.mycompany.sistema_de_monitoreo_salud_alumno.controler.Controler.interf;
 import com.mycompany.sistema_de_monitoreo_salud_alumno.model.Alumno;
+import com.mycompany.sistema_de_monitoreo_salud_alumno.model.Sesion;
 import java.util.List;
 
 public interface AlumnoDAO {
@@ -9,4 +10,6 @@ public interface AlumnoDAO {
     void eliminarAlumno(int id);
     Alumno obtenerAlumnoPorId(int id);
     List<Alumno> obtenerTodosLosAlumnos();
+    List<Sesion> obtenerTodasLasSesiones();
+
 }

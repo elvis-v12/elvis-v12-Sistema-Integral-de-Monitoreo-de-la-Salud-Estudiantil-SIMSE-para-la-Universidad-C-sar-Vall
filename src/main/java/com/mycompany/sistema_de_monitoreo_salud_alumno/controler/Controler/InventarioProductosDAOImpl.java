@@ -1,14 +1,16 @@
 package com.mycompany.sistema_de_monitoreo_salud_alumno.controler.Controler;
 
 import com.mycompany.sistema_de_monitoreo_salud_alumno.controler.Controler.interf.InventarioProductosDAO;
-import com.mycompany.sistema_de_monitoreo_salud_alumno.model.InventarioProductos;
+
 import com.mycompany.sistema_de_monitoreo_salud_alumno.model.ProductoFarmaceutico;
+import com.mycompany.sistema_de_monitoreo_salud_alumno.model.Proveedor;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class InventarioProductosDAOImpl implements InventarioProductosDAO {
     private Connection conexion;
@@ -112,7 +114,37 @@ public List<ProductoFarmaceutico> obtenerInventarioProductos() {
         e.printStackTrace();
     }
     return productos;
-}
+}  
 
- 
+@Override
+    public List<ProductoFarmaceutico> ObtenerInventarioProductos() {
+        List<ProductoFarmaceutico> productos = new ArrayList<>();
+        String query = "SELECT ip.*, p.* FROM InventarioProductos ip INNER JOIN Proveedor p ON ip.idProveedor = p.idProveedor";
+        try (PreparedStatement statement = conexion.prepareStatement(query);
+             ResultSet resultSet = statement.executeQuery()) {
+            while (resultSet.next()) {
+                Proveedor proveedor = new Proveedor(
+                    resultSet.getInt("idProveedor"),
+                    resultSet.getString("nif"),
+                    resultSet.getString("telefono"),
+                    resultSet.getString("tipo_producto"),
+                    resultSet.getString("encargado")
+                );
+                ProductoFarmaceutico producto = new ProductoFarmaceutico(
+                    resultSet.getString("codigo"),
+                    resultSet.getString("nombre"),
+                    resultSet.getDouble("precio"),
+                    resultSet.getInt("stock"),
+                    resultSet.getDate("fechaVencimiento"),
+                    proveedor
+                );
+                productos.add(producto);
+            }
+        } catch (SQLException e) {
+            System.err.println("Error al obtener el inventario de productos");
+            e.printStackTrace();
+        }
+        return productos;
+    }
+    
 }

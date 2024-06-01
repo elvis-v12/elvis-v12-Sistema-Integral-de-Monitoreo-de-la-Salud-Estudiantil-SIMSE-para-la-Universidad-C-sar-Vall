@@ -3,6 +3,7 @@ package com.mycompany.sistema_de_monitoreo_salud_alumno.controler.Controler;
 import com.mycompany.sistema_de_monitoreo_salud_alumno.controler.Controler.interf.AlumnoDAO;
 import com.mycompany.sistema_de_monitoreo_salud_alumno.model.Alumno;
 import com.mycompany.sistema_de_monitoreo_salud_alumno.model.Persona;
+import com.mycompany.sistema_de_monitoreo_salud_alumno.model.Sesion;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -145,6 +146,45 @@ public void eliminarAlumno(int id) {
 
         return todosLosAlumnos;
     }
+@Override
+public List<Sesion> obtenerTodasLasSesiones() {
+    List<Sesion> todasLasSesiones = new ArrayList<>();
+    String query = "SELECT s.idSesion, s.idAlumno, s.fechaInicio, s.fechaFin, s.disponible, " +
+                   "a.idAlumno, a.codigoAlumno, a.carrera, a.ciclo, p.idPersona, p.nombre, p.apellido, p.edad " +
+                   "FROM Sesion s " +
+                   "INNER JOIN Alumno a ON s.idAlumno = a.idAlumno " +
+                   "INNER JOIN Persona p ON a.idPersona = p.idPersona;";
+
+    try (Connection conexion = conexionSQL.obtenerConexion();
+         PreparedStatement statement = conexion.prepareStatement(query);
+         ResultSet resultSet = statement.executeQuery()) {
+
+        while (resultSet.next()) {
+            Alumno alumno = new Alumno(
+                    resultSet.getInt("idAlumno"),
+                    resultSet.getString("codigoAlumno"),
+                    resultSet.getString("carrera"),
+                    resultSet.getInt("ciclo"),
+                    resultSet.getInt("idPersona"),
+                    resultSet.getString("nombre"),
+                    resultSet.getString("apellido"),
+                    resultSet.getInt("edad")
+            );
+            Sesion sesion = new Sesion(
+                    resultSet.getInt("idSesion"),
+                    alumno,
+                    resultSet.getDate("fechaInicio"),
+                    resultSet.getDate("fechaFin"),
+                    resultSet.getBoolean("disponible")
+            );
+            todasLasSesiones.add(sesion);
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+
+    return todasLasSesiones;
+}
 
     
 @Override

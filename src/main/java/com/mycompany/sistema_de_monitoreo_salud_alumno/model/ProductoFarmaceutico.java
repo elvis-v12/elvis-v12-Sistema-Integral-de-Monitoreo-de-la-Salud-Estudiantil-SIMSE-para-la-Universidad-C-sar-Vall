@@ -2,31 +2,37 @@ package com.mycompany.sistema_de_monitoreo_salud_alumno.model;
 
 import java.util.Date;
 
-/**
- *
- * @author ELVIS
- */
 public class ProductoFarmaceutico {
-private String codigo;
+    private String codigo;
     private String nombre;
     private double precio;
     private int stock;
     private Date fechaVencimiento;
+    private Proveedor proveedor;
 
-    /**
-     *
-     * @param codigo
-     * @param nombre
-     * @param precio
-     * @param stock
-     * @param fechaVencimiento
-     */
     public ProductoFarmaceutico(String codigo, String nombre, double precio, int stock, Date fechaVencimiento) {
         this.codigo = codigo;
         this.nombre = nombre;
         this.precio = precio;
         this.stock = stock;
         this.fechaVencimiento = fechaVencimiento;
+    }
+
+    public ProductoFarmaceutico(String codigo, String nombre, double precio, int stock, Date fechaVencimiento, Proveedor proveedor) {
+        this.codigo = codigo;
+        this.nombre = nombre;
+        this.precio = precio;
+        this.stock = stock;
+        this.fechaVencimiento = fechaVencimiento;
+        this.proveedor = proveedor;  // Aquí asignamos el proveedor
+    }
+
+    public Proveedor getProveedor() {
+        return proveedor;
+    }
+
+    public void setProveedor(Proveedor proveedor) {
+        this.proveedor = proveedor;
     }
 
     public String getCodigo() {
@@ -68,5 +74,4 @@ private String codigo;
     public void setFechaVencimiento(Date fechaVencimiento) {
         this.fechaVencimiento = fechaVencimiento;
     }
-    
 }
