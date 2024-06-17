@@ -19,7 +19,7 @@ public interface EstadoSaludDAO {
     public EstadoSalud obtenerEstadoSalud(int idEstadoSalud);
     
     // Método para obtener todos los estados de salud de un alumno
-    public List<EstadoSalud> obtenerEstadosSaludDeAlumno(int idAlumno);
+    public List<EstadoSalud> obtenerEstadosSaludDeAlumno(String  codigoAlumno);
     
     // Método para obtener todos los estados de salud en una fecha específica
     public List<EstadoSalud> obtenerEstadosSaludEnFecha(Date fecha);

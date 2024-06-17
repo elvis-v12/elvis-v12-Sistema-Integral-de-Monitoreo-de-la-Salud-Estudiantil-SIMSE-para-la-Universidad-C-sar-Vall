@@ -15,6 +15,9 @@ public class Persona {
         this.apellido = apellido;
         this.edad = edad;
     }
+    public Persona() {
+        // Inicialización por defecto, si es necesario
+    }
 
     public Persona(int idPersona) {
         this.idPersona = idPersona;

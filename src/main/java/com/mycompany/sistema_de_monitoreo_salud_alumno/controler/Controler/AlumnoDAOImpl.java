@@ -84,38 +84,38 @@ public void eliminarAlumno(int id) {
 }
 
 
-    @Override
-    public Alumno obtenerAlumnoPorId(int id) {
-        Alumno alumno = null;
-        String query = "SELECT a.idAlumno, a.codigoAlumno, a.carrera, a.ciclo, p.idPersona, p.nombre, p.apellido, p.edad " +
-                       "FROM Alumno a " +
-                       "INNER JOIN Persona p ON a.idPersona = p.idPersona " +
-                       "WHERE a.idAlumno = ?;";
+  @Override
+public Alumno obtenerAlumnoPorId(String codigoAlumno) {
+    Alumno alumno = null;
+    String query = "SELECT a.idAlumno, a.codigoAlumno, a.carrera, a.ciclo, p.idPersona, p.nombre, p.apellido, p.edad " +
+                   "FROM Alumno a " +
+                   "INNER JOIN Persona p ON a.idPersona = p.idPersona " +
+                   "WHERE a.codigoAlumno = ?;";
 
-        try (Connection conexion = conexionSQL.obtenerConexion();
-             PreparedStatement statement = conexion.prepareStatement(query)) {
-            statement.setInt(1, id);
+    try (Connection conexion = conexionSQL.obtenerConexion();
+         PreparedStatement statement = conexion.prepareStatement(query)) {
+        statement.setString(1, codigoAlumno);
 
-            try (ResultSet resultSet = statement.executeQuery()) {
-                if (resultSet.next()) {
-                    alumno = new Alumno(
-                            resultSet.getInt("idAlumno"),
-                            resultSet.getString("codigoAlumno"),
-                            resultSet.getString("carrera"),
-                            resultSet.getInt("ciclo"),
-                            resultSet.getInt("idPersona"),
-                            resultSet.getString("nombre"),
-                            resultSet.getString("apellido"),
-                            resultSet.getInt("edad")
-                    );
-                }
+        try (ResultSet resultSet = statement.executeQuery()) {
+            if (resultSet.next()) {
+                alumno = new Alumno(
+                        resultSet.getInt("idAlumno"),
+                        resultSet.getString("codigoAlumno"),
+                        resultSet.getString("carrera"),
+                        resultSet.getInt("ciclo"),
+                        resultSet.getInt("idPersona"),
+                        resultSet.getString("nombre"),
+                        resultSet.getString("apellido"),
+                        resultSet.getInt("edad")
+                );
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
-
-        return alumno;
+    } catch (SQLException e) {
+        e.printStackTrace();
     }
+
+    return alumno;
+}
 
     public List<Alumno> obtenerTodosLosAlumnos() {
         List<Alumno> todosLosAlumnos = new ArrayList<>();

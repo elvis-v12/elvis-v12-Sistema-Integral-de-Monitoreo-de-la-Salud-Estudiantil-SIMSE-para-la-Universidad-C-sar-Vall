@@ -8,8 +8,7 @@ public interface AlumnoDAO {
     void agregarAlumno(Alumno alumno);
     void actualizarAlumno(Alumno alumno);
     void eliminarAlumno(int id);
-    Alumno obtenerAlumnoPorId(int id);
+    Alumno obtenerAlumnoPorId(String codigoAlumno);
     List<Alumno> obtenerTodosLosAlumnos();
     List<Sesion> obtenerTodasLasSesiones();
-
 }

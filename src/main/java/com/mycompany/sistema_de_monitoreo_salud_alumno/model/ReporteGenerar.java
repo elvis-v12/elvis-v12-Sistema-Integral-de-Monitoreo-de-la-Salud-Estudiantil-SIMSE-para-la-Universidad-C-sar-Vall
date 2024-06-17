@@ -116,7 +116,7 @@ public class ReporteGenerar implements AlumnoDAO {
     }
 
     @Override
-    public Alumno obtenerAlumnoPorId(int id) {
+    public Alumno obtenerAlumnoPorId(String  codigoAlumno) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 

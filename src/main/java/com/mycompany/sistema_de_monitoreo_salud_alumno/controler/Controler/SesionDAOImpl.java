@@ -20,14 +20,14 @@ public class SesionDAOImpl implements SesionDAO {
         this.conexionSQL = conexionSQL;
     }
 
-    @Override
+@Override
 public void agregarSesion(Sesion sesion) {
     String query = "INSERT INTO Sesion (idAlumno, fechaInicio, fechaFin, disponible) VALUES (?, ?, ?, ?)";
     try (Connection conexion = conexionSQL.obtenerConexion();
          PreparedStatement statement = conexion.prepareStatement(query)) {
         statement.setInt(1, sesion.getAlumno().getIdAlumno());
-        statement.setDate(2, new java.sql.Date(sesion.getFechaInicio().getTime()));
-        statement.setDate(3, new java.sql.Date(sesion.getFechaFin().getTime()));
+        statement.setTimestamp(2, new java.sql.Timestamp(sesion.getFechaInicio().getTime()));
+        statement.setTimestamp(3, new java.sql.Timestamp(sesion.getFechaFin().getTime()));
         statement.setBoolean(4, sesion.isDisponible());
         statement.executeUpdate();
         System.out.println("Sesión agregada.");
@@ -36,6 +36,7 @@ public void agregarSesion(Sesion sesion) {
         e.printStackTrace();
     }
 }
+
 
 @Override
 public void actualizarSesion(Sesion sesion) {
@@ -176,29 +177,29 @@ public List<Sesion> obtenerSesionesEnFecha(Date fecha) {
 
 
     @Override
-    public List<Sesion> obtenerTodasLasSesiones() {
-        List<Sesion> todasLasSesiones = new ArrayList<>();
-        String query = "SELECT * FROM Sesion";
-        try (Connection conexion = conexionSQL.obtenerConexion();
-             PreparedStatement statement = conexion.prepareStatement(query);
-             ResultSet resultSet = statement.executeQuery()) {
-            while (resultSet.next()) {
-                Alumno alumno = obtenerAlumnoPorId(resultSet.getInt("idAlumno"));
-                Sesion sesion = new Sesion(
-                        resultSet.getInt("idSesion"),
-                        alumno,
-                        resultSet.getDate("fechaInicio"),
-                        resultSet.getDate("fechaFin"),
-                        resultSet.getBoolean("disponible")
-                );
-                todasLasSesiones.add(sesion);
-            }
-        } catch (SQLException e) {
-            System.err.println("Error al obtener todas las sesiones.");
-            e.printStackTrace();
+public List<Sesion> obtenerTodasLasSesiones() {
+    List<Sesion> todasLasSesiones = new ArrayList<>();
+    String query = "SELECT * FROM Sesion";
+    try (Connection conexion = conexionSQL.obtenerConexion();
+         PreparedStatement statement = conexion.prepareStatement(query);
+         ResultSet resultSet = statement.executeQuery()) {
+        while (resultSet.next()) {
+            Alumno alumno = obtenerAlumnoPorId(resultSet.getInt("idAlumno"));
+            Sesion sesion = new Sesion(
+                    resultSet.getInt("idSesion"),
+                    alumno,
+                    resultSet.getTimestamp("fechaInicio"),
+                    resultSet.getTimestamp("fechaFin"),
+                    resultSet.getBoolean("disponible")
+            );
+            todasLasSesiones.add(sesion);
         }
-        return todasLasSesiones;
+    } catch (SQLException e) {
+        System.err.println("Error al obtener todas las sesiones.");
+        e.printStackTrace();
     }
+    return todasLasSesiones;
+}
 
     public Alumno obtenerAlumnoPorId(int idAlumno) {
         Alumno alumno = null;

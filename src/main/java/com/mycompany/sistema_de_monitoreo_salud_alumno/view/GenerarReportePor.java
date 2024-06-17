@@ -40,11 +40,6 @@ public class GenerarReportePor extends javax.swing.JPanel {
         btn_GenerarReporte = new javax.swing.JButton();
         btn_GenerarReporteProductos = new javax.swing.JButton();
         btn_GenerarReporteESalud = new javax.swing.JButton();
-        Panel_Buscar = new javax.swing.JPanel();
-        txt_Filtro1 = new javax.swing.JTextField();
-        btn_Buscar1 = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tb_Reporte = new javax.swing.JTable();
 
         Panel_Opcion.setBackground(new java.awt.Color(255, 255, 255));
         Panel_Opcion.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "OPCIONES", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tw Cen MT Condensed", 3, 18))); // NOI18N
@@ -106,68 +101,16 @@ public class GenerarReportePor extends javax.swing.JPanel {
                 .addGap(23, 23, 23))
         );
 
-        Panel_Buscar.setBackground(new java.awt.Color(255, 255, 255));
-        Panel_Buscar.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "BUSCADOR", javax.swing.border.TitledBorder.RIGHT, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tw Cen MT Condensed", 3, 18))); // NOI18N
-
-        txt_Filtro1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Filtro", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.BOTTOM, new java.awt.Font("Tw Cen MT Condensed", 2, 18))); // NOI18N
-        txt_Filtro1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_Filtro1ActionPerformed(evt);
-            }
-        });
-
-        btn_Buscar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/lupa.png"))); // NOI18N
-        btn_Buscar1.setBorder(null);
-
-        javax.swing.GroupLayout Panel_BuscarLayout = new javax.swing.GroupLayout(Panel_Buscar);
-        Panel_Buscar.setLayout(Panel_BuscarLayout);
-        Panel_BuscarLayout.setHorizontalGroup(
-            Panel_BuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(Panel_BuscarLayout.createSequentialGroup()
-                .addComponent(txt_Filtro1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btn_Buscar1)
-                .addContainerGap())
-        );
-        Panel_BuscarLayout.setVerticalGroup(
-            Panel_BuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(btn_Buscar1)
-            .addComponent(txt_Filtro1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
-
-        tb_Reporte.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane1.setViewportView(tb_Reporte);
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(Panel_Opcion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Panel_Buscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(Panel_Opcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Panel_Buscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -197,20 +140,11 @@ ConexionSQL conexionSQL = new ConexionSQL();
         alumnoDAO.generarReporteInventario("reporte_Productos.pdf");       
     }//GEN-LAST:event_btn_GenerarReporteProductosActionPerformed
 
-    private void txt_Filtro1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_Filtro1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txt_Filtro1ActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel Panel_Buscar;
     private javax.swing.JPanel Panel_Opcion;
-    private javax.swing.JButton btn_Buscar1;
     private javax.swing.JButton btn_GenerarReporte;
     private javax.swing.JButton btn_GenerarReporteESalud;
     private javax.swing.JButton btn_GenerarReporteProductos;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tb_Reporte;
-    private javax.swing.JTextField txt_Filtro1;
     // End of variables declaration//GEN-END:variables
 }

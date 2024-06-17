@@ -41,7 +41,7 @@ public class AlumnosUcv extends javax.swing.JFrame {
     modelo.addColumn("Edad");
     tb_Alumno.setModel(modelo);
     
-    tb_Alumno.addMouseListener(new MouseAdapter() {
+    /*tb_Alumno.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 // Obtiene la fila seleccionada
@@ -59,7 +59,7 @@ public class AlumnosUcv extends javax.swing.JFrame {
                     actualizarTablaAlumnos();
                 }
             }
-        });
+        });*/
     }
 private void limpiarCampos() {
     txt_Nombre.setText("");
@@ -511,16 +511,15 @@ AlumnoDAOImpl alumnoDAO = new AlumnoDAOImpl( conexionSQL);
 
     private void btn_BuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_BuscarActionPerformed
          try {
-        // Suponiendo que tienes un JTextField llamado txtIdAlumno donde el usuario ingresa el ID del alumno
-        int id = Integer.parseInt(txt_Filtro.getText());
+        String codigoAlumno = txt_Filtro.getText();
         AlumnoDAOImpl alumnoDAO = new AlumnoDAOImpl(new ConexionSQL());
-        Alumno alumno = alumnoDAO.obtenerAlumnoPorId(id);
+        Alumno alumno = alumnoDAO.obtenerAlumnoPorId(codigoAlumno);
         
         // Actualizar la tabla con los datos del alumno
         actualizarTablaAlumno(alumno);
         
     } catch (NumberFormatException e) {
-        JOptionPane.showMessageDialog(this, "Por favor, ingrese un ID válido");
+        JOptionPane.showMessageDialog(this, "Por favor, ingrese un codigo de alumno válido");
     } catch (Exception e) {
         e.printStackTrace();
         JOptionPane.showMessageDialog(this, "Ocurrió un error al buscar el alumno");

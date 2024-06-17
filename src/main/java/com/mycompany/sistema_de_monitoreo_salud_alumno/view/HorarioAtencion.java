@@ -10,6 +10,8 @@ import com.mycompany.sistema_de_monitoreo_salud_alumno.controler.Controler.Sesio
 import com.mycompany.sistema_de_monitoreo_salud_alumno.controler.Controler.interf.SesionDAO;
 import com.mycompany.sistema_de_monitoreo_salud_alumno.model.Alumno;
 import com.mycompany.sistema_de_monitoreo_salud_alumno.model.Sesion;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import javax.swing.JFrame;
@@ -65,6 +67,7 @@ private void limpiarCampos() {
         jDateFin = new com.toedter.calendar.JDateChooser();
         btn_Ver = new javax.swing.JButton();
         checkBoxDisponible = new javax.swing.JCheckBox();
+        btnReport = new javax.swing.JButton();
         Panel_Buscar = new javax.swing.JPanel();
         txt_Filtro = new javax.swing.JTextField();
         btn_Buscar = new javax.swing.JButton();
@@ -76,9 +79,11 @@ private void limpiarCampos() {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
         Panel_Sesion.setBackground(new java.awt.Color(255, 255, 255));
-        Panel_Sesion.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "GENERAR CITA MEDICA", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tw Cen MT Condensed", 3, 18))); // NOI18N
+        Panel_Sesion.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "GENERAR UNA ATENCION MEDICA", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tw Cen MT Condensed", 3, 18))); // NOI18N
+        Panel_Sesion.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         txt_Paciente.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "IDAlumno", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tw Cen MT Condensed", 2, 18))); // NOI18N
+        Panel_Sesion.add(txt_Paciente, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 26, 320, -1));
 
         btn_GenerarCita.setBackground(new java.awt.Color(0, 0, 51));
         btn_GenerarCita.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -89,6 +94,7 @@ private void limpiarCampos() {
                 btn_GenerarCitaActionPerformed(evt);
             }
         });
+        Panel_Sesion.add(btn_GenerarCita, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 230, -1, -1));
 
         btn_Modificar.setBackground(new java.awt.Color(0, 0, 51));
         btn_Modificar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -99,6 +105,7 @@ private void limpiarCampos() {
                 btn_ModificarActionPerformed(evt);
             }
         });
+        Panel_Sesion.add(btn_Modificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 230, 100, -1));
 
         btn_Eliminar.setBackground(new java.awt.Color(102, 0, 0));
         btn_Eliminar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -109,11 +116,14 @@ private void limpiarCampos() {
                 btn_EliminarActionPerformed(evt);
             }
         });
+        Panel_Sesion.add(btn_Eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 260, 100, -1));
 
         jDateInicio.setBorder(javax.swing.BorderFactory.createTitledBorder("Fecha Inicio"));
         jDateInicio.setToolTipText("");
+        Panel_Sesion.add(jDateInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 79, 310, 55));
 
         jDateFin.setBorder(javax.swing.BorderFactory.createTitledBorder(" Fecha Fin"));
+        Panel_Sesion.add(jDateFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 140, 310, 58));
 
         btn_Ver.setBackground(new java.awt.Color(102, 0, 0));
         btn_Ver.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -124,6 +134,7 @@ private void limpiarCampos() {
                 btn_VerActionPerformed(evt);
             }
         });
+        Panel_Sesion.add(btn_Ver, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 260, 100, -1));
 
         checkBoxDisponible.setText("Estado");
         checkBoxDisponible.addActionListener(new java.awt.event.ActionListener() {
@@ -131,53 +142,18 @@ private void limpiarCampos() {
                 checkBoxDisponibleActionPerformed(evt);
             }
         });
+        Panel_Sesion.add(checkBoxDisponible, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 204, 109, 30));
 
-        javax.swing.GroupLayout Panel_SesionLayout = new javax.swing.GroupLayout(Panel_Sesion);
-        Panel_Sesion.setLayout(Panel_SesionLayout);
-        Panel_SesionLayout.setHorizontalGroup(
-            Panel_SesionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(Panel_SesionLayout.createSequentialGroup()
-                .addGroup(Panel_SesionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txt_Paciente)
-                    .addGroup(Panel_SesionLayout.createSequentialGroup()
-                        .addGroup(Panel_SesionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btn_Eliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btn_GenerarCita, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(Panel_SesionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btn_Modificar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btn_Ver, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(Panel_SesionLayout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addGroup(Panel_SesionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jDateFin, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jDateInicio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap())
-            .addGroup(Panel_SesionLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(checkBoxDisponible, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(29, Short.MAX_VALUE))
-        );
-        Panel_SesionLayout.setVerticalGroup(
-            Panel_SesionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(Panel_SesionLayout.createSequentialGroup()
-                .addComponent(txt_Paciente, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jDateInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jDateFin, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(checkBoxDisponible, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(Panel_SesionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btn_GenerarCita)
-                    .addComponent(btn_Modificar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(Panel_SesionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btn_Eliminar)
-                    .addComponent(btn_Ver))
-                .addContainerGap())
-        );
+        btnReport.setBackground(new java.awt.Color(102, 0, 0));
+        btnReport.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnReport.setForeground(new java.awt.Color(255, 255, 255));
+        btnReport.setText("Recibo atención");
+        btnReport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReportActionPerformed(evt);
+            }
+        });
+        Panel_Sesion.add(btnReport, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 210, 120, 70));
 
         Panel_Buscar.setBackground(new java.awt.Color(255, 255, 255));
         Panel_Buscar.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "BUSCADOR", javax.swing.border.TitledBorder.RIGHT, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tw Cen MT Condensed", 3, 18))); // NOI18N
@@ -227,7 +203,7 @@ private void limpiarCampos() {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(Panel_Sesion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(Panel_Sesion, javax.swing.GroupLayout.PREFERRED_SIZE, 336, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(Panel_Buscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -239,14 +215,12 @@ private void limpiarCampos() {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(Panel_Sesion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(Panel_Sesion, javax.swing.GroupLayout.DEFAULT_SIZE, 289, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(Panel_Buscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addContainerGap())))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -261,36 +235,44 @@ private void limpiarCampos() {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 7, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_VerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_VerActionPerformed
-        // Crear una instancia de SesionDAOImpl
-        ConexionSQL conexionSQL = new ConexionSQL(); // Asegúrate de tener tu conexión configurada
-        SesionDAOImpl sesionDAO = new SesionDAOImpl(conexionSQL);
 
-        // Obtener todas las sesiones
-        List<Sesion> sesiones = sesionDAO.obtenerTodasLasSesiones();
+    ConexionSQL conexionSQL = new ConexionSQL(); 
+    SesionDAOImpl sesionDAO = new SesionDAOImpl(conexionSQL);
 
-        // Obtener el modelo de la tabla
-        DefaultTableModel model = (DefaultTableModel) tb_Sesion.getModel();
+    // Obtener todas las sesiones
+    List<Sesion> sesiones = sesionDAO.obtenerTodasLasSesiones();
 
-        // Limpiar la tabla antes de agregar las nuevas sesiones
-        model.setRowCount(0);
+    // Obtener el modelo de la tabla
+    DefaultTableModel model = (DefaultTableModel) tb_Sesion.getModel();
 
-        // Agregar las sesiones al modelo de la tabla
-        for (Sesion sesion : sesiones) {
-            model.addRow(new Object[]{
-                sesion.getIdSesion(),
-                sesion.getAlumno().getIdAlumno(),
-                sesion.getFechaInicio().toString(),
-                sesion.getFechaFin().toString(),
-                sesion.isDisponible()
-            });
-        }
+    // Limpiar la tabla antes de agregar las nuevas sesiones
+    model.setRowCount(0);
+
+    // Agregar las sesiones al modelo de la tabla
+    for (Sesion sesion : sesiones) {
+        // Transformar el valor booleano a "sí"/"no"
+        String disponible = sesion.isDisponible() ? "sí" : "no";
+
+        // Formatear las fechas para incluir la hora
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String fechaInicio = sdf.format(sesion.getFechaInicio());
+        String fechaFin = sdf.format(sesion.getFechaFin());
+
+        model.addRow(new Object[]{
+            sesion.getIdSesion(),
+            sesion.getAlumno().getIdAlumno(),
+            fechaInicio,
+            fechaFin,
+            disponible
+        });
+    }
     }//GEN-LAST:event_btn_VerActionPerformed
 
     private void btn_EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_EliminarActionPerformed
@@ -348,7 +330,7 @@ private void limpiarCampos() {
     }//GEN-LAST:event_btn_EliminarActionPerformed
 
     private void btn_GenerarCitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_GenerarCitaActionPerformed
-    // Obtener el ID del alumno desde el JTextField
+     // Obtener el ID del alumno desde el JTextField
     int idAlumno = obtenerIdAlumnoSeleccionado();
     if (idAlumno == -1) {
         return; // Salir si el ID no es válido
@@ -362,6 +344,10 @@ private void limpiarCampos() {
         JOptionPane.showMessageDialog(this, "Por favor, seleccione fechas válidas.", "Error", JOptionPane.ERROR_MESSAGE);
         return;
     }
+
+    // Combinar la fecha seleccionada con la hora actual
+    fechaInicio = combinarFechaConHoraActual(fechaInicio);
+    fechaFin = combinarFechaConHoraActual(fechaFin);
 
     // Verificar si la fecha está disponible
     SesionDAO sesionDAO = new SesionDAOImpl(new ConexionSQL());
@@ -395,6 +381,7 @@ private void limpiarCampos() {
     } else {
         JOptionPane.showMessageDialog(this, "La fecha seleccionada ya está ocupada. Por favor, elija otra fecha.", "Fecha Ocupada", JOptionPane.WARNING_MESSAGE);
     }
+    
     }//GEN-LAST:event_btn_GenerarCitaActionPerformed
 private int obtenerIdAlumnoSeleccionado() {
     try {
@@ -405,7 +392,17 @@ private int obtenerIdAlumnoSeleccionado() {
         return -1; // Devuelve un valor inválido si la conversión falla
     }
 }
-
+// Método para combinar la fecha seleccionada con la hora actual
+private Date combinarFechaConHoraActual(Date fechaSeleccionada) {
+    Calendar calendar = Calendar.getInstance();
+    Calendar fechaConHora = Calendar.getInstance();
+    fechaConHora.setTime(fechaSeleccionada);
+    fechaConHora.set(Calendar.HOUR_OF_DAY, calendar.get(Calendar.HOUR_OF_DAY));
+    fechaConHora.set(Calendar.MINUTE, calendar.get(Calendar.MINUTE));
+    fechaConHora.set(Calendar.SECOND, calendar.get(Calendar.SECOND));
+    fechaConHora.set(Calendar.MILLISECOND, calendar.get(Calendar.MILLISECOND));
+    return fechaConHora.getTime();
+}
     private void btn_ModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ModificarActionPerformed
    // Obtener los datos de la sesión a modificar desde los campos de texto y JDateChooser
     String idSesionText = txt_Filtro.getText();
@@ -481,6 +478,11 @@ private int obtenerIdAlumnoSeleccionado() {
     private void checkBoxDisponibleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxDisponibleActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_checkBoxDisponibleActionPerformed
+
+    private void btnReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportActionPerformed
+    Boleta_Atencion Boleta_Atencion = new Boleta_Atencion();
+    Boleta_Atencion.setVisible(true);
+    }//GEN-LAST:event_btnReportActionPerformed
 private void mostrarSesionesEnTabla(List<Sesion> sesiones) {
     String[] columnNames = {"ID Sesion", "ID Alumno", "Fecha Inicio", "Fecha Fin"};
     Object[][] data = new Object[sesiones.size()][4];
@@ -500,6 +502,7 @@ private void mostrarSesionesEnTabla(List<Sesion> sesiones) {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Panel_Buscar;
     private javax.swing.JPanel Panel_Sesion;
+    private javax.swing.JButton btnReport;
     private javax.swing.JButton btn_Buscar;
     private javax.swing.JButton btn_Eliminar;
     private javax.swing.JButton btn_GenerarCita;

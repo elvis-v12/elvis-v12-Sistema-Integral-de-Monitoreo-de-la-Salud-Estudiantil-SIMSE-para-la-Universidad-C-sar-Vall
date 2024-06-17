@@ -41,15 +41,17 @@ com\mycompany\sistema_de_monitoreo_salud_alumno\model\ProductoFarmaceuticoServic
 maps\java\StreetView.class
 GUI\PlacesFrame$2.class
 GUI\MainFrame$4.class
+com\mycompany\sistema_de_monitoreo_salud_alumno\view\Boleta_Atencion.class
 com\mycompany\sistema_de_monitoreo_salud_alumno\view\HorarioAtencion$2.class
 com\mycompany\sistema_de_monitoreo_salud_alumno\view\SeguimientoTraslado$25.class
 com\mycompany\sistema_de_monitoreo_salud_alumno\view\SeguimientoTraslado$8.class
 com\mycompany\sistema_de_monitoreo_salud_alumno\view\Menu$2.class
+com\mycompany\sistema_de_monitoreo_salud_alumno\view\HorarioAtencion$7.class
 com\mycompany\sistema_de_monitoreo_salud_alumno\view\SeguimientoTraslado$13.class
 com\mycompany\sistema_de_monitoreo_salud_alumno\view\SeguimientoTraslado$7.class
 com\mycompany\sistema_de_monitoreo_salud_alumno\view\AlumnosUcv.class
-com\mycompany\sistema_de_monitoreo_salud_alumno\view\GenerarReportePor$4.class
 GUI\MainFrame$10.class
+com\mycompany\sistema_de_monitoreo_salud_alumno\Ejecutar\Main.class
 com\mycompany\sistema_de_monitoreo_salud_alumno\view\SeguimientoTraslado$4.class
 GUI\PlacesFrame$4.class
 com\mycompany\sistema_de_monitoreo_salud_alumno\model\Reporte.class
@@ -64,6 +66,7 @@ GUI\MainFrame$26.class
 com\mycompany\sistema_de_monitoreo_salud_alumno\view\Login_Ingreso_sistema$1.class
 GUI\PlacesFrame$7.class
 GUI\MainFrame$9.class
+com\mycompany\sistema_de_monitoreo_salud_alumno\model\ReportService.class
 com\mycompany\sistema_de_monitoreo_salud_alumno\view\InventarioDeProductos.class
 com\mycompany\sistema_de_monitoreo_salud_alumno\Ejecutar\EJecutarElSistema.class
 com\mycompany\sistema_de_monitoreo_salud_alumno\view\HorarioAtencion$4.class
@@ -110,6 +113,7 @@ com\mycompany\sistema_de_monitoreo_salud_alumno\controler\Controler\interf\Alumn
 com\mycompany\sistema_de_monitoreo_salud_alumno\model\EstadoSaludService.class
 GUI\MainFrame$11.class
 com\mycompany\sistema_de_monitoreo_salud_alumno\view\SeguimientoTraslado$6.class
+com\mycompany\sistema_de_monitoreo_salud_alumno\view\Boleta_Atencion$2.class
 com\mycompany\sistema_de_monitoreo_salud_alumno\controler\Controler\UsuarioDAOImpl.class
 GUI\MainFrame$17.class
 com\mycompany\sistema_de_monitoreo_salud_alumno\view\InventarioDeProductos$4.class
@@ -119,7 +123,7 @@ GUI\MainFrame$12.class
 com\mycompany\sistema_de_monitoreo_salud_alumno\controler\Controler\interf\ReporteDAO.class
 com\mycompany\sistema_de_monitoreo_salud_alumno\view\Login_Ingreso_sistema$2.class
 com\mycompany\sistema_de_monitoreo_salud_alumno\model\EstadoSalud.class
-com\mycompany\sistema_de_monitoreo_salud_alumno\view\AlumnosUcv$6.class
+com\mycompany\sistema_de_monitoreo_salud_alumno\view\Boleta_Atencion$1.class
 com\mycompany\sistema_de_monitoreo_salud_alumno\view\EstadoSaludEstudiante$7.class
 com\mycompany\sistema_de_monitoreo_salud_alumno\view\LugaresMarco$5.class
 GUI\MainFrame$25.class

@@ -16,17 +16,17 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
 public class EstadoSaludService {
     private ConexionSQL conexionSQL;
 
     public EstadoSaludService(ConexionSQL conexionSQL) {
         this.conexionSQL = conexionSQL;
     }
-
     public List<EstadoSalud> obtenerEstadoSaludAlumnos() {
         List<EstadoSalud> estados = new ArrayList<>();
-        String query = "SELECT es.idEstadoSalud, es.fecha, es.descripcion, a.idAlumno, a.codigoAlumno, a.carrera, a.ciclo, p.idPersona, p.nombre, p.apellido, p.edad " +
+        String query = "SELECT es.idEstadoSalud, es.fecha, es.descripcion, a.idAlumno, "
+                + "a.codigoAlumno, a.carrera, a.ciclo, p.idPersona, p.nombre, p.apellido, "
+                + "p.edad " +
                        "FROM EstadoSalud es " +
                        "INNER JOIN Alumno a ON es.idAlumno = a.idAlumno " +
                        "INNER JOIN Persona p ON a.idPersona = p.idPersona";
@@ -63,15 +63,12 @@ public class EstadoSaludService {
         }
         return estados;
     }
-
     public static void generarReporteEstadoSalud(String filePath, List<EstadoSalud> estados) {
         try {
             PdfWriter writer = new PdfWriter(filePath);
             PdfDocument pdfDoc = new PdfDocument(writer);
             Document document = new Document(pdfDoc);
-
             document.add(new Paragraph("Reporte de Estado de Salud de Alumnos"));
-
             float[] columnWidths = {50, 100, 100, 100, 100, 100, 200};
             Table table = new Table(columnWidths);
             table.addHeaderCell("ID Estado");
@@ -81,17 +78,16 @@ public class EstadoSaludService {
             table.addHeaderCell("Ciclo");
             table.addHeaderCell("Fecha");
             table.addHeaderCell("Descripción");
-
             for (EstadoSalud estado : estados) {
                 table.addCell(String.valueOf(estado.getIdEstadoSalud()));
                 table.addCell(estado.getAlumno().getCodigoAlumno());
-                table.addCell(estado.getAlumno().getNombre() + " " + estado.getAlumno().getApellido());
+                table.addCell(estado.getAlumno().getNombre() + " " + estado.getAlumno()
+                        .getApellido());
                 table.addCell(estado.getAlumno().getCarrera());
                 table.addCell(String.valueOf(estado.getAlumno().getCiclo()));
                 table.addCell(estado.getFecha().toString());
                 table.addCell(estado.getDescripcion());
             }
-
             document.add(table);
             document.close();
             System.out.println("Reporte de estado de salud generado en: " + filePath);

@@ -2,6 +2,7 @@ package com.mycompany.sistema_de_monitoreo_salud_alumno.controler.Controler;
 
 import com.mycompany.sistema_de_monitoreo_salud_alumno.controler.Controler.interf.AlumnoDAO;
 import com.mycompany.sistema_de_monitoreo_salud_alumno.controler.Controler.interf.EstadoSaludDAO;
+import com.mycompany.sistema_de_monitoreo_salud_alumno.model.Alumno;
 import com.mycompany.sistema_de_monitoreo_salud_alumno.model.EstadoSalud;
 
 import java.sql.Connection;
@@ -66,54 +67,67 @@ public  class EstadoSaludDAOImpl implements EstadoSaludDAO {
         }
     }
 
-    @Override
-    public EstadoSalud obtenerEstadoSalud(int idEstadoSalud) {
-        EstadoSalud estadoSalud = null;
-        String query = "SELECT * FROM EstadoSalud WHERE idEstadoSalud = ?";
-        try (Connection conexion = conexionSQL.obtenerConexion();
-             PreparedStatement statement = conexion.prepareStatement(query)) {
-            statement.setInt(1, idEstadoSalud);
-            try (ResultSet resultSet = statement.executeQuery()) {
-                if (resultSet.next()) {
-                    estadoSalud = new EstadoSalud();
-                    estadoSalud.setIdEstadoSalud(resultSet.getInt("idEstadoSalud"));
-                    AlumnoDAO alumnoDAO = new AlumnoDAOImpl(conexionSQL);
-                    estadoSalud.setAlumno(alumnoDAO.obtenerAlumnoPorId(resultSet.getInt("idAlumno")));
-                    estadoSalud.setFecha(resultSet.getDate("fecha"));
-                    estadoSalud.setDescripcion(resultSet.getString("descripcion"));
-                }
-            }
-        } catch (SQLException e) {
-            System.err.println("Error al obtener el estado de salud: " + idEstadoSalud);
-            e.printStackTrace();
-        }
-        return estadoSalud;
-    }
-
-    @Override
-    public List<EstadoSalud> obtenerEstadosSaludDeAlumno(int idAlumno) {
-        List<EstadoSalud> estadosSaludDeAlumno = new ArrayList<>();
-        String query = "SELECT * FROM EstadoSalud WHERE idAlumno = ?";
-        try (Connection conexion = conexionSQL.obtenerConexion();
-             PreparedStatement statement = conexion.prepareStatement(query)) {
-            statement.setInt(1, idAlumno);
-            try (ResultSet resultSet = statement.executeQuery()) {
+   @Override
+public EstadoSalud obtenerEstadoSalud(int idEstadoSalud) {
+    EstadoSalud estadoSalud = null;
+    String query = "SELECT * FROM EstadoSalud WHERE idEstadoSalud = ?";
+    try (Connection conexion = conexionSQL.obtenerConexion();
+         PreparedStatement statement = conexion.prepareStatement(query)) {
+        statement.setInt(1, idEstadoSalud);
+        try (ResultSet resultSet = statement.executeQuery()) {
+            if (resultSet.next()) {
+                estadoSalud = new EstadoSalud();
+                estadoSalud.setIdEstadoSalud(resultSet.getInt("idEstadoSalud"));
                 AlumnoDAO alumnoDAO = new AlumnoDAOImpl(conexionSQL);
-                while (resultSet.next()) {
-                    EstadoSalud estadoSalud = new EstadoSalud();
-                    estadoSalud.setIdEstadoSalud(resultSet.getInt("idEstadoSalud"));
-                    estadoSalud.setAlumno(alumnoDAO.obtenerAlumnoPorId(resultSet.getInt("idAlumno")));
-                    estadoSalud.setFecha(resultSet.getDate("fecha"));
-                    estadoSalud.setDescripcion(resultSet.getString("descripcion"));
-                    estadosSaludDeAlumno.add(estadoSalud);
+                Alumno alumno = alumnoDAO.obtenerAlumnoPorId(resultSet.getString("idAlumno"));
+                if (alumno != null) {
+                    estadoSalud.setAlumno(alumno);
+                } else {
+                    System.err.println("Alumno no encontrado para el id: " + resultSet.getString("idAlumno"));
                 }
+                estadoSalud.setFecha(resultSet.getDate("fecha"));
+                estadoSalud.setDescripcion(resultSet.getString("descripcion"));
             }
-        } catch (SQLException e) {
-            System.err.println("Error al obtener los estados de salud del alumno: " + idAlumno);
-            e.printStackTrace();
         }
-        return estadosSaludDeAlumno;
+    } catch (SQLException e) {
+        System.err.println("Error al obtener el estado de salud: " + idEstadoSalud);
+        e.printStackTrace();
     }
+    return estadoSalud;
+}
+
+
+   @Override
+public List<EstadoSalud> obtenerEstadosSaludDeAlumno(String codigoAlumno) {
+    List<EstadoSalud> estadosSaludDeAlumno = new ArrayList<>();
+    String query = "SELECT es.idEstadoSalud, a.codigoAlumno, es.fecha, es.descripcion " +
+                   "FROM EstadoSalud es " +
+                   "JOIN Alumno a ON es.idAlumno = a.idAlumno " +
+                   "WHERE a.codigoAlumno = ?";
+    try (Connection conexion = conexionSQL.obtenerConexion();
+         PreparedStatement statement = conexion.prepareStatement(query)) {
+        statement.setString(1, codigoAlumno);
+        try (ResultSet resultSet = statement.executeQuery()) {
+            while (resultSet.next()) {
+                EstadoSalud estadoSalud = new EstadoSalud();
+                estadoSalud.setIdEstadoSalud(resultSet.getInt("idEstadoSalud"));
+                
+                // Crear un objeto Alumno y establecer su codigoAlumno
+                Alumno alumno = new Alumno();
+                alumno.setCodigoAlumno(resultSet.getString("codigoAlumno"));
+                estadoSalud.setAlumno(alumno);
+                
+                estadoSalud.setFecha(resultSet.getDate("fecha"));
+                estadoSalud.setDescripcion(resultSet.getString("descripcion"));
+                estadosSaludDeAlumno.add(estadoSalud);
+            }
+        }
+    } catch (SQLException e) {
+        System.err.println("Error al obtener los estados de salud del alumno: " + codigoAlumno);
+        e.printStackTrace();
+    }
+    return estadosSaludDeAlumno;
+}
 
     @Override
     public List<EstadoSalud> obtenerEstadosSaludEnFecha(Date fecha) {
@@ -127,7 +141,7 @@ public  class EstadoSaludDAOImpl implements EstadoSaludDAO {
                 while (resultSet.next()) {
                     EstadoSalud estadoSalud = new EstadoSalud();
                     estadoSalud.setIdEstadoSalud(resultSet.getInt("idEstadoSalud"));
-                    estadoSalud.setAlumno(alumnoDAO.obtenerAlumnoPorId(resultSet.getInt("idAlumno")));
+                    estadoSalud.setAlumno(alumnoDAO.obtenerAlumnoPorId(resultSet.getString("idAlumno")));
                     estadoSalud.setFecha(resultSet.getDate("fecha"));
                     estadoSalud.setDescripcion(resultSet.getString("descripcion"));
                     estadosSaludEnFecha.add(estadoSalud);
@@ -142,15 +156,22 @@ public  class EstadoSaludDAOImpl implements EstadoSaludDAO {
 @Override
 public List<EstadoSalud> obtenerTodosLosEstadosSalud() {
     List<EstadoSalud> todosLosEstadosSalud = new ArrayList<>();
-    String query = "SELECT * FROM EstadoSalud";
+    String query = "SELECT es.idEstadoSalud, a.codigoAlumno, es.fecha, es.descripcion " +
+                   "FROM EstadoSalud es " +
+                   "JOIN Alumno a ON es.idAlumno = a.idAlumno";
     try (Connection conexion = conexionSQL.obtenerConexion();
          PreparedStatement statement = conexion.prepareStatement(query);
          ResultSet resultSet = statement.executeQuery()) {
-        AlumnoDAO alumnoDAO = new AlumnoDAOImpl(conexionSQL);
+
         while (resultSet.next()) {
             EstadoSalud estadoSalud = new EstadoSalud();
             estadoSalud.setIdEstadoSalud(resultSet.getInt("idEstadoSalud"));
-            estadoSalud.setAlumno(alumnoDAO.obtenerAlumnoPorId(resultSet.getInt("idAlumno")));
+            
+            // Crear un objeto Alumno con solo el codigoAlumno
+            Alumno alumno = new Alumno();
+            alumno.setCodigoAlumno(resultSet.getString("codigoAlumno"));
+            estadoSalud.setAlumno(alumno);
+            
             estadoSalud.setFecha(resultSet.getDate("fecha"));
             estadoSalud.setDescripcion(resultSet.getString("descripcion"));
             todosLosEstadosSalud.add(estadoSalud);

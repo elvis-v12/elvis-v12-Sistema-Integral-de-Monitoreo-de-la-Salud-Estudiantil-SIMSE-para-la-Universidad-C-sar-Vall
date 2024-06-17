@@ -42,6 +42,8 @@ private void limpiar(){
     txtCodigo.setText("");
     JdateFecha.setDate(null);
     txtDescrSalud.setText("");
+    txt_Filtro.setText("");
+    txtIdEnfermera.setText("");
 }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -366,6 +368,7 @@ AlumnosUcv Alumnos=new AlumnosUcv();
         JOptionPane.showMessageDialog(this, "Error al actualizar el estado de salud.", "Error", JOptionPane.ERROR_MESSAGE);
         e.printStackTrace();
     }
+       limpiar();
     }//GEN-LAST:event_btn_ModificarActionPerformed
 
     private void btn_HorarioAtencionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_HorarioAtencionActionPerformed
@@ -398,6 +401,7 @@ ConexionSQL conexionSQL = new ConexionSQL();
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Por favor, ingrese valores válidos.");
         }
+    limpiar();
     }//GEN-LAST:event_btn_AgregarEActionPerformed
 
     private void btn_AgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_AgregarActionPerformed
@@ -448,42 +452,39 @@ ConexionSQL conexionSQL = new ConexionSQL();
     }//GEN-LAST:event_btn_AgregarActionPerformed
 
     private void btnVerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerActionPerformed
-     // Instantiate the SQL connection
+
     ConexionSQL conexionSQL = new ConexionSQL();
-    
-    // Create an instance of EstadoSaludDAOImpl with the SQL connection
     EstadoSaludDAOImpl estadoSaludDAO = new EstadoSaludDAOImpl(conexionSQL);
-    
-    // Call the method to get all health status entries
     List<EstadoSalud> todosLosEstadosSalud = estadoSaludDAO.obtenerTodosLosEstadosSalud();
-    
-    // Populate the data into the table
     DefaultTableModel model = new DefaultTableModel();
     model.setColumnIdentifiers(new Object[]{"ID", "ID Alumno", "Fecha", "Descripción"});
     
     for (EstadoSalud estadoSalud : todosLosEstadosSalud) {
-        model.addRow(new Object[]{
-            estadoSalud.getIdEstadoSalud(),
-            estadoSalud.getAlumno().getIdAlumno(),
-            estadoSalud.getFecha(),
-            estadoSalud.getDescripcion()
-        });
+        Object[] rowData = new Object[4];
+        rowData[0] = estadoSalud.getIdEstadoSalud();
+        if (estadoSalud.getAlumno() != null) {
+            rowData[1] = estadoSalud.getAlumno().getCodigoAlumno();
+        } else {
+            rowData[1] = "N/A"; 
+        }
+        rowData[2] = estadoSalud.getFecha();
+        rowData[3] = estadoSalud.getDescripcion();
+        
+        model.addRow(rowData);
     }
-    
-    // Set the model to the table
     jtableDatos.setModel(model);
     
     }//GEN-LAST:event_btnVerActionPerformed
 
     private void btn_BuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_BuscarActionPerformed
-       try {
-        // Retrieve the student ID from the UI component
-        int idAlumno = Integer.parseInt(txt_Filtro.getText());
+     try {
+        // Retrieve the student code from the UI component
+        String codigoAlumno = txt_Filtro.getText();
         
         // Call the method to retrieve health status entries for the student
-            ConexionSQL conexionSQL = new ConexionSQL();
+        ConexionSQL conexionSQL = new ConexionSQL();
         EstadoSaludDAOImpl estadoSaludDAO = new EstadoSaludDAOImpl(conexionSQL);
-        List<EstadoSalud> estadosSaludDeAlumno = estadoSaludDAO.obtenerEstadosSaludDeAlumno(idAlumno);
+        List<EstadoSalud> estadosSaludDeAlumno = estadoSaludDAO.obtenerEstadosSaludDeAlumno(codigoAlumno);
         
         // Display the retrieved data in the UI or perform any other action
         DefaultTableModel model = (DefaultTableModel) jtableDatos.getModel();
@@ -492,14 +493,15 @@ ConexionSQL conexionSQL = new ConexionSQL();
         for (EstadoSalud estadoSalud : estadosSaludDeAlumno) {
             model.addRow(new Object[]{
                 estadoSalud.getIdEstadoSalud(),
-                estadoSalud.getAlumno().getIdAlumno(),
+                estadoSalud.getAlumno().getCodigoAlumno(),
                 estadoSalud.getFecha(),
                 estadoSalud.getDescripcion()
             });
         }
     } catch (NumberFormatException e) {
-        JOptionPane.showMessageDialog(this, "Por favor, ingrese un ID de alumno válido.", "Error", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(this, "Por favor, ingrese un código de alumno válido.", "Error", JOptionPane.ERROR_MESSAGE);
     }
+     limpiar();
     }//GEN-LAST:event_btn_BuscarActionPerformed
 
     private void btn_CVerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_CVerActionPerformed
@@ -547,6 +549,7 @@ ConexionSQL conexionSQL = new ConexionSQL();
 
     // Mostrar un mensaje de éxito o actualizar la interfaz gráfica según sea necesario
     JOptionPane.showMessageDialog(this, "Enfermera actualizada exitosamente");
+    limpiar();
     }//GEN-LAST:event_btn_modificarActionPerformed
 
     private void btn_Buscar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_Buscar1ActionPerformed
@@ -574,6 +577,7 @@ ConexionSQL conexionSQL = new ConexionSQL();
     } else {
         JOptionPane.showMessageDialog(this, "Enfermera no encontrada");
     }
+    limpiar();
     }//GEN-LAST:event_btn_Buscar1ActionPerformed
 
 

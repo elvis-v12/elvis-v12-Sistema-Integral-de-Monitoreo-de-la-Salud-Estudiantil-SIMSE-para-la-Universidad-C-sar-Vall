@@ -71,7 +71,7 @@ public Traslado obtenerTraslado(int idTraslado) {
                 AlumnoDAO alumnoDAO = new AlumnoDAOImpl(conexionSQL);
                 EnfermeraDAO enfermeraDAO = new EnfermeraDAOImpl(conexionSQL);
 
-                Alumno alumno = alumnoDAO.obtenerAlumnoPorId(resultSet.getInt("idAlumno"));
+                Alumno alumno = alumnoDAO.obtenerAlumnoPorId(resultSet.getString("idAlumno"));
                 Enfermera enfermera = enfermeraDAO.obtenerEnfermeraPorId(resultSet.getInt("idEnfermera"));
 
                 traslado = new Traslado(
@@ -103,7 +103,7 @@ public List<Traslado> obtenerTrasladosDeAlumno(int idAlumno) {
                 AlumnoDAO alumnoDAO = new AlumnoDAOImpl(conexionSQL);
                 EnfermeraDAO enfermeraDAO = new EnfermeraDAOImpl(conexionSQL);
 
-                Alumno alumno = alumnoDAO.obtenerAlumnoPorId(resultSet.getInt("idAlumno"));
+                Alumno alumno = alumnoDAO.obtenerAlumnoPorId(resultSet.getString("idAlumno"));
                 Enfermera enfermera = enfermeraDAO.obtenerEnfermeraPorId(resultSet.getInt("idEnfermera"));
 
                 Traslado traslado = new Traslado(
@@ -136,7 +136,7 @@ public List<Traslado> obtenerTrasladosDeEnfermera(int idEnfermera) {
                 AlumnoDAO alumnoDAO = new AlumnoDAOImpl(conexionSQL);
                 EnfermeraDAO enfermeraDAO = new EnfermeraDAOImpl(conexionSQL);
 
-                Alumno alumno = alumnoDAO.obtenerAlumnoPorId(resultSet.getInt("idAlumno"));
+                Alumno alumno = alumnoDAO.obtenerAlumnoPorId(resultSet.getString("idAlumno"));
                 Enfermera enfermera = enfermeraDAO.obtenerEnfermeraPorId(resultSet.getInt("idEnfermera"));
 
                 Traslado traslado = new Traslado(
@@ -170,7 +170,7 @@ public List<Traslado> obtenerTrasladosEnFecha(Date fecha) {
                 AlumnoDAO alumnoDAO = new AlumnoDAOImpl(conexionSQL);
                 EnfermeraDAO enfermeraDAO = new EnfermeraDAOImpl(conexionSQL);
 
-                Alumno alumno = alumnoDAO.obtenerAlumnoPorId(resultSet.getInt("idAlumno"));
+                Alumno alumno = alumnoDAO.obtenerAlumnoPorId(resultSet.getString("idAlumno"));
                 Enfermera enfermera = enfermeraDAO.obtenerEnfermeraPorId(resultSet.getInt("idEnfermera"));
 
                 Traslado traslado = new Traslado(
@@ -202,7 +202,7 @@ public List<Traslado> obtenerTodosLosTraslados() {
             AlumnoDAO alumnoDAO = new AlumnoDAOImpl(conexionSQL);
             EnfermeraDAO enfermeraDAO = new EnfermeraDAOImpl(conexionSQL);
 
-            Alumno alumno = alumnoDAO.obtenerAlumnoPorId(resultSet.getInt("idAlumno"));
+            Alumno alumno = alumnoDAO.obtenerAlumnoPorId(resultSet.getString("idAlumno"));
             Enfermera enfermera = enfermeraDAO.obtenerEnfermeraPorId(resultSet.getInt("idEnfermera"));
 
             Traslado traslado = new Traslado(

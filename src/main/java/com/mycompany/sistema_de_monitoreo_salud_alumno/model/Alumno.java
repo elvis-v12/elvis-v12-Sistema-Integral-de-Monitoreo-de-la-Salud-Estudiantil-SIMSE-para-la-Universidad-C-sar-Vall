@@ -11,6 +11,9 @@ public class Alumno extends Persona {
         this.idAlumno = idAlumno;
     }
 
+
+
+
     public Alumno(String codigoAlumno, String carrera, int ciclo, String nombre, String apellido, int edad) {
         super(nombre, apellido, edad);
         this.codigoAlumno = codigoAlumno;
@@ -24,7 +27,12 @@ public class Alumno extends Persona {
         this.codigoAlumno = codigoAlumno;
         this.carrera = carrera;
     }
-
+    public Alumno() {
+    }
+  public Alumno(String codigoAlumno) {
+       super(); 
+        this.codigoAlumno = codigoAlumno;
+    }
     // Constructor completo (para registros existentes)
     public Alumno(int idAlumno, String codigoAlumno, String carrera, int ciclo, int idPersona, String nombre, String apellido, int edad) {
         super(idPersona, nombre, apellido, edad);

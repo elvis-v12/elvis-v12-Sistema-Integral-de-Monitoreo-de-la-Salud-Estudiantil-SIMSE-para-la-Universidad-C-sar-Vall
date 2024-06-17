@@ -25,7 +25,8 @@ public class ProductoFarmaceuticoService {
 
     public List<ProductoFarmaceutico> obtenerInventarioProductos() {
         List<ProductoFarmaceutico> productos = new ArrayList<>();
-        String query = "SELECT ip.codigo, ip.nombre, ip.precio, ip.stock, ip.fechaVencimiento, p.idProveedor, p.nif, p.telefono, p.tipo_producto, p.encargado " +
+        String query = "SELECT ip.codigo, ip.nombre, ip.precio, ip.stock, ip.fechaVencimiento, "
+                + "p.idProveedor, p.nif, p.telefono, p.tipo_producto, p.encargado " +
                        "FROM InventarioProductos ip " +
                        "INNER JOIN Proveedor p ON ip.idProveedor = p.idProveedor";
         try (Connection conexion = ConexionSQL.obtenerConexion();
@@ -56,17 +57,13 @@ public class ProductoFarmaceuticoService {
         }
         return productos;
     }
-
     public void generarReporteInventario(String filePath) {
         List<ProductoFarmaceutico> productos = obtenerInventarioProductos();
-
         try {
             PdfWriter writer = new PdfWriter(filePath);
             PdfDocument pdfDoc = new PdfDocument(writer);
             Document document = new Document(pdfDoc);
-
             document.add(new Paragraph("Reporte de Inventario de Productos"));
-
             float[] columnWidths = {50, 100, 100, 100, 100, 100, 100, 100};
             Table table = new Table(columnWidths);
             table.addHeaderCell("Código");
@@ -77,7 +74,6 @@ public class ProductoFarmaceuticoService {
             table.addHeaderCell("Proveedor");
             table.addHeaderCell("Teléfono Proveedor");
             table.addHeaderCell("Tipo Producto");
-
             for (ProductoFarmaceutico producto : productos) {
                 table.addCell(producto.getCodigo());
                 table.addCell(producto.getNombre());

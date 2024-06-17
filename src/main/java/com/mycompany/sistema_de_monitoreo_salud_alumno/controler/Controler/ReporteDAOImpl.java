@@ -84,7 +84,7 @@ public class ReporteDAOImpl implements ReporteDAO {
                 if (resultSet.next()) {
                
                     AlumnoDAO alumnoDAO = new AlumnoDAOImpl(conexionSQL);
-                    Alumno alumno = alumnoDAO.obtenerAlumnoPorId(resultSet.getInt("idAlumno"));
+                    Alumno alumno = alumnoDAO.obtenerAlumnoPorId(resultSet.getString("idAlumno"));
                     EnfermeraDAO enfermeraDAO = new EnfermeraDAOImpl(conexionSQL); Enfermera enfermera = enfermeraDAO.obtenerEnfermeraPorId(resultSet.getInt("idEnfermera"));
                     reporte = new Reporte(
                             resultSet.getInt("idReporte"),
@@ -114,7 +114,7 @@ conexion.prepareStatement(query)) {
                 AlumnoDAO alumnoDAO = new AlumnoDAOImpl(conexionSQL);
                 EnfermeraDAO enfermeraDAO = new EnfermeraDAOImpl(conexionSQL);
                 while (resultSet.next()) {
-                    Alumno alumno = alumnoDAO.obtenerAlumnoPorId(resultSet.getInt("idAlumno"));
+                    Alumno alumno = alumnoDAO.obtenerAlumnoPorId(resultSet.getString("idAlumno"));
                     Enfermera enfermera = enfermeraDAO.obtenerEnfermeraPorId(resultSet.getInt("idEnfermera"));
                     Reporte reporte = new Reporte(
                             resultSet.getInt("idReporte"),
@@ -144,7 +144,7 @@ conexion.prepareStatement(query)) {
                 AlumnoDAO alumnoDAO = new AlumnoDAOImpl(conexionSQL);
                 EnfermeraDAO enfermeraDAO = new EnfermeraDAOImpl(conexionSQL);
                 while (resultSet.next()) {
-                    Alumno alumno = alumnoDAO.obtenerAlumnoPorId(resultSet.getInt("idAlumno"));
+                    Alumno alumno = alumnoDAO.obtenerAlumnoPorId(resultSet.getString("idAlumno"));
                     Enfermera enfermera = enfermeraDAO.obtenerEnfermeraPorId(resultSet.getInt("idEnfermera"));
                     Reporte reporte = new Reporte(
                             resultSet.getInt("idReporte"),
@@ -174,7 +174,7 @@ conexion.prepareStatement(query)) {
                 AlumnoDAO alumnoDAO = new AlumnoDAOImpl(conexionSQL);
                 EnfermeraDAO enfermeraDAO = new EnfermeraDAOImpl(conexionSQL);
                 while (resultSet.next()) {
-                    Alumno alumno = alumnoDAO.obtenerAlumnoPorId(resultSet.getInt("idAlumno"));
+                    Alumno alumno = alumnoDAO.obtenerAlumnoPorId(resultSet.getString("idAlumno"));
                     Enfermera enfermera = enfermeraDAO.obtenerEnfermeraPorId(resultSet.getInt("idEnfermera"));
                     Reporte reporte = new Reporte(
                             resultSet.getInt("idReporte"),
@@ -203,7 +203,7 @@ conexion.prepareStatement(query)) {
             AlumnoDAO alumnoDAO = new AlumnoDAOImpl(conexionSQL);
             EnfermeraDAO enfermeraDAO = new EnfermeraDAOImpl(conexionSQL);
             while (resultSet.next()) {
-                Alumno alumno = alumnoDAO.obtenerAlumnoPorId(resultSet.getInt("idAlumno"));
+                Alumno alumno = alumnoDAO.obtenerAlumnoPorId(resultSet.getString("idAlumno"));
                 Enfermera enfermera = enfermeraDAO.obtenerEnfermeraPorId(resultSet.getInt("idEnfermera"));
                 Reporte reporte = new Reporte(
                         resultSet.getInt("idReporte"),
