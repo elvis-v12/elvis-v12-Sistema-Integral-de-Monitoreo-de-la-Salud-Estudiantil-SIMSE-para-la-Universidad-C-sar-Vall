@@ -35,11 +35,12 @@ public class HorarioAtencion extends javax.swing.JFrame {
         modelo = new DefaultTableModel();
         modelo.addColumn("IdSesion");
         modelo.addColumn("IdAlumno");
-        modelo.addColumn("Fecha inicio");
-        modelo.addColumn("Fecha Fin");
+        modelo.addColumn("Hora Inicio");
+        modelo.addColumn("Hora Fin");
           modelo.addColumn("Disponible");
         tb_Sesion.setModel(modelo);    
        this.setTitle("Genarar Cita medica");
+       
     }
 private void limpiarCampos() {
     // Limpiar los campos de entrada
@@ -243,7 +244,7 @@ private void limpiarCampos() {
 
     private void btn_VerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_VerActionPerformed
 
-    ConexionSQL conexionSQL = new ConexionSQL(); 
+     ConexionSQL conexionSQL = new ConexionSQL(); 
     SesionDAOImpl sesionDAO = new SesionDAOImpl(conexionSQL);
 
     // Obtener todas las sesiones
@@ -327,32 +328,29 @@ private void limpiarCampos() {
             sesion.isDisponible()
         });
     }
+    limpiarCampos();
     }//GEN-LAST:event_btn_EliminarActionPerformed
 
     private void btn_GenerarCitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_GenerarCitaActionPerformed
-     // Obtener el ID del alumno desde el JTextField
-    int idAlumno = obtenerIdAlumnoSeleccionado();
+        int idAlumno = obtenerIdAlumnoSeleccionado();
     if (idAlumno == -1) {
-        return; // Salir si el ID no es válido
+        return;
     }
 
-    // Supongamos que tienes un JDateChooser o algún componente para seleccionar la fecha
-    Date fechaInicio = jDateInicio.getDate(); // Obtenemos la fecha de inicio de un JDateChooser
-    Date fechaFin = jDateFin.getDate(); // Obtenemos la fecha de fin de un JDateChooser
+    Date fechaInicio = jDateInicio.getDate();
+    Date fechaFin = jDateFin.getDate();
 
     if (fechaInicio == null || fechaFin == null) {
         JOptionPane.showMessageDialog(this, "Por favor, seleccione fechas válidas.", "Error", JOptionPane.ERROR_MESSAGE);
         return;
     }
 
-    // Combinar la fecha seleccionada con la hora actual
     fechaInicio = combinarFechaConHoraActual(fechaInicio);
     fechaFin = combinarFechaConHoraActual(fechaFin);
 
-    // Verificar si la fecha está disponible
     SesionDAO sesionDAO = new SesionDAOImpl(new ConexionSQL());
     List<Sesion> sesionesEnFecha = sesionDAO.obtenerSesionesEnFecha(fechaInicio);
-    
+
     boolean fechaDisponible = true;
     for (Sesion sesion : sesionesEnFecha) {
         if (sesion.getFechaInicio().equals(fechaInicio) && !sesion.isDisponible()) {
@@ -362,18 +360,13 @@ private void limpiarCampos() {
     }
 
     if (fechaDisponible) {
-        // Crear y agregar la nueva sesión
-        Alumno alumno = new Alumno(idAlumno, idAlumno); // Crea una instancia del alumno con el ID seleccionado
-        alumno.setIdAlumno(idAlumno);
-
-        // Agregar la sesión con el estado disponible en 1 (true)
+        Alumno alumno = new Alumno(idAlumno, idAlumno);
         Sesion nuevaSesion = new Sesion(0, alumno, fechaInicio, fechaFin, true);
         sesionDAO.agregarSesion(nuevaSesion);
 
-        // Obtener la sesión recién agregada para actualizar su estado
         Sesion sesionRecienAgregada = sesionDAO.obtenerUltimaSesionAgregada();
         if (sesionRecienAgregada != null && sesionRecienAgregada.getAlumno().getIdAlumno() == idAlumno) {
-            sesionRecienAgregada.setDisponible(false); // Marcar como no disponible
+            sesionRecienAgregada.setDisponible(false);
             sesionDAO.actualizarSesion(sesionRecienAgregada);
         }
 
@@ -381,7 +374,7 @@ private void limpiarCampos() {
     } else {
         JOptionPane.showMessageDialog(this, "La fecha seleccionada ya está ocupada. Por favor, elija otra fecha.", "Fecha Ocupada", JOptionPane.WARNING_MESSAGE);
     }
-    
+    limpiarCampos();
     }//GEN-LAST:event_btn_GenerarCitaActionPerformed
 private int obtenerIdAlumnoSeleccionado() {
     try {
@@ -392,17 +385,25 @@ private int obtenerIdAlumnoSeleccionado() {
         return -1; // Devuelve un valor inválido si la conversión falla
     }
 }
-// Método para combinar la fecha seleccionada con la hora actual
-private Date combinarFechaConHoraActual(Date fechaSeleccionada) {
+//COMBINAR FECHA CON HORA 
+private Date combinarFechaConHoraActual(Date fecha) {
     Calendar calendar = Calendar.getInstance();
-    Calendar fechaConHora = Calendar.getInstance();
-    fechaConHora.setTime(fechaSeleccionada);
-    fechaConHora.set(Calendar.HOUR_OF_DAY, calendar.get(Calendar.HOUR_OF_DAY));
-    fechaConHora.set(Calendar.MINUTE, calendar.get(Calendar.MINUTE));
-    fechaConHora.set(Calendar.SECOND, calendar.get(Calendar.SECOND));
-    fechaConHora.set(Calendar.MILLISECOND, calendar.get(Calendar.MILLISECOND));
-    return fechaConHora.getTime();
+    calendar.setTime(fecha);
+    
+    // Obtener la hora actual
+    Calendar horaActual = Calendar.getInstance();
+    
+    // Combinar fecha seleccionada con la hora actual
+    calendar.set(Calendar.HOUR_OF_DAY, horaActual.get(Calendar.HOUR_OF_DAY));
+    calendar.set(Calendar.MINUTE, horaActual.get(Calendar.MINUTE));
+    calendar.set(Calendar.SECOND, horaActual.get(Calendar.SECOND));
+    calendar.set(Calendar.MILLISECOND, horaActual.get(Calendar.MILLISECOND));
+    
+    return calendar.getTime();
 }
+//
+// Método para combinar la fecha seleccionada con la hora actual
+
     private void btn_ModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ModificarActionPerformed
    // Obtener los datos de la sesión a modificar desde los campos de texto y JDateChooser
     String idSesionText = txt_Filtro.getText();

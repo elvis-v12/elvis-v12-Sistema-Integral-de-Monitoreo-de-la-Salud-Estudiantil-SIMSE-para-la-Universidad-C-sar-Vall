@@ -44,8 +44,8 @@ public void actualizarSesion(Sesion sesion) {
     try (Connection conexion = conexionSQL.obtenerConexion();
          PreparedStatement statement = conexion.prepareStatement(query)) {
         statement.setInt(1, sesion.getAlumno().getIdAlumno());
-        statement.setDate(2, new java.sql.Date(sesion.getFechaInicio().getTime()));
-        statement.setDate(3, new java.sql.Date(sesion.getFechaFin().getTime()));
+        statement.setTimestamp(2, new java.sql.Timestamp(sesion.getFechaInicio().getTime()));
+        statement.setTimestamp(3, new java.sql.Timestamp(sesion.getFechaFin().getTime()));
         statement.setBoolean(4, sesion.isDisponible());
         statement.setInt(5, sesion.getIdSesion());
         statement.executeUpdate();
@@ -67,8 +67,8 @@ public Sesion obtenerUltimaSesionAgregada() {
             sesion = new Sesion(
                     resultSet.getInt("idSesion"),
                     alumno,
-                    resultSet.getDate("fechaInicio"),
-                    resultSet.getDate("fechaFin"),
+                    resultSet.getTimestamp("fechaInicio"),
+                    resultSet.getTimestamp("fechaFin"),
                     resultSet.getBoolean("disponible")
             );
         }
@@ -78,7 +78,6 @@ public Sesion obtenerUltimaSesionAgregada() {
     }
     return sesion;
 }
-
 
     @Override
     public void eliminarSesion(int idSesion) {

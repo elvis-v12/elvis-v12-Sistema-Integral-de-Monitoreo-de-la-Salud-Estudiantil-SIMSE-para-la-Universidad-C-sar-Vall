@@ -26,8 +26,8 @@ public Login_Ingreso_sistema() {
         txtContrasena.setOpaque(false);
         txtUsuario.setToolTipText("Ingrese su usuario");
         txtContrasena.setToolTipText("Ingrese su contraseña");
-        txtUsuario.setText("Rosio Lopez");
-        txtContrasena.setText("736467224");
+        txtUsuario.setText("ROSLOPZ12");
+        txtContrasena.setText("7364672246");
 
 }
 
